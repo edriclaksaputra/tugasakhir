@@ -1,0 +1,21 @@
+2/27
+
+Ada banyak aspek didalam mewujudkan/implementasikan MS. Meliputi yaitu :
+-> Bagaimana penyimpanan data
+	--> Salah satu yg bisa menambah pengetahuan, yaitu cari tahu DB sharding)
+-> Bagaimana integritas data yg tersebar ke beberapa service
+-> Bagaimana menjamin integritas transaksi (kembali ke event-driven model)
+-> Bagaimana arsitektur deployment dari setiap service
+-> Bagaimana codingnya
+
+1. Harus tinjau apa ciri dari arsitektur MS dibandingkan arsitektur yg lain.
+2. Apa yg mendasari kebutuhan lahirnya MS
+
+Membahas bagiamana cara mewujudkan High Availability dari tiap service
+Lebih besar lagi membahas bagaimana mengangkat High Availability dari aplikasinya sendiri.
+
+Aplikasi tercompose dari byk service
+
+High Availability dapat ditinjau dari Data & Program.
+
+irfin.afifudin@gmail.com
