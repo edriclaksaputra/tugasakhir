@@ -1,0 +1,10 @@
+Manifest-Version: 1.0
+Implementation-Title: Human resources service
+Implementation-Version: 0.0.1-SNAPSHOT
+Built-By: Edric-PC
+Implementation-Vendor-Id: com.edriclaksaputra.ms
+Build-Jdk: 1.8.0_60
+Implementation-URL: https://projects.spring.io/spring-boot/#/spring-bo
+ ot-starter-parent/hr
+Created-By: Maven Integration for Eclipse
+
