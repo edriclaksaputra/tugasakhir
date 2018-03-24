@@ -1,0 +1,104 @@
+%-----------------------------------------------------------------------------%
+\chapter{PENDAHULUAN}
+%-----------------------------------------------------------------------------%
+
+\vspace{4.5pt}
+
+\section{Latar Belakang Masalah} \label{sec:latar_belakang}
+Facebook adalah media sosial berbasis teks yang memiliki sejumlah konten buatan pengguna. Pada tahun 2011 tercatat 200 juta \textit{tweet} yang dibuat setiap harinya dan mencakup berbagai topik \cite{1}. Dengan jumlah data yang signifikan ini, data tersebut memiliki potensi penelitian terkait dengan \textit{text mining}. Salah satu yang dapat dieksplorasi pada data media sosial adalah analisis opini dan sentimen \cite{1}. Analisis sentimen pada media sosial telah menjadi salah satu topik penelitian yang paling ditargetkan pada \textit{Natural Languange Processing} (NLP) dalam dekade terakhir, seperti yang ditunjukkan dalam beberapa survei baru-baru ini \cite{2}. Tujuan analisis sentimen adalah untuk mendeteksi polaritas secara otomatis pada sebuah dokumen, salah satu tantangan besar dalam analisis sentimen adalah ironi dan sarkasme \cite{3}. Pada 5 Juni 2014, BBC melaporkan bahwa U.S. \textit{Secret 	Service} sedang mencari sistem perangkat lunak yang dapat mendeteksi sarkasme pada data media sosial (BBC, 2014) dengan tujuan otomatisasi pengawasan media sosial dan analisis perangkat data media sosial dalam ukuran besar \cite{4}.
+
+Sarkasme adalah teks ironi untuk mengejek atau menyampaikan penghinaan. Sarkasme sendiri mengubah nilai dari sebuah teks ke nilai yang berlawanan. Berdasarkan penelitian yang dilakukan mengenai deteksi sarkasme, 2 dari 100 teks mengandung sarkasme pada \textit{microblogging} teks dengan topik pembicaraan seperti makanan, dan kesehatan \cite{5}. \textit{Microblogging} adalah sebuah \textit{blog} yang menyediakan layanan untuk menulis pesan seperti Twitter dengan jumlah karakter kurang dari 200 \cite{6}. Dan pada topik yang sensitif seperti pemerintahan, \textit{brand}, atau politik ditemukan 18 dari 100 teks mengandung sarkasme \cite{5}.
+
+Pada umumnya fitur-fitur yang digunakan pada analisis sentimen adalah \textit{n-gram} (\textit{unigram, bigram}). Fitur seperti \textit{negativity} dan \textit{number of interjection word} merupakan sebuah fitur yang digunakan untuk memberikan informasi terkait teks sarkasme \cite{5}. Tujuan dari fitur \textit{negativity} ini adalah untuk mendapatkan informasi global berupa \textit{negativity} dari sebuah topik, dan fitur \textit{number of interjection word} untuk menentukan kecenderungan sebuah teks dianggap sarkasme berdasarkan kemunculan \textit{interjection word }\cite{5}. Fitur \textit{negativity} ini 
+memakan banyak waktu, Karena untuk memberi topik dan nilai \textit{negativity} terhadap teks diperlukan pengetahuan yang cukup mengenai isi dari teks. Oleh karena itu, pada penelitian ini akan digunakan fitur \textit{topic modelling }(LDA) untuk mendapatkan informasi global dari sebuah teks. 
+
+Beberapa klasifikasi yang sering digunakan untuk analisis sentimen adalah \textit{Naive Bayes}, SVM, dan \textit{Maximum Entropy}. Kelemahan dari metode \textit{Naive Bayes} mengasumsikan antar variabel sebagai variabel bebas atau \textit{independent}. Kelebihan dari \textit{Naive Bayes} diantaranya mudah diimplementasikan, dan dapat memberikan hasil yang baik untuk banyak kasus \cite{5}. Kelebihan dari SVM adalah dapat menggeneralisasi sampel dengan baik, jika parameter \textit{C} dipilih dengan baik. Hal ini membuat SVM dapat menghindari \textit{overfitting} jika memilih parameter yang sesuai. Kekurangan dari SVM adalah kurangnya transparansi hasil. SVM tidak dapat mewakili semua nilai sebagai fungsi parametrik sederhana, karena dimensinya sangat tinggi \cite{7}. Kelebihan dari metode klasifikasi \textit{Maximum Entropy} adalah fleksibel, karena \textit{stochastic rule system} yang diperkuat dengan fitur \textit{syntactic, semantic} dan \textit{pragmatic} \cite{8}\textit{.}
+
+Berdasarkan penelitian yang telah dilakukan \cite{3}\cite{4}\cite{5}, secara keseluruhan SVM dapat memberikan hasil akurasi yang baik. Oleh Karena itu, pada penelitian ini akan digunakan metode \textit{Support Vector Machine}. Fitur yang digunakan pada penelitian ini adalah kombinasi fitur \textit{number of interjection word}, \textit{question word }\cite{5}, \textit{unigram, sentiment score,  capitalization}, \textit{topic} \cite{4}, \textit{part of speech} dan \textit{punctuation based} \cite{3}. 
+
+\section{Rumusan Masalah}
+Berikut ini adalah rumusan masalah yang dibuat berdasarkan latar belakang di atas:
+\begin {enumerate}[nolistsep, leftmargin=0.5cm]
+\item Bagaimana kombinasi fitur yang dapat memberikan hasil yang 
+terbaik?
+\item Bagaimana pengaruh fitur \textit{topic} dengan LDA terhadap 
+klasifikasi sarkasme?
+\item Bagaimana akurasi dari klasifikasi jika menangani sarkasme, tidak menangani sarkasme, dan hanya menangani sarkasme?
+\end{enumerate}
+
+\section{Batasan Masalah}
+Berikut ini adalah batasan masalah dalam pembahasan dan pengembangan yang dilakukan:
+\begin{enumerate}[nolistsep,leftmargin=0.5cm]
+\item Data yang digunakan untuk penelitian ini adalah data Twitter 
+Bahasa Indonesia.
+\item Semua teks sarkasme dianggap sebagai positif sarkasme. 
+\item Sistem yang dikembangkan tidak menangani \textit{emoticon} pada teks.
+\item Setiap teks yang mengandung kata tanya dan tanda tanya akan dianggap sebagai teks netral.
+\end{enumerate}
+
+\section{Tujuan Penelitian}
+Berdasarkan batasan masalah di atas, berikut ini adalah tujuan penelitian dari tugas akhir ini:
+\begin{enumerate}[nolistsep,leftmargin=0.5cm]
+\item Mengimplementasikan SVM pada sistem untuk klasifikasi analisis 
+sentimen.
+\item Menganalisis dan menentukan sebuah opini merupakan positif, 
+netral, negatif atau sarkasme. 
+\item Menentukan teknik klasifikasi yang terbaik untuk analisis 
+sentimen.
+\end{enumerate}
+
+\section{Kontribusi Penelitian}
+Berikut ini adalah kontribusi penelitian yang diberikan pada pengembangan sistem analisis sentimen ini:
+\begin{enumerate}[nolistsep,leftmargin=0.5cm]
+\item Menggunakan fitur \textit{unigram}, \textit{part of speech}, 
+\textit{punctuation based}, \textit{capitalization}, \textit{
+	topic} dan \textit{interjection }untuk \textit{feature set} pada 
+klasifikasi sarkasme.
+\item Melakukan klasifikasi 4 kelas, yaitu positif, negatif, netral dan 
+sarkasme.
+\end{enumerate}
+
+\section{Metode Penelitian}
+Tahapan-tahapan yang akan dilakukan dalam pelaksanaan penelitian ini adalah sebagai berikut:
+\begin{enumerate}[nolistsep,leftmargin=0.5cm]
+\item Studi kepustakaan\\
+Tahap pertama penulisan ini adalah studi kepustakaan, yaitu mengumpulkan 
+bahan referensi dari berbagai sumber seperti buku, jurnal, laporan 
+penelitian ataupun situs-situs internet. Materi yang dicari dan 
+dipelajari adalah mengenai pembelajaran mesin, pemrosesan bahasa alami, 
+klasifikasi analisis sentimen pada media sosial Indonesia.
+\item Analisis dan perancangan\\
+Dalam tahap ini, penulis melakukan perancangan sistem. Dimulai dari alur 
+bisnis proses sistem, merancang sistem dengan menerapkan metode-metode 
+yang ada.
+\item Data sampling\\
+Data teks Twitter yang digunakan dalam penelitian ini dikumpulkan 
+menggunakan \textit{library} Python Twitter-scraper.
+\item Klasifikasi\\
+Dalam tahap ini, data teks akan didahului dengan melakukan \textit{text preprocessing, feature extraction} kemudian klasifikasi. Klasifikasi akan menggunakan metode klasifikasi \textit{Support Vector Machine} (SVM).
+\end{enumerate}
+
+\section{Sistematika Penulisan}
+Pada penelitian ini peneliti menyusun berdasarkan sistematika penulisan sebagai berikut: \\[0.5cm]
+\noindent \textbf{BAB I \hspace{1cm} PENDAHULUAN}
+\begin{addmargin}[2.35cm]{0em}
+Bab ini berisi Latar Belakang Masalah, Rumusan Masalah, Batasan Masalah, Tujuan Penelitian, Kontribusi Penelitian, Metodologi Penelitian, dan Sistematika Penulisan. 
+\end{addmargin}
+\noindent \textbf{BAB II \hspace{0.8cm} LANDASAN TEORI}
+\begin{addmargin}[2.35cm]{0em}
+Bab ini berisi teori dasar yang digunakan pada penyusunan laporan ini yang meliputi penjelasan mengenai \textit{Support Vector Machine} dan LDA.
+\end{addmargin}
+\noindent \textbf{BAB III \hspace{0.7cm} ANALISIS DAN PERANCANGAN}
+\begin{addmargin}[2.35cm]{0em}
+Bab ini berisi perancangan sistem yang meliputi perancangan aplikasi “Penerapan \textit{Support Vector Machine} untuk Deteksi Sarkasme pada Analisis Sentimen Media Sosial Indonesia”.
+\end{addmargin}
+\noindent \textbf{BAB IV \hspace{0.7cm} IMPLEMENTASI DAN PENGUJIAN}
+\begin{addmargin}[2.35cm]{0em}
+Bab ini berisi implementasi dan analisis hasil penelitian terhadap sistem yang dibangun, apakah sesuai dengan tujuan yang diharapkan atau belum.
+\end{addmargin}
+\noindent \textbf{BAB V \hspace{0.8cm} KESIMPULAN DAN SARAN}
+\begin{addmargin}[2.35cm]{0em}
+Bab ini berisi kesimpulan dan saran dari seluruh kegiatan yang bisa digunakan sebagai masukan untuk pengembangan sistem informasi lebih lanjut yang nantinya akan dikembangkan.
+\end{addmargin}
+
+\newpage
