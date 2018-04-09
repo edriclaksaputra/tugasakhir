@@ -1,0 +1,14 @@
+This is pdfTeX, Version 3.1415926-2.4-1.40.13 (MiKTeX 2.9 64-bit) (preloaded format=pdftex 2016.8.23)  17 OCT 2016 13:08
+entering extended mode
+**C:/Users/Aji*Elma*Hermansyah/Desktop/Template_Skripsi_ITHB_Latex/if_ithb.sty
+("C:/Users/Aji Elma Hermansyah/Desktop/Template_Skripsi_ITHB_Latex/if_ithb.sty"
+! Undefined control sequence.
+l.2 \usepackage
+               [bahasa]{babel}
+? 
+! Emergency stop.
+l.2 \usepackage
+               [bahasa]{babel}
+End of file on the terminal!
+
+!  ==> Fatal error occurred, no output PDF file produced!

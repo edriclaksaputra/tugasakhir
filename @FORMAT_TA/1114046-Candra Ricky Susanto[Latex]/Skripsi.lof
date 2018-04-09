@@ -1,0 +1,16 @@
+\noaddvspace 
+\select@language {bahasa}
+\addvspace {10\p@ }
+\addvspace {10\p@ }
+\contentsline {figure}{\numberline {2.1}{\ignorespaces \textit {Graphical} Model pada \textit {Smoothed} LDA\relax }}{2-11}
+\contentsline {figure}{\numberline {2.2}{\ignorespaces \textit {Hyperplane} pada SVM\relax }}{2-14}
+\addvspace {10\p@ }
+\contentsline {figure}{\numberline {3.1}{\ignorespaces Klasifikasi dengan \textit {Levelled Method}\relax }}{3-2}
+\contentsline {figure}{\numberline {3.2}{\ignorespaces Klasifikasi dengan \textit {Levelled Method}\relax }}{3-2}
+\contentsline {figure}{\numberline {3.3}{\ignorespaces Kerangka kerja klasifikasi teks\relax }}{3-4}
+\contentsline {figure}{\numberline {3.4}{\ignorespaces \textit {Flowchart} Sistem Analisis Sentimen\relax }}{3-5}
+\contentsline {figure}{\numberline {3.5}{\ignorespaces \textit {Flowchart Text Preprocessing}\relax }}{3-7}
+\contentsline {figure}{\numberline {3.6}{\ignorespaces \textit {Flowchart} Klasifikasi \textit {Support Vector Machine} (SVM) dengan SMO\relax }}{3-21}
+\contentsline {figure}{\numberline {3.7}{\ignorespaces \textit {Class Diagram} Sistem Analisis Sentimen\relax }}{3-25}
+\addvspace {10\p@ }
+\addvspace {10\p@ }

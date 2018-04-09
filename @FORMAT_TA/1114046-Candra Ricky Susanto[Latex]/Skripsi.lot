@@ -1,0 +1,90 @@
+\select@language {bahasa}
+\addvspace {10\p@ }
+\addvspace {10\p@ }
+\contentsline {table}{\numberline {2.1}{\ignorespaces Tabel \textit {Derivation Prefix Rule}\relax }}{2-7}
+\contentsline {table}{\numberline {2.1}{\ignorespaces Tabel \textit {Derivation Prefix Rule}\relax }}{2-8}
+\contentsline {table}{\numberline {2.2}{\ignorespaces Tabel \textit {Tag Set} pada Bahasa Indonesia\relax }}{2-9}
+\contentsline {table}{\numberline {2.2}{\ignorespaces Tabel \textit {Tag Set} pada Bahasa Indonesia\relax }}{2-10}
+\contentsline {table}{\numberline {2.3}{\ignorespaces Tabel persamaan kernel pada SVM\relax }}{2-15}
+\contentsline {table}{\numberline {2.4}{\ignorespaces Tabel \textit {One versus Rest}\relax }}{2-16}
+\contentsline {table}{\numberline {2.5}{\ignorespaces Tabel \textit {Pseudocode} SMO\relax }}{2-18}
+\contentsline {table}{\numberline {2.6}{\ignorespaces Tabel metode pada \textit {library} Twitter-scraper\relax }}{2-19}
+\contentsline {table}{\numberline {2.7}{\ignorespaces Tabel metode pada \textit {library} NLTK\relax }}{2-19}
+\contentsline {table}{\numberline {2.8}{\ignorespaces Tabel metode pada \textit {library} Tweet-preprocessor\relax }}{2-20}
+\contentsline {table}{\numberline {2.9}{\ignorespaces Tabel metode pada \textit {library} Sastrawi\relax }}{2-20}
+\contentsline {table}{\numberline {2.9}{\ignorespaces Tabel metode pada \textit {library} Sastrawi\relax }}{2-21}
+\contentsline {table}{\numberline {2.10}{\ignorespaces Tabel metode pada \textit {library} IPosTagger\relax }}{2-21}
+\contentsline {table}{\numberline {2.11}{\ignorespaces Tabel metode pada \textit {library} Gensim\relax }}{2-22}
+\contentsline {table}{\numberline {2.12}{\ignorespaces Tabel metode pada \textit {library} NumPy\relax }}{2-23}
+\contentsline {table}{\numberline {2.13}{\ignorespaces Tabel metode pada \textit {library} Scikit-learn\relax }}{2-23}
+\contentsline {table}{\numberline {2.13}{\ignorespaces Tabel metode pada \textit {library} Scikit-learn\relax }}{2-24}
+\contentsline {table}{\numberline {2.14}{\ignorespaces Tabel metode pada \textit {library} Bottle\relax }}{2-24}
+\contentsline {table}{\numberline {2.15}{\ignorespaces Tabel Tinjauan Studi\relax }}{2-25}
+\contentsline {table}{\numberline {2.15}{\ignorespaces Tabel Tinjauan Studi\relax }}{2-26}
+\addvspace {10\p@ }
+\contentsline {table}{\numberline {3.1}{\ignorespaces Tabel Hasil \textit {Case Folding}\relax }}{3-7}
+\contentsline {table}{\numberline {3.2}{\ignorespaces Tabel Hasil \textit {Remove Hashtag}, URL, \textit {Mention}\relax }}{3-8}
+\contentsline {table}{\numberline {3.3}{\ignorespaces Tabel Hasil \textit {Remove Punctuation}\relax }}{3-8}
+\contentsline {table}{\numberline {3.4}{\ignorespaces Tabel Hasil \textit {Tokenization}\relax }}{3-8}
+\contentsline {table}{\numberline {3.4}{\ignorespaces Tabel Hasil \textit {Tokenization}\relax }}{3-9}
+\contentsline {table}{\numberline {3.5}{\ignorespaces Tabel Hasil \textit {Misuse of Word}\relax }}{3-9}
+\contentsline {table}{\numberline {3.5}{\ignorespaces Tabel Hasil \textit {Misuse of Word}\relax }}{3-10}
+\contentsline {table}{\numberline {3.6}{\ignorespaces Tabel Hasil \textit {Abbreviation Word}\relax }}{3-10}
+\contentsline {table}{\numberline {3.6}{\ignorespaces Tabel Hasil \textit {Abbreviation Word}\relax }}{3-11}
+\contentsline {table}{\numberline {3.7}{\ignorespaces Tabel Hasil \textit {Stopword Removal}\relax }}{3-11}
+\contentsline {table}{\numberline {3.8}{\ignorespaces Tabel Hasil \textit {Stemming}\relax }}{3-12}
+\contentsline {table}{\numberline {3.9}{\ignorespaces Contoh Perhitungan Fitur \textit {Unigram}\relax }}{3-13}
+\contentsline {table}{\numberline {3.10}{\ignorespaces Contoh Perhitungan Fitur \textit {Part of Speech}\relax }}{3-13}
+\contentsline {table}{\numberline {3.11}{\ignorespaces Contoh Perhitungan Fitur \textit {Sentiment Score}\relax }}{3-14}
+\contentsline {table}{\numberline {3.12}{\ignorespaces Contoh Perhitungan Fitur \textit {Punctuation Based}\relax }}{3-15}
+\contentsline {table}{\numberline {3.13}{\ignorespaces Contoh Perhitungan Fitur \textit {Capitalization}\relax }}{3-15}
+\contentsline {table}{\numberline {3.14}{\ignorespaces Tabel Data \textit {Training}\relax }}{3-15}
+\contentsline {table}{\numberline {3.15}{\ignorespaces \textit {Word Index}\relax }}{3-16}
+\contentsline {table}{\numberline {3.16}{\ignorespaces \textit {Token-topic}\relax }}{3-16}
+\contentsline {table}{\numberline {3.17}{\ignorespaces \textit {Word-topic} 1\relax }}{3-16}
+\contentsline {table}{\numberline {3.18}{\ignorespaces \textit {Word-topic} 2\relax }}{3-16}
+\contentsline {table}{\numberline {3.19}{\ignorespaces \textit {Word-topic} 3\relax }}{3-17}
+\contentsline {table}{\numberline {3.20}{\ignorespaces \textit {Document-topic}\relax }}{3-17}
+\contentsline {table}{\numberline {3.21}{\ignorespaces Probabilitas \textit {Word-topic}\relax }}{3-17}
+\contentsline {table}{\numberline {3.22}{\ignorespaces Probabilitas \textit {Document-topic}\relax }}{3-17}
+\contentsline {table}{\numberline {3.23}{\ignorespaces Contoh Hasil Perhitungan Fitur \textit {Topic}\relax }}{3-18}
+\contentsline {table}{\numberline {3.24}{\ignorespaces Contoh Hasil Perhitungan Fitur \textit {Interjection}\relax }}{3-18}
+\contentsline {table}{\numberline {3.25}{\ignorespaces Contoh Hasil Perhitungan Fitur \textit {Question Word}\relax }}{3-18}
+\contentsline {table}{\numberline {3.26}{\ignorespaces Contoh Data untuk Perhitungan TF-IDF\relax }}{3-19}
+\contentsline {table}{\numberline {3.27}{\ignorespaces Contoh Hasil Perhitungan TF\relax }}{3-19}
+\contentsline {table}{\numberline {3.28}{\ignorespaces Contoh Hasil Perhitungan IDF\relax }}{3-19}
+\contentsline {table}{\numberline {3.29}{\ignorespaces Contoh Hasil Perhitungan Fitur TF-IDF\relax }}{3-20}
+\contentsline {table}{\numberline {3.30}{\ignorespaces Data \textit {Training}\relax }}{3-21}
+\contentsline {table}{\numberline {3.31}{\ignorespaces Data \textit {Testing}\relax }}{3-22}
+\contentsline {table}{\numberline {3.32}{\ignorespaces Hasil Perhitungan \textit {Kernel} Linear pada Data \textit {Training}\relax }}{3-22}
+\contentsline {table}{\numberline {3.33}{\ignorespaces Nilai Alpha dan Bias pada perhitungan SMO\relax }}{3-23}
+\contentsline {table}{\numberline {3.34}{\ignorespaces Hasil Perhitungan \textit {Kernel} Linear pada Data \textit {Testing}\relax }}{3-24}
+\addvspace {10\p@ }
+\contentsline {table}{\numberline {4.1}{\ignorespaces Daftar \textit {Method} pada \textit {Class} Loader\relax }}{4-2}
+\contentsline {table}{\numberline {4.2}{\ignorespaces Daftar \textit {Method} pada \textit {Class} Preprocessing\relax }}{4-2}
+\contentsline {table}{\numberline {4.3}{\ignorespaces Daftar \textit {Method} pada \textit {Class} Features\relax }}{4-5}
+\contentsline {table}{\numberline {4.4}{\ignorespaces Daftar \textit {Method} pada \textit {Class} FeatureExtraction\relax }}{4-8}
+\contentsline {table}{\numberline {4.5}{\ignorespaces Daftar \textit {Method} pada \textit {Class} SentimentExtraction\relax }}{4-11}
+\contentsline {table}{\numberline {4.6}{\ignorespaces Daftar \textit {Method} pada \textit {Class} Negation\relax }}{4-12}
+\contentsline {table}{\numberline {4.7}{\ignorespaces Daftar \textit {Method} pada \textit {Class} Topic\relax }}{4-12}
+\contentsline {table}{\numberline {4.8}{\ignorespaces Daftar \textit {Method} pada \textit {Class} SVM\relax }}{4-13}
+\contentsline {table}{\numberline {4.9}{\ignorespaces Daftar \textit {Method} pada \textit {Class} FMeasure\relax }}{4-16}
+\contentsline {table}{\numberline {4.10}{\ignorespaces Daftar \textit {Method} pada \textit {Class} FMeasure\relax }}{4-17}
+\contentsline {table}{\numberline {4.11}{\ignorespaces Daftar \textit {Method} pada \textit {Class} FMeasure\relax }}{4-18}
+\contentsline {table}{\numberline {4.12}{\ignorespaces Tabel Pengujian Kombinasi Fitur 1\relax }}{4-25}
+\contentsline {table}{\numberline {4.12}{\ignorespaces Tabel Pengujian Kombinasi Fitur 1\relax }}{4-26}
+\contentsline {table}{\numberline {4.13}{\ignorespaces Tabel Pengujian Kombinasi Fitur 2\relax }}{4-27}
+\contentsline {table}{\numberline {4.14}{\ignorespaces Analisis \textit {Error} Fitur \textit {Unigram} pada Klasifikasi Non-Sarkasme\relax }}{4-28}
+\contentsline {table}{\numberline {4.15}{\ignorespaces Analisis \textit {Error} Fitur \textit {Sentiment Score} pada Klasifikasi Non-Sarkasme\relax }}{4-29}
+\contentsline {table}{\numberline {4.16}{\ignorespaces Analisis \textit {Error} Fitur \textit {Punctuation Based} pada Klasifikasi Non-Sarkasme\relax }}{4-29}
+\contentsline {table}{\numberline {4.17}{\ignorespaces Analisis \textit {Error} Fitur \textit {Unigram} pada Klasifikasi Sarkasme\relax }}{4-30}
+\contentsline {table}{\numberline {4.18}{\ignorespaces Analisis Fitur \textit {Topic}\relax }}{4-31}
+\contentsline {table}{\numberline {4.18}{\ignorespaces Analisis Fitur \textit {Topic}\relax }}{4-32}
+\contentsline {table}{\numberline {4.18}{\ignorespaces Analisis Fitur \textit {Topic}\relax }}{4-33}
+\contentsline {table}{\numberline {4.19}{\ignorespaces Analisis \textit {Error} Fitur \textit {Topic} pada Klasifikasi Sarkasme\relax }}{4-34}
+\contentsline {table}{\numberline {4.20}{\ignorespaces Analisis \textit {Error} Fitur \textit {Capitalization} pada Klasifikasi Sarkasme\relax }}{4-35}
+\contentsline {table}{\numberline {4.21}{\ignorespaces Pengujian Parameter SMO\relax }}{4-36}
+\contentsline {table}{\numberline {4.22}{\ignorespaces Pengujian Klasifikasi 4 Kelas (Positif, Negatif, Netral, Sarkasme)\relax }}{4-37}
+\contentsline {table}{\numberline {4.23}{\ignorespaces Pengujian Klasifikasi 3 Kelas (Positif, Negatif, Netral)\relax }}{4-37}
+\contentsline {table}{\numberline {4.24}{\ignorespaces Pengujian Klasifikasi 1 Kelas (Sarkasme/Non-Sarkasme)\relax }}{4-37}
+\addvspace {10\p@ }
