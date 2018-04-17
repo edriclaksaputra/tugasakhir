@@ -1,0 +1,7 @@
+skrg apertura server itu dalamnya kosong aja, personal comp juga
+
+
+harus ada alasan pendekatan pengujian,
+jika tdk ada kajian pendekatan pengujian,
+buat sendiri dengan parameter pengujian
+daar RPL dan modularisasi
