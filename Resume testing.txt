@@ -1,0 +1,12 @@
+Pa irfin selamat malam. Mau me resume apa yg sudah saya baca.
+Menguji sebuah arsitektur microservice dapat dilakukan dalam 5 buah tahap.
+(dalam contoh, penulis menggunakan gambar ilustrasi)
+1. Unit testing : bagian terkecil dalam software yg ditest untuk menentukan
+	apakah unit tersebut bekerja sesuai yg diharapkan
+2. Integrasi testing : verifikasi bahwa komunikasi dan integrasi antar unit bekerja
+	sesuai yg diharapkan
+3. Komponen testing : komponen terdiri dari beberapa integrasi dari unit
+4. Contract testing : verifikasi hasil yg diharapkan ketika user mengkonsumsi
+	sebuah service, setiap user harus mendapatkan hasil yg sama pula.
+5. End-to-end testing : menjalankan satu buah proses bisnis dan melihat
+	apakah goal dari bisnis tercapai.
