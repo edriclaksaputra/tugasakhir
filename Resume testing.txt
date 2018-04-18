@@ -10,3 +10,19 @@ Menguji sebuah arsitektur microservice dapat dilakukan dalam 5 buah tahap.
 	sebuah service, setiap user harus mendapatkan hasil yg sama pula.
 5. End-to-end testing : menjalankan satu buah proses bisnis dan melihat
 	apakah goal dari bisnis tercapai.
+
+Menurut Paulo Merson (Software Architect at TCU; SOA/microservices trainer and consultant; Visiting Scientist at the SEI)
+Brazilian Federal Court of Accounts (TCU)   Carnegie Mellon University
+1. Deployability: more agility to roll out new versions of a service due to shorter build+test+deploy cycles. Also, flexibility to employ service-specific security, replication, persistence, and monitoring configurations.
+2. Reliability: a microservice fault affects that microservice alone and its consumers, whereas in the monolithic model a service fault may bring down the entire monolith.
+3. Availability: rolling out a new version of a microservice requires little downtime, whereas rolling out a new version of a service in the monolith requires a typically slower restart of the entire monolith.
+4. Scalability: each microservice can be scaled independently using pools, clusters, grids. The deployment characteristics make microservices a great match for the elasticity of the cloud.
+5. Modifiability: more flexibility to use new frameworks, libraries, datasources, and other resources. Also, microservices are loosely-coupled, modular components only accessible via their contracts, and hence less prone to turn into a big ball of mud. Dynamic discovery and binding via a registry (e.g., Apache ZooKeeper, Netflix Eureka) is sometimes used for location transparency.
+6. Management: the application development effort is divided across teams that are smaller and work more independently.
+7. Design autonomy: the team has freedom to employ different technologies, frameworks, and patterns to design and implement each microservice, and can change and redeploy each microservice independently
+
+Atau dapat disingkat menjadi 4 point
+1. Agility: By breaking down functionality to the most basic level and then abstracting the related services, DevOps can focus on only updating the relevant pieces of an application. This removes the painful process of integration normally associated with monolithic applications. Microservices speed development, turning it into a processes that can be accomplished in weeks and not months.
+2. Efficiency: Leveraging a microservices based architecture can result in far more efficient use of code and underlying infrastructure. It is not uncommon to experience significant cost savings by as much as 50% by reducing the amount of infrastructure required to run a given application. 
+3. Resiliency: By dispersing functionality across multiple services eliminates an applications susceptibility to a single point of failure. Resulting in applications which can perform better, experience less downtime and can scale on demand. 
+4. Revenue: Faster iterations and decreased downtime can increase revenue (either using athrough efficiencies created via a chargeback ideology, or by improving user engagement). User retention and engagement increases with continuous improvements offered by microservices.
