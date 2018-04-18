@@ -1,73 +1,82 @@
 %-----------------------------------------------------------------------------%
 \chapter{LANDASAN TEORI}
-Pada bab ini akan dijelaskan mengenai teori dasar dan metode yang digunakan pada penelitian ini. 
+Pada bab ini akan dijelaskan teori pendukung serta metode yang digunakan untuk mengekstraksi modul-modul yang terdapat pada aplikasi monolitik. Penjelasan teori dimulai dengan pengertian dari arsitektur Microservice, prinsip dan pemodela microservice, membangun arsitktur microservice dari arsitektur monolitik, metode pengembangan aplikasi berbasis Microservice, serta aplikasi rumah sakit Apertura sendiri.
 %-----------------------------------------------------------------------------%
 
 %
 \vspace{4.5pt}
 
-\section{Tinjauan Pustaka}
-Pada bagian ini akan dijelaskan teori-teori terkait yang akan digunakan dalam aplikasi klasifikasi teks 
-\subsection{Pemrosesan Bahasa Alami}
-Pemrosesan Bahasa Alami atau \textit{Natural Language Processing} (NLP) adalah 
-bidang penelitian dan aplikasi yang mengeksplorasi bagaimana komputer 
-dapat digunakan untuk memahami dan memanipulasi teks atau pidato bahasa 
-alami. Penelitian NLP bertujuan untuk mengumpulkan pengetahuan tentang 
-bagaimana manusia memahami dan menggunakan bahasa sehingga alat dan 
-teknik yang tepat dapat dikembangkan untuk membuat sistem komputer 
-memahami dan memanipulasi bahasa alami untuk melakukan tugas yang 
-diinginkan. Dasar-dasar NLP terletak pada sejumlah ilmu, seperti ilmu 
-komputer dan informasi, linguistik, matematika, teknik elektro dan 
-elektronika, kecerdasan buatan dan robotika, dan psikologi. Aplikasi NLP 
-mencakup sejumlah bidang studi, seperti terjemahan mesin, pemrosesan 
-teks bahasa alami dan \textit{summarization}, antarmuka pengguna, 
-pencarian informasi multibahasa dan lintas bahasa (CLIR), pengenalan 
-ucapan, kecerdasan buatan, dan sistem pakar. Di bawah ini terdapat 7 
-tingkatan \textit{interdependent} yang digunakan untuk mengekstrak 
-makna dari teks atau bahasa lisan \cite{9}:
+\section{Microservice Architecture}
+Arsitektur aplikasi yang memiliki struktur hubungan service yang renggang namun kolaboratif. Tiap service memiliki fungsi yang lebih sempit dan saling berhubungan. Tiap service ini saling berkomunikasi menggunakan web service dan dapat dikembangkan dan di \textit{deploy} secara mandiri. Tiap service memiliki database masing-masing yang saling memisahkan data. 
+\subsection{Definisi Arsitektur Microservice}
+Aritektur microservice pertama kali muncul untuk memenuhi kebutuhan dan menunjukan bagaimana sebuah aplikasi dapat lebih efektif dalam tahap \textit{production}, juga menunjukan bagaimana cara \textit{development} yang lebih baik dengan memberikan kemampuan kepada mesin untuk saling berkomunikasi. Microservice juga termasuk ke dalam perancangan insfrastrktur mesin sampai skala yang dibutuhkan. Banyak organisasi telah membuktikan dengan berpindah ke arsitektur microservice, aplikasi mereka menjadi lebih cepat dan berani untuk menggunakan teknologi yang baru. Microservice memberikan \textit{developer} kebebasan untuk bereaksi dan mengambil keputusan yang berbeda, memberikan respon yang lebih cepat atas segala kebutuhan dari pengguna aplikasi \cite{9}.
+\subsection{Prinsip Pendekatan Arsitektur Microservice}
+Terdapat beberapa tahapan dalam pendekatan dalam arsitektur mikroservis yang menjadikan desain system yang baik, pendekatan ini berguna untuk mendefinisikan prinsip dan petunjuk yang bergantung pada gol yang kita tuju, tahapan pendekatan tersebut yaitu :
 \begin{enumerate}[leftmargin=*]
-	\item \textit{Phonetic} atau \textit{phonological level} adalah 
-	tingkatan yang berurusan dengan pengucapan.
-	\item \textit{Morphological level} adalah tingkatan yang berhubungan 
-	dengan makna kata, awalan kata dan akhiran kata.
-	\item \textit{Lexical Level} adalah tingkatan yang berhubungan dengan 
-	leksikal kata dan \textit{Part Of Speech}
-	\item \textit{Syntactic level} adalah tingkatan yang berhubungan 
-	dengan tata Bahasa dan struktur kalimat.
-	\item \textit{Semantic Level} adalah tingkatan yang berhubungan dengan 
-	makna kata dan kalimat.
-	\item \textit{Discourse Level} adalah tingkatan yang berhubungan 
-	dengan struktur berbagai jenis teks menggunakan struktur dokumen.
-	\item \textit{Pragmatic Level} adalah tingkatan yang berhubungan 
-	dengan pengetahuan dari luar pada isi sebuah dokumen.
+	\item \textit{Strategic Goals.} Strategic goals harus memberikan arahan kemana perusahaan ingin beranjak dan bagaimana memenuhi kebutuhan konsumen. Bahasan ini harus berisi tujuan tertinggi dan tidak membahas teknologi sama sekali. Goals ini bisa dibahas di level perusahaan atau juga di level divisi. Kuncinya adalah untuk membuat kemana arah organisasi akan bergerak \cite{9}.
+	\item \textit{Principles.} Principles adalah aturan yang harus dibuat agar dapat memenuhi goals, prinsip ini kadang berubah sesuai dengan kondisi. Misalnya apabila strategic goals perusahaan adalah untuk mengurangi waktu pengiriman barang-barang baru, maka organisasi terebut akan mendefinisikan prinsip yang mengatakan bahwa tim pengiriman mempunyai kontrol penuh terhadap \textit{lifecycle} produk mereka untuk dikirimkan kapanpun produk siap. Namun apabila goals adalah untuk mengembangkan pertumbuhan produk dengan cepat di sebuah negara, maka organisasi akan memutuskan untuk mengimplementasi prinsip bahwa semua system harus bisa bekerja secara portable agar dapat di \textit{deploy} secara local dan memastikan bahwa data akurat. Prinsip ini juga jangan terlalu banyak, kurang dari 10 adalah angka yang baik, karena semakin banyak prinsip akan beresiko menjadikan aturan-aturan tersebut saling bentrok satu sama lain \cite{9}.
+	\item \textit{Practices.} Tahap ke tiga adalah untuk memastikan semua prinsip telah dilakukan. \textit{Practices} adalah sebuah detail set, bagaimana untuk melakukan task-task agar goals dapat dicapai sesuai dengan aturan yang ada. Tahap ini termasuk dengan spesifikasi teknologi, dan harus cukup sedetail mungkin agar semua \textit{developer} dapat paham. \textit{Practices} dapat termasuk petunjuk bagaimana \textit{lifecycle}coding dilakukan. Sesuai dengan sifat naturalnya, \textit{practices} akan lebih sering berubah dibandingkan dengan principal di tahap ke 2 \cite{9}.
+	\item \textit{Combining Principles and Practices.} Ide dari point terakhir ini adalah ketika system berevolusi dengan ide baru, organisasi tetap siap dengan segala detail yang dibutuhkan agar semua orang tahu bagaimana mengimplementasi ide baru tersebut. Terdengar mudah untuk dilakukan di lingkup yang kecil, namun untuk lingkup besar, bisa terdapat perbedaan antara teknologi dengan praktek yang dilakukan. Misalnya tim .NET akan mempunyai set \textit{practices} yang berbeda dengan tim Java \cite{9}.
 \end{enumerate}
+\subsection{Konsep Microservice}
+Setelah pengertian umum mengenai arsitektur microservice, pada bagian ini akan dijelaskan bagaimana cara berfikir dengan batasan-batasan microservice yang akan memaksimalkan semua potensinya. Dalam point ini peneliti menginginkan pembaca fokus terhadap dua konsep kunci microservice, yaitu \textit{loose coupling} dan \textit{high cohesion}.\\
+\textbf{\textit{Loose Coupling.}} Ketika service telah \textit{loosely coupled}, perubahan yang dilakukan terhadap satu service tidak akan mengakibatkan perubahan pada service yang lain. Prinsip ini menekankan bagaimana microservice dapat melakukan perubahan pada satu service dan melakukan \textit{deploy} tanpa harus melakukan perubahan apapun pada sistem. Namun sebuah sistem dapat memiliki kebutuhan berkomunikasi antar service, hal ini mengakibatkan arsitek harus membatasi limit panggilan dari satu service terhadap service yang lain, karena selain dapat menyebabkan masalah performa, hal ini pula dapat mengakibatkan terjadinya \textit{tight coupling} \cite{9}.\\
+\textbf{\textit{High Cohesion.}} Model microservice menginginkan sifat-sifat yang berkaitan untuk berada di satu wadah, dan yang tidak berkaitan ditempatkan di wadah yang lain, karena apabila ada perubahan yang terjadi, hanya satu wadah tersebut yang akan berubah dan perubahan dapat langsung di implementasikan dengan cepat. Apabila service dibuat terlalu tercecer, maka akan menyebabkan perubahan di banyak tempat dan akan membuang banyak waktu. Point yang diinginkan adalah menempatkan service dengan sifat yang mirip di satu wadah, namun tetap berkomunikasi dengan wadah lain selonggar mungkin \cite{9}.\\
+Dalam buku yang dijelaskan Sam Newman, penulis mengambil contoh sebuah departemen keuangan dan departemen \textit{warehouse} di sebuah organisasi untuk menjelaskan tentang shared dan hidden model. Kedua departemen mempunyai \textit{interface} yang berbeda ketika ditampilkan. Departemen keuangan tidak perlu tahu segala detail di \textit{warehouse}. Namun walau begitu tetap ada data yang dibutuhkan seperti misalnya stok barang agar mendapatkan perhitungan terbaru. Pada model microservice maka ke dua modul ini akan dibuat terpisah. Berikut penggambarannya :\\
 
-\subsection{Analisis Sentimen}
-Analisis sentimen atau biasa disebut \textit{opinion mining} adalah 
-bidang studi yang menganalisis opini, sentimen, evaluasi, penilaian, 
-sikap, dan emosi orang-orang terhadap entitas seperti produk, layanan, 
-organisasi, individu, isu, peristiwa, topik, dan atribut mereka. Ada 
-juga istilah yang lain dengan tugas yang tidak jauh berbeda, misalnya 
-analisis sentimen, \textit{opinion mining}, \textit{opinion extraction}, \textit{sentiment} \textit{mining}, \textit{subjectivity analysis}, \textit{affect analysis}, \textit{emoticon analysis}, \textit{review mining}, dan sebagainya. Istilah tersebut merupakan bagian dari analisis sentimen atau \textit{opinion mining}. Istilah analisis sentimen pertama kali muncul di Nasukawa dan Yi (2003), dan istilah \textit{opinion mining }pertama kali muncul di Dave et al. (2003). Namun, penelitian tentang sentimen dan pendapat muncul lebih awal (Das and Chen, 2001; Morinaga et al., 2002; Pang et al., 2002; Tong, 2001; Turney, 2002; Wiebe, 2000). Analisis sentimen atau \textit{opinion mining }berfokus pada opini yang mengungkapkan atau menyiratkan sentimen positif atau negatif \cite{10}.
-\subsection{Pembelajaran Mesin}
-Tujuan utama Pembelajaran Mesin adalah untuk memodelkan hubungan antara 
-masukan dan keluaran. Pembelajaran mesin menyediakan teknik yang secara 
-otomatis dapat membangun model komputasi dari hubungan kompleks dengan 
-memproses data yang ada dan memaksimalkan kriteria kinerja yang 
-bergantung pada masalah. Proses otomatis pembuatan model disebut 
-\textit{training} dan data yang digunakan untuk tujuan pelatihan 
-disebut data \textit{training}.\textit{ }Model yang sudah dilatih 
-dapat memberikan informasi baru tentang bagaimana variabel masukan 
-dipetakan ke keluaran dan dapat digunakan untuk membuat prediksi untuk 
-nilai masukan baru yang bukan merupakan bagian dari data \textit{training}. Untuk dapat mempelajari model yang akurat, algoritme pembelajaran mesin membutuhkan sejumlah besar data \textit{training}. Oleh karena itu, langkah pertama yang penting dalam menggunakan teknik pembelajaran mesin adalah mengumpulkan sekumpulan contoh data \textit{training }dan menyimpannya dalam bentuk yang sesuai untuk keperluan komputasi.
+\begin{adjustbox}{width=1\textwidth}
+	\centering
+	\begin{minipage}{\linewidth}
+		\framebox[\textwidth]{\includegraphics[width=10cm]{images/departements_relation.png}}	
+		\captionof{figure}{Model pembagian dari departemen keuangan dan warehouse.}
+	\end{minipage}
+\end{adjustbox}
 
-Pembelajaran mesin dapat dilakukan di banyak domain seperti diagnosis 
-medis, bioinformatika, informatika kimia, analisis jaringan sosial, 
-analisis pasar saham, dan robotika. Kinerja model pembelajaran mesin 
-bergantung pada banyak faktor seperti jumlah dan kualitas data 
-pelatihan, kompleksitas dan bentuk hubungan antara variabel masukan dan 
-keluaran, dan kendala komputasi seperti waktu pelatihan dan memori yang 
-tersedia \cite{11}.
+Untuk dapat menjalankan alur informasi, pegawai keuangan membutuhkan data stok. \textit{Stock item} menjadi \textit{shared model} antara dua departemen. Perlu diingat bahwa tidak semua data \textit{warehouse} harus diperlihatkan di keuangan, jadi terdapat representasi internal dan representasi external yang diperlihatkan. Desain diatas memperlihatkan konsep \textit{loose coupling} dan \textit{high cohesion} yang digambarkan menjadi sebuah modul. Desain seperti ini sangat mempermudah proses perpindahan dari monolitik dan menyakinkan bahwa desain microservice telah \textit{loosely coupled} dan \textit{stongly cohesive} \cite{9}.
+\section{Integrasi Teknologi}
+Mengintegrasikan dengan benar merupakan tahap yang paling penting, memungkinkan perubahan yang signifikan dengan tingkat kemandirian aplikasi yang tinggi. Dalam tahap integrasi ini ada beberapa point penting yang harus dianalisis sebelum memilih teknologi yang digunakan dan mengimplementasikannya.
+\begin{enumerate}[leftmargin=*]
+	\item \textit{\textbf{Menjaga teknologi API agar tetap agnostik.}} IT industri adalah berubah dengan sangat cepat, \textit{tools} baru, \textit{framework} dan bahasa baru, serta ide-ide implementasi yang selalu berkembang. Hal inilah yang menjadi pertimbangan agar memastikan bahwa API inisial harus dapat digunakan terus menerus ketika mengimplementasikan microservice.
+	\item \textit{\textbf{Hindari perubahan major pada aplikasi.}} Perubahan arsitektur dapat mengakibatkan perubahan pada bagian-bagian aplikasi yang lainnya, pemilihan teknologi yang tepat bertujuan agar perubahan ini terjadi sekecil mungkin.
+	\item \textit{\textbf{Buat service sederhana untuk dipakai.}} Arsitektur microservice yang baru harus cepat beradaptasi dengan penggunanya, maka dari itu modul service harus bersifat \textit{user-friendly}. 
+\end{enumerate}
+Seperti yang dikutip dari website Chris Richardson, microservice merupakan sekumpulan teknologi yang saling bekerjasama. Teknologi tersebut tidak dibatasi oleh sebuah wadah tertentu, namun saling terpisah yang menyebabkan luasnya pemilihan teknologi yang akan digunakan. Point berikutnya akan menjelaskan beberapa pilihan teknologi yang baik yang dapat diimplementasikan. Mulai dari lapisan paling dalam, yaitu managemen data, pembagian service, metode berkomunikasi antar service, sampai dengan API gateway yang akan digunakan oleh clien \cite{9}.
+\subsection{Manajemen Data}
+Bab ini akan membahas bagaimana penyimpanan data pada arsitektur monolitik dan apa kelemahannya. Kemudian dilanjutkan dengan penjelasan dan pembahasan metode penyimpanan data yang baik dan sesuai dengan arsitektur microservice.
+\subsubsection{Model Penyimpanan Data Arsitektur Monolitik}
+Pada arsitektur biasa, umumnya database disimpan dalam 1 tempat dan terdiri dari beberapa table. Ketika terjadi permintaan untuk membaca data, maka sistem akan mengambil data tersebut dari database, sama halnya apabila data diubah, maka sistem akan langsung mengubah database. \textit{Life cycle} seperti ini sangat simpel dan sangat cepat sehingga sampai saat ini dipakai oleh banyak sistem.\\
+Contoh dalam gambar 2-1, \textit{customer} yang akan melakukan registrasi akan melakukan \textit{querry} ke database, juga aplikasi \textit{call center} yang menampilkan dan mengubah data akan langsung melakukan \textit{querry} ke database, begitu pula dengan informasi \textit{update warehouse} mengenai pesanan konsumen, akan melakukan \textit{query} pada database. Ini adalah contoh pattern yang sangat umum, namun banyak kelemahan dari pattern database ini \cite{9}
+
+\begin{adjustbox}{width=1\textwidth}
+	\centering
+	\begin{minipage}{\linewidth}
+		\framebox[\textwidth]{\includegraphics[width=10cm]{images/common_accessing_db.png}}	
+		\captionof{figure}{Pemodelan cara akses database yang umum.}
+	\end{minipage}
+\end{adjustbox}\\
+
+Pertama, model ini mengizinkan langsung pihak luar untuk mengubah data internal. Struktur data yang di simpan di DB dipakai oleh semua \textit{user}, apabila terjadi perubahan pada DB, maka semua \textit{user} akan terkena dampaknya. Database menjadi sangat besar, dan \textit{shared} API menjadi rapuh. Apabila akan terjadi perubahan, misalnya perubahan table customer di database, maka harus sangat berhati-hati agar \textit{schema} yang dipakai oleh service lain tidak rusak. Hal ini membutuhkan usaha testing regresi yang besar. Hal ini melanggar konsep \textit{loose coupling} \cite{9}. Kedua, semua \textit{client} menjadi terikat dengan sebuah teknologi spesifik. Mungkin saat ini database berjalan dengan baik dengan menggunakan \textit{relational} database, namun bagaimana bila seiring berjalannya waktu, performa untuk menyimpan data lebih baik menggunakan \textit{nonrelational} database? \textit{Client} menjadi terikat dengan model implementasi. Hal ini melanggar konsep \textit{cohesion}.
+\subsubsection{Model Penyimpanan Data Arsitektur Micoservice}
+Dalam perancangan arsitektur microservice, terdapat 2 pattern database ditinjau dari pembagian database tersebut. Pattern pertama adalah \textit{shared database} dan yang kedua adalah \textit{database per service}. Untuk contoh kedua pattern, penulis Chris Richardson memberikan contoh dengan menggunakan modul \textit{customer} dan modul \textit{order}. Hubungan kedua modul tersebut terjadi ketika ada transaksi baru, dimana modul \textit{order} harus memastikan bahwa jumlah pesanan yang baru tidak melebihi limit kredit yang dimiliki \textit{customer}. Relasi kedua modul itu dapat dilihat dari gambar dibawa \cite{6}\\
+
+\begin{adjustbox}{width=1\textwidth}
+	\centering
+	\begin{minipage}{\linewidth}
+		\framebox[\textwidth]{\includegraphics[width=13cm]{images/shared_database.png}}	
+		\captionof{figure}{\textit{Shared database.}}
+	\end{minipage}
+\end{adjustbox}\\
+
+\textbf{Shared database.} Model yang pertama adalah database yang di \textit{share} untuk diakses oleh beberapa service. Modul \textit{order} bisa langsung mengakses table \textit{customer} untuk mendapatkan limit kredit \textit{customer} tersebut. Model ini dapat menjadi pilihan ketika \textit{developer} ingin model yang familiar dan tegas untuk menjaga konsistensi data. Model \textit{shared database} memiliki beberapa kelemahan, antara lain :
+\begin{enumerate}[leftmargin=*]
+	\item \textit{Development time coupling.} Modul \textit{order} harus tahu apabila terjadi perubahan pada \textit{schema customer}, hal ini menjadikan kedua modul menjadi memiliki ketergantungan. Hal ini akan memperlambat proses \textit{development}.
+	\item \textit{Runtime coupling.} Karena beberapa service dapat mengakses database yang sama, terdapat potensi mengganggu proses yang lain, misalnya ketika modul \textit{customer} sedang melakukan \textit{update} terhadap \textit{customer} dengan id 234 untuk merubah kredit limit, maka modul \textit{order} harus menunggu sampai \textit{update customer} selesai dilakukan karena \textit{customer} dengan id 234 akan di \textit{block} sementara waktu.
+\end{enumerate}
+\textbf{Database per service}. Pattern database yang kedua menjadikan sebuah table menjadi \textit{private} hanya untuk 1 buah service dan hanya dapat diakses via API, service lain tidak bisa mengakses database tersebut. Kelebihan dari model ini adalah menjadikan service lebih \textit{loose coupled}, tingkat ketergantungan antar service rendah. Tiap service pun dapat memiliki database yang cocok untuk dirinya sendiri. Namun model database ini memiliki beberapa kesulitan, antara lain :
+\begin{enumerate}[leftmargin=*]
+	\item Mengimplementasikan proses bisnis yang melibatkan banyak service menjad lebih sulit, dan lebih baik dihindari karena akan menemukan kesulitan di integritas data, terutama database modern (NoSQL). Solusi terbaik adalah dengan menggunakan konsep SAGA pattern (dibahas pada point berikutnya), yang menjalankan \textit{event} ketika ada perubahan data. Service lain yang men-\textit{subscribe event} tersebut akan merespon dan melakukan \textit{update} \cite{6}.
+	\item Mengimplementasi \textit{query} yang menggabungkan data dari banyak database akan lebih sulit \cite{6}.
+\end{enumerate}
 
 \subsection{Text Preprocessing}
 \textit{Text} \textit{Preprocessing} bertujuan untuk meminimalisir 

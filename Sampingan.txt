@@ -4,3 +4,28 @@ PENERAPAN ARSITEKTUR MICROSERVICE UNTUK PERBANDINGAN PERFORMA PADA SOFTWARE RUMA
 \cite{}
 
 ghost of girlfriend past
+
+\begin{enumerate}[leftmargin=*]
+	\item \textit{Phonetic} atau \textit{phonological level} adalah 
+	tingkatan yang berurusan dengan pengucapan.
+	\item \textit{Morphological level} adalah tingkatan yang berhubungan 
+	dengan makna kata, awalan kata dan akhiran kata.
+	\item \textit{Lexical Level} adalah tingkatan yang berhubungan dengan 
+	leksikal kata dan \textit{Part Of Speech}
+	\item \textit{Syntactic level} adalah tingkatan yang berhubungan 
+	dengan tata Bahasa dan struktur kalimat.
+	\item \textit{Semantic Level} adalah tingkatan yang berhubungan dengan 
+	makna kata dan kalimat.
+	\item \textit{Discourse Level} adalah tingkatan yang berhubungan 
+	dengan struktur berbagai jenis teks menggunakan struktur dokumen.
+	\item \textit{Pragmatic Level} adalah tingkatan yang berhubungan 
+	dengan pengetahuan dari luar pada isi sebuah dokumen.
+\end{enumerate}
+
+\begin{adjustbox}{width=1\textwidth}
+\centering
+\begin{minipage}{\linewidth}
+	\framebox[\textwidth]{\includegraphics[width=10cm]{images/LDA.png}}	
+	\captionof{figure}{\textit{Graphical} Model pada \textit{Smoothed} LDA}
+\end{minipage}
+\end{adjustbox}
