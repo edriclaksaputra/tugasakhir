@@ -1,0 +1,24 @@
+1. Dalam test microservice dapat menggunakan pendekatan milik Martin Flower
+(untuk memperlihatkan bahwa rancangan telah sesuai)
+2. Dapat melakukan test case kasus uji dimana sistem mengalami kegagalan
+3. Mau meluncurkan fitur baru, dimana butuh untuk alter table berarti haus nunggu semua user untuk loggof
+4. misalnya ada file jar yg error, keseluruhan app dapat rusak.
+5. Misalnya ingin menggunakan framework baru, monolitik tidak bisa
+6. Pengujian pertama melakukan uji benar apa tidak microservice yg dibangun.
+kedua tentang perbandingan dgn monolitik
+jangan sampai microservice lebih lebah / tidak sempurna dibandingkan monolitik
+7. Didemokan bagaimana cara kerja dari event-driven itu bekerja.
+(pikirkan bagaimana cara menguji event-drien itu berhasil dilakukan).
+8. buat mciroservice, terus ada fitur apa saja.. registrasi, dll
+asumsi penguji sebelumnya sudah melakukan test. dan apa yg dibangn relevan terhadap aplikasi sebelumnya.
+Bisnis requirementnya tetap terpenuhi.
+
+9. Batasan penelitian tidak membahas ttg UI down.. (saran pengembangan).
+Dapat menggunakan matrix tracibility dapat digunakan untuk menguji bahwa apa yg dibangun sudah memenuhi kebutuhan atau blm
+
+
+pengujian pertama menguji arsitktur micro terhada bisnis reqnya
+pengujian kedua : tiap point pengujian punya test plan sendiri., akan ada juga test resultnya
+bahas strategi pengujiannya.
+
+sub babnya diberi nama strategi pengujian.
