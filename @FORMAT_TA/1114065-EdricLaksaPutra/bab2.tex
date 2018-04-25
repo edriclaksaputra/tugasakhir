@@ -78,6 +78,59 @@ Dalam perancangan arsitektur microservice, terdapat 2 pattern database ditinjau 
 	\item Mengimplementasi \textit{query} yang menggabungkan data dari banyak database akan lebih sulit \cite{6}.
 \end{enumerate}
 
+\subsection{Dekomposisi Modul}
+Tujuan dari dekomposisi modul ini adalah menemukan service terkecil penyusun aplikasi. Dengan memisahkan modul menjadi sebuah service tunggal, menjadikan aplikasi lebih mandiri dan mudah untuk di koordinasikan dalam tim, yang dapat mempercepat proses \textit{development}. Tujuan yang lebih besar lagi adalah menghindari perubahan besar pada aplikasi ketika ada proses bisnis yang berubah. Dengan mendekomposisi modul, akan membantu untuk memastikan hanya ada sebuah service saja yang akan terkena dampaknya.\\
+Tantangan yang didapat ketika hendak melakukan dekomposisi modul adalah :
+\begin{itemize}[leftmargin=*]
+	\item Rancangan arsitektur service yang baru harus stabil.
+	\item Sebuah service harus terdiri dari susunan \textit{functions} yang erat fungsinya.
+	\item Service harus memastikan tidak melanggar \textit{Common Closure Principle}, yaitu apabila terjadi perubahan tidak akan melibatkan \textit{package} lain.
+	\item Setiap service sebagai API yang terenkapsulasi dari pengguna. Segala perubahan tidak boleh memberikan dampak secara langsung pada pengguna.
+	\item Sebuah service harus cukup kecil untuk ditangani oleh tim yang terdiri dari 6-10 orang.
+	\item Service harus bisa di tes, dan setiap tim harus dapat melakukan proses \textit{develop} dan \textit{deploy} tanpa banyak interaksi dengan tim lain.
+\end{itemize}
+Terdapat 2 metode dalam mendekomposisi modul aplikasi, yaitu berdasarkan subdomain dan berdasarkan proses bisnis yang dilakukan \cite{6}.\\
+\textbf{Dekomposisi berdasarkan subdomain.} Apabila aplikasi yang dibentuk terpisah berdasarkan \textit{domain-driven design} (DDD) atau disebut juga subdomain, maka metode ini dapat lebih mudah digunakan. DDD memisahkan aplikasi berdasarkan kebutuhannya dan membentuk sebuah subdomain sendiri, setiap subdomain bertanggung jawab untuk menangani proses bisnis yang berbeda.Subdomain dapat diklasifikasikan sebagai berikut :
+\begin{itemize}[leftmargin=*]
+	\item \textit{Core} – kunci pembeda dari proses bisnis dan menjadi bagian yang sangat penting dari sebuah aplikasi.
+	\item \textit{Supporting} – berhubungan dengan proses bisnis namun bukan menjadi pembeda.
+	\item \textit{Generic} – tidak berhubungan dengan proses bisnis dan biasanya hanya menjadi proses pendukung saja.
+\end{itemize}
+Kelebihan dari metode ini antara lain:
+\begin{itemize}[leftmargin=*]
+	\item Arsitektur service baru yang stabil, karena subdomain sendiri secara relatif sudah stabil.
+	\item Service yang dibentuk akan cenderung memenuhi \textit{loosely coupled} dan \textit{cohesive}.
+\end{itemize}
+Masalah yang dihadapi dari metode ini antara lain:
+\begin{itemize}[leftmargin=*]
+	\item Sulit diterapkan untuk aplikasi yang tidak \textit{domain-driven} atau aplikasi yang memiliki keterikatan modul yang kuat.
+\end{itemize}
+\textbf{Dekomposisi berdasarkan proses bisnis.} Pattern alternatif yang lain adalah mendefinisikan service berdasarkan kemampuan bisnis. Kemammpuan bisnis adalah proses yang dilakukan untuk menghasilkan sebuah nilai. Kemampuan bisnis biasanya berhubungan dengan objek bisnis. Misalnya \textit{order management} bertanggung jawab untuk \textit{orders}, \textit{customer management} bertanggung jawab untuk \textit{customer}.  Kemampuan bisnis biasanya tersusun menjadi hirarki multi level, misalnya untuk aplikasi perusahaan memiliki \textit{product/service development}, setelah itu ada \textit{product/service delivery}, lalu diikuti dengan \textit{aftersale service} \cite{6}
+Kelebihan dari metode ini antara lain:
+\begin{itemize}[leftmargin=*]
+	\item Arsitektur service baru yang stabil, karena kemampuan bisnis pun relatif sudah stabil.
+	\item Service yang dibentuk akan memenuhi konsep \textit{loosely coupled} dan \textit{cohesive}.
+\end{itemize}
+Masalah yang akan dihadapi dari metode ini antara lain:
+\begin{itemize}[leftmargin=*]
+	\item Sulit untuk mengidenfitikasi kemampuan bisnis aplikasi. Identifikasi pembentukan service membutuhkan pemahaman dari proses bisnis, maka harus dilakukan analisa mendalam dari tujuan perusahaan, struktur, dan cakupan area. Analisa dapat dilakukan pertama-tama dari struktur organisasi, karena perbedaan grup dalam organisasi berkaitan dengan kemampuan bisnis dari grup tersebut.
+\end{itemize}
+\subsection{Service Deployment}
+Setelah mengindentifikasi dan membentuk service, tahap selanjutnya yang akan dilakukan adalah melakukan \textit{deployment} service untuk nantinya digunakan. Tiap service sendiri bisa ditulis menggunakan bahasa dan framework yang berbeda-beda, namun secara mandiri harus \textit{deployable} dan \textit{scalable}. Dalam beberapa kasus, akan terdapat set service yang harus terisolasi dari service lainnya. Kebutuhan lainnya adalah adanya keperluan untuk dapat memantau penggunaan \textit{resources} (CPU dan memori) yang digunakan oleh service dan memantau dengan mudah sifat dan kegunaan dari service tersebut. Semua kebutuhan ini juga harus sebanding dengan biaya yang dikeluarkan.\\
+Terdapat beberapa metode \textit{deployment} yang dapat dilakukan, tiap metode cocok digunakan sesuai dengan kebutuhan dari \textit{deployment} itu sendiri. Point berikutnya akan menjelaskan metode-metode \textit{deployment} service.
+\begin{enumerate}[leftmargin=*]
+	\item \textbf{Multiple service instances per host.}\\
+	Metode \textit{deployment} ini cocok digunakan apabila service yang terbentuk tidak banyak dan adanya kebutuhan untuk menghemat penggunaan sumber daya. Set service yang terbentuk disimpan dalam sebuah host (fisik atau \textit{virtual machine}). Terdapat 2 cara dalam melakukan \textit{deploy} set service dalam sebuah host. Pertama, \textit{deploy} set-set service tersebut sebagai JVM, misalnya dengan Tomcat atau Jetty untuk sebuah set service. Kedua adalah melakukan \textit{deploy} semua set service dalam sebuah JVM yang sama, mislanya sebagai web aplikasi \cite{6}.\\
+	Metode deployment ini juga terdapat beberapa kelemahan, antara lain:
+	\begin{itemize}[leftmargin=*]
+		\item Beresiko terjadi konflik terhadap kebutuhan sumber daya (memori dan CPU).
+		\item Beresiko terjadi konflik versi dependency.
+		\item Sulit untuk membatasi konsumsi sumber daya yang digunakan sebuah service (berhubungan dengan point pertama).
+		\item Apabila banyak set service di deploy dalam sebuah mesin yang sama, maka akan sulit untuk memonitor konsumsi sumber daya dari tiap service, karena sulit untuk melakukan isolasi terhadap service.
+	\end{itemize}
+	\item \textbf{Single service instance per host.}\\
+	Pilihan yang kedua adalah setiap service memiliki hostnya sendiri. Dengan menerapkan pattern ini, setiap service akan terisolasi dari yang lainnya, serta tidak akan ada resiko konflik akan sumber daya dan dependency. Setiap service lebih mudah untuk dimonitor dan dikelola. Namun kekurangan dari patern ini apabila dibandingkan dengan multiple service per host adalah kurangnya efisiensi penggunaan sumber daya, karena bisa jadi akan ada banyak host yang digunakan \cite{9}
+\end{enumerate}
 \subsection{Text Preprocessing}
 \textit{Text} \textit{Preprocessing} bertujuan untuk meminimalisir 
 kata yang akan digunakan dalam teks. Pada media sosial Indonesia seperti 
