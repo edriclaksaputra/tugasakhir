@@ -1,0 +1,4 @@
+penerapan arsitektur microservice pada software RS yang berbasis monolitik
+pengembangan sofwtware rumah sakit dari arsitektur monolitik menjadi MS dan perbandingannya
+penerapan dan perbandingan arsitektur MS terhadap arsitektur mono pada perangkat lunak sistem informasi menejemen rumah sakit.
+
