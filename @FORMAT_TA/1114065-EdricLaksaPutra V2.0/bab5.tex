@@ -1,0 +1,30 @@
+%-----------------------------------------------------------------------------%
+\chapter{PENUTUP}
+%-----------------------------------------------------------------------------%
+
+%
+\vspace{4.5pt}
+Bab ini berisi kesimpulan dan saran dari sistem deteksi sarkasme pada 
+analisis sentimen media sosial. 
+\section{Kesimpulan}
+Kesimpulan dari pembuatan sistem analisis sentimen dan 
+pengujian-pengujian yang telah dilakukan adalah sebagai berikut:
+\begin{enumerate}
+	\item Kombinasi fitur terbaik untuk model positif, negatif dan netral adalah \textit{unigram, punctuation based }dan \textit{sentiment score}. Dan kombinasi fitur terbaik untuk model sarkasme adalah \textit{unigram}, \textit{topic}, dan \textit{capitalization}. 
+	\item Fitur \textit{unigram }sangat berpengaruh dalam klasifikasi teks baik positif, negatif, netral, ataupun sarkasme. Fitur \textit{punctuation based} dapat meningkatkan akurasi klasifikasi teks netral hingga 9\%. Fitur \textit{sentiment score} dapat meningkatkan akurasi hingga 7\% pada teks positif, dan 10\% pada teks negatif.
+	\item Fitur \textit{topic }dapat meningkatkan akurasi klasifikasi sarkasme hingga 10\% saat digabungkan dengan fitur \textit{unigram}. Fitur \textit{capitalization }dapat meningkatkan akurasi klasifikasi sarkasme hingga 7\%.
+	\item Fitur \textit{interjection word }tidak berpengaruh karena kemunculan \textit{interjection word }yang jarang pada data sarkasme yang dilatih. Fitur \textit{part of speech }menurunkan akurasi klasifikasi sarkasme, karena kemunculan kata benda, kata sifat, kata kerja, kata keterangan, dan kata negasi juga banyak terdapat pada teks-teks selain sarkasme. Fitur \textit{sentiment score }menurunkan 
+	akurasi klasifikasi sarkasme karena teks sarkasme memiliki nilai sentimen yang selalu berlawanan dari yang terlihat dari teks. Fitur \textit{punctuation based} menurunkan klasifikasi karena tanda baca juga terdapat banyak pada teks selain sarkasme.
+	\item Fitur \textit{question word }menurunkan akurasi, karena saat digabungkan dengan fitur \textit{punctuation based}, setiap teks positif, negatif atau sarkasme yang memiliki kata tanya dan tanda baca tanya (?) akan otomatis terklasifikasi sebagai teks netral.
+	\item Kombinasi parameter SMO yang terbaik adalah C=10, tol=0.001, dan max\_passes=5. Akurasi klasifikasi \textit{direct method} lebih tinggi dibanding \textit{levelled method}.
+	\item Kombinasi klasifikasi pada 4 kelas (positif, negatif, netral, sarkasme) menghasilkan akurasi sebesar 72\% dan pada kombinasi klasifikasi 3 kelas (positif, negatif, netral) menghasilkan akurasi sebesar 82\%. Akurasi pada klasifikasi 3 kelas tanpa data sarkasme meningkat cukup tinggi. Dan pada klasifikasi 1 kelas, yaitu sarkasme dan non-sarkasme menghasilkan 75\%. 
+	\item Klasifikasi pada 4 kelas menghasilkan akurasi yang kecil, karena teks sarkasme pada data yang digunakan terdapat teks yang tidak terlihat positif, sehingga terjadi kesalahan klasifikasi. Sebagai contoh teks sarkasme yang lebih terlihat seperti netral, yaitu: "\,Apa bedanya anggota DPR dengan sebuah baterai? Baterai punya sisi positif. 
+	\#Sarkasme".
+\end{enumerate}
+\section{Saran}
+Saran dari penulis untuk pengembangan yang dilakukan untuk sistem deteksi sarkasme pada analisis sentimen adalah:
+\begin{enumerate}
+	\item Menggunakan data yang lebih banyak dan kategori data yang lebih banyak, sehingga fitur \textit{topic} dapat digunakan untuk memberikan informasi global dari sebuah teks sarkasme dengan lebih baik serta menggunakan jenis kernel RBF untuk klasifikasi.
+	\item Menggunakan fitur \textit{emoticon} untuk memberikan informasi teks sarkasme.
+\end{enumerate}
+\newpage

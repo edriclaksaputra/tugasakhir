@@ -1,0 +1,26 @@
+Bapak Irfin
+1. Konsisten menggunakan istilah Arsitektur Microservice atau Microservice Architecture (done)
+2. Langkah2 migrasi dari monolitik -> microservice perlu dijelaskan, dan apakah perlu masuk ke rumusan masalah. (done)
+3. Cohesion & coupling di RPL tradisional berbeda level / konteksnya dengan di microservice (done)
+4. Typo terlalu banyak. (done)
+
+Ibu Inge
+1. Latar belakang : 	- Desain arsitektur
+			- Langkah migrasi
+			- Bab 1 dipertajam (done)
+2. Jelaskan loosely coupled - cohesion (done)
+3. Ejaan, bullet (done)
+4. Keterangan gambar (done)
+5. Analisis modul dan database vs modul rs yg lama dilekaskan
+
+Ibu Ria
+1. Pendahuluan : - Teori persingkat (done)
+		 - Masalah + hipotesa masukan (done)
+2. Arsitektur baik & tidak baik
+3. Yang di rumusan masalah disinggung pada latar belakang (done)
+4. Batasan masalah cuman 1 (done)
+6. Judul
+7. Monolitik / microservice / Hybrid ?
+8. Gambar 3.2 terlalu kecil (done)
+9. Database coba analisis
+10. Dirty read, db problem (querry)

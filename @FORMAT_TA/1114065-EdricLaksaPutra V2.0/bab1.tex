@@ -1,0 +1,85 @@
+%-----------------------------------------------------------------------------%
+\chapter{PENDAHULUAN}
+%-----------------------------------------------------------------------------%
+
+\vspace{4.5pt}
+
+\section{Latar Belakang Masalah} \label{sec:latar_belakang}
+Sistem computer adalah interaksi dari perangkat lunak dan perangkat keras yang membentuk sebuah jaringan elektronik. Tugas dari sebuah sistem adalah menerima input, memproses data input, menyimpan data olahan, dan menampilkan output sebagai bentuk informasi. Dalam penerapannya, kita menyebut sistem aplikasi sebagai program komputer yang bertugas untuk menyelesaikan kebutuhan khusus. Terdapat beberapa tahapan umum dalam mengembangkan sistem aplikasi yaitu perencanaan, analisa, desain, pengembangan, testing, implementasi, dan pemeliharaan \cite{1}.  Tahap yang cukup penting dan akan menjadi fokus diskusi disini adalah desain dan pengembangan, yang dimana peran arsitektur perangkat lunak sangat berperan penting untuk menetapkan landasan dasar pengembangan aplikasi dari awal sampai selesai. Hasi dari arsitektur perangkat lunak merupakan struktur-struktur yang menjadikan landasan untuk menentukan keberadaan komponen-komponen perangkat lunak, cara komponen-komponen untuk saling berinteraksi dan organisasi komponen-komponen dalam membentuk perangkat lunak \cite{2}. Secara umum perangkat lunak bekerja untuk pengguna pada \textit{desktop browser, mobile browser}, dan aplikasi \textit{browser} lainnya. Aplikasi tersebut mungkin akan menggunakan API (\textit{Application Programming Interface}) sebagai pihak ke 3. Aplikasi juga dapat saling berintegrasi dengan aplikasi lain dengan menggunakan \textit{web service}. Aplikasi bekerja dengan menerima \textit{request} (HTTP \textit{request} dan pesan) dengan menjalankan logika perhitungan, mengakses database, bertukar pesan dengan sistem lain, dan mengembalikan  HTML/JSON/XML sebagai respon balikan \cite{4}.\\
+IEEE 803:1993 mengelompokkan kebutuhan non-fungsional ke dalam sejumlah kategori kualitas dari suatu perangkat lunak, yaitu: ketepatan (\textit{correctness}), \textit{robustness}, performa, ketersediaan dan kualitas antarmuka (\textit{interface}), keandalan (\textit{reability}), ketersediaan (\textit{availability}) \cite{8}. Ketika skala aplikasi masih kecil dan sedikit data yang digunakan, kebutuhan masih mudah untuk dipenuhi, namun ketika aplikasi semakin besar, akan terjadi masalah yang selain disebabkan oleh data yang banyak, namun juga oleh \textit{load} komputasi yang besar yang berasal dari \textit{multiple user} dari berbagai lokasi.\\
+Model arsitektur yang paling sering digunakan saat ini adalah model monolitik. Arsitektur monolitik merupakan arsitektur yang mudah dimengerti dan dimodifikasi karena lebih sederhana implementasinya. Arsitektur ini menggunakan kode sumber dan teknologi yang serupa untuk menjalankan semua tugas-tugasnya. Contoh yang dapat diambil adalah aplikasi Wordpress. Wordpress merupakan contoh yang mudah untuk menggambarkan sebuah aplikasi monolitik, dimana semua fitur seperti \textit{security}, performa, manajemen konten, statistik dan semuanya dibangun dengan menggunakan PHP dan database MySQL dalam kode yang sama \cite{5}. Secara garis besar keunggulan dari arsitektur monolitik dapat dirasakan apabila aplikasi ingin mudah untuk dikembangkan, mudah untuk di \textit{deploy}, dan dapat selalu dipantau pertumbuhan perfomanya \cite{5}.\\
+Namun apabila aplikasi semakin besar dan anggota tim semakin banyak, arsitektur monolitik akan menghadapi kekurangan yang semakin lama akan semakin signifikan. Pertama, ketika aplikasi semakin besar, barisan code monolitik akan menyulitkan \textit{developer} terutama yang baru bergabung bersama tim, aplikasi akan sulit dimengerti dan di modifikasi. Akibatnya pertumbuhan aplikasi akan melambat dan terlebih karena sulit dimengerti, kualitas kode akan semakin menurun. Kedua, semakin banyak code yang ditulis, maka akan semakin lambat IDE (\textit{Integrated Development Environment}) yang digunakan, semakin tidak produktif pula proses development yang dilakukan. Hal ini juga berpengaruh pada waktu yang dibutuhkan untuk menjalankan aplikasi pertama kali, serta menjadi semakin sulit untuk memodifikasi aplikasi. Seperti untuk mengubah sebuah komponen, \textit{developer} harus \textit{redeploy} keseluruhan aplikasi. Ketiga, akan sulit untuk membagi team secara fungsionalitas, seperti misalnya membagi tim akunting dan tim inventori. Kedua tim tersebut tidak dapat secara mandiri bekerja sendiri, karena hanya ada 1 aplikasi besar yang mengakibatkan adanya saling ketergantungan \cite{7}.\\
+Model arsitektur microservice adalah pattern alternatif yang dapat mengatasi keterbatasan dari arsitektur monolitik, model ini mulai muncul ke permukaan di tahun 2015 (Google trend). Menurut Thones, J. (2015) kebanyakan aplikasi mulai dari arsitektur monolitik, sampai hingga aplikasi itu sulit di kembangkan lagi, kemudian aplikasi dipecah menjadi model microservice, hal itu yang terjadi pada perusahaan besar seperti Netflix dan Amazon \cite{8}. Secara garis besar arsitektur microservice mendefinisikan struktur service yang lebih sempit dengan area fungsi yang saling berkaitan. Tiap servis saling berkomunikasi menggunakan protokol seperti HTTP dan setiap servis bisa mempunyai databasenya sendiri masing-masing. Arsitektur microservice mengubah servis aplikasi menjadi modul yang mandiri, kecil (dibandingkan monolitik), dan setiap servis berjalan sesuai dengan perannya masing-masing dan tidak saling ketergantungan \cite{6}. Dalam artikel yang dijelaskan oleh Chris Richardson, ada banyak pattern model dari arsitektur microservice, tergantung dari aplikasi yang akan dimigrasi.\\
+Dalam contoh kasus penelitian ini, peneliti akan menerapkan arsitektur microservice pada aplikasi monolitik rumah sakit Apertura. Aplikasi rumah sakit Apertura mengalami kendala dalam hal perawatan dan pengembangan lanjutan terhadap aplikasinya. Hal ini dapat dirasakan dengan banyaknya data yang semakin banyak dan sulit untuk dipelihara. Kasus lain apabila terjadi kegagalan hardware yang menyebabkan database tidak dapat diakses. Arsitektur aplikasi saat ini tidak dapat menunjang untuk mengatasi masalah tersebut, sehingga segala kegiatan yang berhubungan dengan database akan lumpuh total. Performa kecepatan yang menurun seiring dengan banyaknya \textit{actor} yang mengakses aplikasi yang disebabkan selain karena aplikasi yang terus membesar, juga karena data input dan kebutuhan tiap \textit{actor} yang semakin hari semakin banyak.\\
+Tujuan dari penelitian ini adalah menerapkan arsitektur microservice yang paling cocok untuk kasus aplikasi rumah sakit Apertura, menjelaskan bagaimana tahapan migrasi ke arsitektur microservice, menjelaskan bagaimana analisis yang baik agar dapat menentukan desain arsitektur microservice yang benar, serta membandingkan performa antara arsitektur microservice dan arsitektur monolitik dari segi kecepatan, beban hardware yang dibutuhkan, kemudahan pengembangan, \textit{high availability}, dan lain lain.
+
+\section{Rumusan Masalah}
+Berikut ini adalah rumusan masalah yang dibuat berdasarkan latar belakang di atas:
+\begin {enumerate}[nolistsep, leftmargin=0.5cm]
+\item Bagaimana menentukan pattern microservice dan desain arsitektur yang paling tepat/sesuai untuk aplikasi rumah sakit Apertura?
+\item Bagaimana melakukan migrasi dari arsitektur monolitik ke model arsitektur microservice?
+\item Bagaimana melakukan perbandingan performa yang dihasilkan dari arsitektur microservice yang baru terhadap arsitektur monolitik?
+\end{enumerate}
+
+\section{Batasan Masalah}
+Batasan masalah yang terdapat pada penelitian ini adalah penelitian berfokus pada proses rawat jalan dan tidak melibatkan rawat inap. 
+\begin{enumerate}[nolistsep,leftmargin=0.5cm]
+\item Penelitian berfokus pada proses rawat jalan dan tidak melibatkan rawat inap.
+\item Sebagian data pasien dan HR yang digunakan dalam penelitian bersifat tertutup karena menyangkut hal privasi dari rumah sakit Apertura.
+\item Fokus utama dari penelitian ini adalah berupa analisis perancangan arsitektur dan uji coba perbandingan performa yang dibuat dalam bentuk prototype. 
+\end{enumerate}
+
+\section{Tujuan Penelitian}
+Berdasarkan batasan masalah di atas, berikut ini adalah tujuan penelitian dari tugas akhir ini:
+\begin{enumerate}[nolistsep,leftmargin=0.5cm]
+\item Menentukan bagaimana tahap yang benar untuk melakukan migrasi dari arsitektur monolitik ke arsitektur microservice.
+\item Membandingkan apa saja kelebihan dan kekurangan dari arsitektur microservice dibandingkan dengan arsitektur monolitik.
+\item Mengetahui bagaimana analisa untuk membagi servis monolitik menjadi servis microservice yang lebih fokus dan padat.
+\end{enumerate}
+
+\section{Kontribusi Penelitian}
+Berikut ini adalah kontribusi penelitian yang diberikan pada pengembangan sistem analisis sentimen ini:
+\begin{enumerate}[nolistsep,leftmargin=0.5cm]
+\item Memberikan panduan untuk melakukan migrasi dari arsitektur konvensional ke arsitektur microservice.
+\item Memberikan hasil analisa perbandingan performa dari kedua jenis arsitektur.
+\end{enumerate}
+
+\section{Metode Penelitian}
+Tahapan-tahapan yang akan dilakukan dalam pelaksanaan penelitian ini adalah sebagai berikut:
+\begin{enumerate}[nolistsep,leftmargin=0.5cm]
+\item Analisis\\
+Melakukan studi literatur dan analisa melalui wawancara dengan pihak perancang aplikasi monolitik sebelumnya. Data juga dikumpulkan dari jurnal-jurnal, karya ilmiah, dan situs yang memberikan informasi yang menunjang mengenai konsep arsitektur microservice dan tahap-tahap implementasi pada aplikasi monolitik.
+\item Identifikasi\\
+Melakukan identifikasi mengenai target-target yang ingin dicapai setelah menerapkan arsitektur baru. Identifikasi ini berguna untuk menentukan perbandingan apa saja yang akan diperhatikan antara arsitektur microservice dan arsitektur monolitik ketika pengujian dilakukan.
+\item Perancangan\\
+Perancangan arsitektur microservice meliputi perancangan model dasar (proses bisnis), perancangan sistem basis data, perancangan kelas service yang baru dengan konsep microservice, juga perancangan jalur komunikasi dan pertukaran data antara kelas-kelas service yang akan dibuat.
+\item Implementasi\\
+Melakukan implementasi hasil perancangan dalam bentuk web service application (server side). Selanjutnya dibuat aplikasi client sederhana untuk input data dan pengujian performa dari arsitektur server yang telah dibuat.
+\item Pengujian\\
+Melakukan pengujian terhadap rancangan aplikasi microservice yang baru dan aplikasi monolitik dengan menggunakan data rumah sakit untuk mengetahui hasil kinerja dan perbandingan performa antara kedua jenis arsitektur.
+\end{enumerate}
+
+\section{Sistematika Penulisan}
+Pada penelitian ini peneliti menyusun berdasarkan sistematika penulisan sebagai berikut: \\[0.5cm]
+\noindent \textbf{BAB I \hspace{1cm} PENDAHULUAN}
+\begin{addmargin}[2.35cm]{0em}
+Berisi penjelasan mengenai latar belakang, rumusan masalah, batasan masalah, tujuan penelitian, manfaat penelitian, metodologi penelitian, dan sistematika penulisan laporan penelitian. 
+\end{addmargin}
+\noindent \textbf{BAB II \hspace{0.8cm} LANDASAN TEORI}
+\begin{addmargin}[2.35cm]{0em}
+Membahas tentang definisi dari arsitektur microservice, teori-teori pendukung, dan metode penerapan arsitektur baru yang akan dijadikan landasan dan dipelajari serta dirangkum dari berbagai sumber, seperti buku, karya tulis, jurnal, artikel dari situs ilmiah. Juga pembahasan sekilas mengenai arsitektur konvensional yang digunakan sebelumnya.
+\end{addmargin}
+\noindent \textbf{BAB III \hspace{0.7cm} ANALISIS DAN PERANCANGAN}
+\begin{addmargin}[2.35cm]{0em}
+Berisi analisa mengenai bagaimana konsep penerapan arsitektur microservice pada aplikasi rumah sakit dan modul-modul apa saja yang akan di migrasi menjadi modul baru untuk diimplementasikan pada tahap selanjutnya. Selanjutnya membahas perancangan aplikasi dari hasil analisa dengan menggunakan arsitektur microservice yang baru.
+\end{addmargin}
+\noindent \textbf{BAB IV \hspace{0.7cm} IMPLEMENTASI DAN PENGUJIAN}
+\begin{addmargin}[2.35cm]{0em}
+Berisi implementasi dari hasil perancangan aplikasi dalam bentuk perangkat lunak menggunakan teknologi \textit{web service}. Selanjutnya perangkat lunak diuji fungsi dan performanya dari sisi \textit{client} (pengguna).
+\end{addmargin}
+\noindent \textbf{BAB V \hspace{0.8cm} KESIMPULAN DAN SARAN}
+\begin{addmargin}[2.35cm]{0em}
+Memberikan kesimpulan berdasarkan hasil analisis, perancangan, implementasi dan pengujian, serta evaluasi yang dilakukan, juga saran-saran yang dibutuhkan untuk pengembangan lebih lanjut.
+\end{addmargin}
+
+\newpage
