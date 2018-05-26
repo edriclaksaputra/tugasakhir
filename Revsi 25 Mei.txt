@@ -1,0 +1,17 @@
+Employee
+(+) getEmployee(String name)
+
+(+) Untuk userCredential tidak disediakan menjadi service sendiri, namun gabung ke dalam
+service HR
+
+Customer
+(+) getCustomer(String name, int startOfSet, int max)
+
+Di finalkan dalam tiap service kelas apa saja penyusunnya
+
+Jelaskan dan paparkan kelas2 yg mengalami relokasi (berpindah temapat) modul,
+ketika masih di program lama dibandingkan dengan rancangan baru beserta alasan2nya.
+
+MRMasterRecord
+MRExamination
+MRExamResult
