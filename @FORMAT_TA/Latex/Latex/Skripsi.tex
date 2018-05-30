@@ -1,0 +1,154 @@
+% Tipe dokumen adalah report dengan satu kolom. 
+% Menggatur setting halaman 
+\documentclass[12pt, a4paper, onecolumn, oneside, final]{report}
+
+% Load konfigurasi LaTeX untuk tipe laporan thesis
+\usepackage{if_ithb}
+\usepackage[shortlabels]{enumitem}
+\usepackage{multirow}
+\usepackage{adjustbox}
+\usepackage{longtable}
+\usepackage{float}
+\usepackage{amsmath}
+\usepackage{hhline}% http://ctan.org/pkg/hhline
+\usepackage{makecell}
+\usepackage{xcolor,colortbl}
+
+% Daftar pemenggalan suku kata dan istilah dalam LaTeX
+\include{hype.indonesia}
+
+% Variabel baru untuk menyimpan nomor halaman
+\newcounter{originalpagenumber}%
+\setcounter{tocdepth}{3}
+
+% Awal bagian penulisan laporan
+\begin{document}
+
+% Sampul Laporan
+\include{sampul}
+
+% Daftar isi, gambar, dan tabel
+% Gunakan penomeran Romawi (i, ii, iii, ...) setelah bagian ini.
+% Daftar isi, gambar, dan tabel
+% Gunakan penomeran Romawi (i, ii, iii, ...) setelah bagian ini.
+\newgeometry{
+	left=3cm,            % <-- you want to adjust this
+	top=2cm,
+	right=2cm,
+	bottom=2cm,
+}
+\newcounter{savepage}
+\pagenumbering{roman}
+
+% Lembar Pengesahan
+\phantomsection \addcontentsline{toc}{chapter}{LEMBAR PENGESAHAN}
+\include{lembar_pengesahan}
+
+% Lembar Pernyataan Pribadi
+\phantomsection \addcontentsline{toc}{chapter}{LEMBAR PERNYATAAN HASIL KARYA PRIBADI}
+\include{karya_pribadi}
+
+% Lembar Abstrak
+\phantomsection \addcontentsline{toc}{chapter}{ABSTRAK}
+\include{abstrak}
+
+% Lembar Abstract
+\phantomsection \addcontentsline{toc}{chapter}{ABSTRACT}
+\include{abstract}
+ 
+% Lembar Pedoman
+\phantomsection \addcontentsline{toc}{chapter}{PEDOMAN PENGGUNAAN TUGAS AKHIR}
+\include{pedoman}
+
+% Kata Pengantar
+\phantomsection \addcontentsline{toc}{chapter}{KATA PENGANTAR}
+\include{kata_pengantar}
+
+\vspace*{-2.5cm}
+\tableofcontents
+\phantomsection
+\addcontentsline{toc}{chapter}{DAFTAR ISI}
+\clearpage
+\vspace*{-2.5cm}
+\listoftables
+\phantomsection
+\addcontentsline{toc}{chapter}{DAFTAR TABEL}
+\clearpage
+\vspace*{-2.5cm}
+\listoffigures
+\phantomsection
+\addcontentsline{toc}{chapter}{DAFTAR GAMBAR}
+\clearpage
+
+\setcounter{savepage}{\arabic{page}}
+\makeatletter
+\def\MyPagenumbering#1{%
+	\global\c@page \@ne \gdef\thepage{\arabic{chapter}-\csname @#1\endcsname
+		\c@page}}
+\makeatother
+\pagestyle{fancy}
+\renewcommand{\chaptermark}[1]{%
+	\markboth{\thechapter.\ #1}{}}
+
+\fancyhf{}
+% Gunakan penomeran Arab (1, 2, 3, ...) setelah bagian ini.
+\MyPagenumbering{arabic}
+
+% Untuk mengatur posisi pagenumber
+%\pagestyle{plain}
+
+\lhead{\leftmark}
+\renewcommand{\headrulewidth}{1pt}
+
+\fancypagestyle{plain}{%
+	\renewcommand{\headrulewidth}{0pt}%
+	\fancyhf{}%
+	\fancyfoot[R]{\arabic{chapter}-1}%
+}
+
+\onehalfspacing
+\setcounter{page}{1}
+\rfoot{\arabic{chapter}-\arabic{page}}
+\include{bab1}
+\setcounter{page}{1}
+\include{bab2}
+\setcounter{page}{1}
+\include{bab3}
+\setcounter{page}{1}
+\include{bab4}
+\setcounter{page}{1}
+\include{bab5}
+
+\pagenumbering{roman}
+\setcounter{page}{\thesavepage}
+\fancypagestyle{plain}{%
+	\renewcommand{\headrulewidth}{0pt}%
+	\fancyhf{}%
+	\fancyfoot[R]{\thepage}%
+}
+% Merubah Nama Bibliografi ke Daftar Pustaka
+\renewcommand{\bibname}{DAFTAR PUSTAKA}
+\phantomsection
+\addcontentsline{toc}{chapter}{DAFTAR PUSTAKA}
+% Daftar Pustaka
+\include{pustaka}
+
+%
+% Lampiran 
+%
+
+\setcounter{originalpagenumber}{\number\value{page}}%
+\setcounter{page}{0}
+\pagenumbering{arabic}
+
+\onehalfspacing
+\begin{appendix}
+	\include{Lampiran}
+\end{appendix}
+
+\pagenumbering{arabic}% 
+\setcounter{page}{\number\value{originalpagenumber}}
+\clearpage
+\phantomsection \addcontentsline{toc}{chapter}{LAMPIRAN}
+
+\end{document}

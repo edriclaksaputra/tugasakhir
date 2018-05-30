@@ -3,7 +3,6 @@
 %-----------------------------------------------------------------------------%
 
 %
-
 \vspace{4.5pt}
 Pada bab ini akan menjelaskan tentang pengimplementasian dan pengujian terhadap analisis sentimen yang telah dibangun berdasarkan bab-bab sebelumnya.
 \section{Lingkungan Aplikasi}
@@ -18,14 +17,30 @@ Spesifikasi perangkat lunak yang digunakan untuk pengembangan sistem adalah:
 \begin{enumerate}[leftmargin=*]
 	\item Sistem Operasi\quad\quad\quad\,: Windows 10 Enterprise 1709 64-bit.
 	\item Tool Pengembangan\quad: Eclipse Java EE IDE for Web Developers.
-	\item Versi\quad\quad\quad\quad\quad\quad\,: Neon.3 Release (4.6.3).
+	\item Versi\quad\quad\quad\quad\quad\quad\quad\,: Neon.3 Release (4.6.3).
 \end{enumerate}
 
 \section{Daftar \textit{Project}, \textit{Class} dan \textit{Method}}
-Pada bagian ini akan dijelaskan mengenai \textit{Project}, \textit{class} dan \textit{method} yang digunakan dalam pengembangan sistem analisis sentimen
+Pada bagian ini akan dijelaskan mengenai \textit{Project}, \textit{class} dan \textit{method} yang digunakan dalam pengembangan sistem analisis.
 \subsection{\textit{Project} Customer}
-\textit{Project Customer} berisi susunan \textit{class} pembentuk \textit{webservice customer}. Pada bagian ini akan dijelaskan mengenai \textit{class} dan \textit{method} yang digunakan pada pengembangan \textit{ webservice customer}:
-\subsubsection{\textit{Class} CustomerController}
+\textit{Project Customer} berisi susunan \textit{class} pembentuk \textit{webservice customer}. Dalam project ini terdapat 4 buah \textit{package} yang berfungsi untuk memisahkan \textit{class} sesuai dengan fungsinya masing-masing. Ke empat \textit{package} ini yaitu \textit{package} controller yang berisi method-method yang dijalankan pada \textit{web service}, \textit{package} model yang berisi entitas dan tabel, \textit{package} repository yang menghubungkan entitas di \textit{package} model dengan database, dan \textit{package} service yang menginisialisasi \textit{webservice} yang akan terbentuk. Pada bagian ini akan dijelaskan mengenai \textit{class} dan \textit{method} yang digunakan pada pengembangan \textit{ webservice customer}:
+\subsubsection{\textit{Package} Controller}
+\textit{Package} controller berisi method API yang dapat digunakan untuk berkomunikasi dengan \textit{service} customer. \textit{Class} yang terdapat dalam \textit{package} ini adalah \textit{class} CustomerController dan CustomergroupController yang berisi 5 buah fungsi API. Di bawah ini merupakan daftar \textit{class} untuk \textit{package} controller pada \textit{webservice} customer.
+\begin{table}[H]
+	\small
+	\centering
+	\caption{Daftar {\itshape Class} pada {\itshape Package} Controller}
+	\begin{adjustbox}{width=1\textwidth}
+		\begin{tabular}{| p {3 cm} | p {8 cm} | p {3 cm} |}
+			\hline
+			{\bfseries Package} & {\bfseries Class} & {\bfseries Jenis Class} \\
+			\hline
+			\multirow{2}{*}{Controller} & CustomerController & {\itshape Class} \\
+			& CustomergroupController & {\itshape Class} \\
+			\hline
+		\end{tabular}
+	\end{adjustbox}
+\end{table}
 \begin{table}[H]
 	\caption{Daftar \textit{Method} pada \textit{Class} CustomerController}
 	\centering
@@ -38,1480 +53,2233 @@ Pada bagian ini akan dijelaskan mengenai \textit{Project}, \textit{class} dan \t
 		\cline{3-4}
 		& & \textbf{Tipe} & \textbf{Variabel} & & \\
 		\hline
-		1 & addEmployee & Customer & customer & customer, HttpStatus & \textit{Method} ini digunakan untuk membuat \textit{object} customer yang baru melalui \textit{webservice}\\
+		1 & addCustomer & void & Customer & Customer, HttpStatus & \textit{Method} ini digunakan untuk membuat \textit{object} customer yang baru melalui \textit{webservice}\\
 		\hline
-		2 & updateEmployee & Customer & customer & HttpStatus & \textit{Method} ini digunakan untuk membuat \textit{object} customer yang baru melalui \textit{webservice}\\
+		2 & updateCustomer & void & Customer & HttpStatus & \textit{Method} ini digunakan untuk mengubah attribut dari \textit{object} customer yang baru melalui \textit{webservice}\\
 		\hline
-		3 & getEmployee & Customer & customer & customer, HttpStatus & \textit{Method} ini digunakan untuk membuat \textit{object} customer yang baru melalui \textit{webservice}\\
-		\hline
-		4 & getAllEmployee & Customer & customer & customer, HttpStatus & \textit{Method} ini digunakan untuk membuat \textit{object} customer yang baru melalui \textit{webservice}\\
-		\hline
-		5 & deleteEmployee & Customer & customer & customer, HttpStatus & \textit{Method} ini digunakan untuk membuat \textit{object} customer yang baru melalui \textit{webservice}\\
+		3 & getCustomer & void & id & Customer, HttpStatus & \textit{Method} ini digunakan untuk mengambil satu \textit{object} customer yang baru melalui \textit{webservice}\\
 		\hline
 	\end{tabular}
 	\end{adjustbox}
 \end{table}
-\subsection{\textit{Class} Preprocessing}
-\textit{Class} preprocessing merupakan \textit{class} yang digunakan untuk meminimalisir kata, mengurangi bahasa yang non-formal, dan menghapus huruf ataupun tanda baca yang tidak digunakan. Berikut ini adalah daftar \textit{method }pada \textit{class} preprocessing:
-
 \begin{table}[H]
-	\caption{Daftar \textit{Method} pada \textit{Class} Preprocessing}
 	\centering
 	\small
 	\begin{adjustbox}{width=1\textwidth}	
+		\begin{tabular}{|p{0.4cm}|p{2.5cm}|p{1cm}|p{1.1cm}|p{3.4cm}|p{3cm}|}
+			\hline
+			4 & getAllCustomer & void & - & $<$List$<$Customer$>$$>$, HttpStatus & \textit{Method} ini digunakan untuk mengambil semua \textit{list} \textit{object} customer yang baru melalui \textit{webservice}\\
+			\hline
+			5 & deleteCustomer & void & id &HttpStatus & \textit{Method} ini digunakan untuk menghapus satu \textit{object} customer yang baru melalui \textit{webservice}\\
+			\hline
+		\end{tabular}
+	\end{adjustbox}
+\end{table}
+\begin{table}[H]
+	\caption{Daftar \textit{Method} pada \textit{Class} CustomergroupController}
+	\centering
+	\small
+	\begin{adjustbox}{width=1\textwidth}	
+		\begin{tabular}{|p{0.4cm}|p{3.5cm}|p{1.4cm}|p{1.7cm}|p{1.55cm}|p{3cm}|}
+			\hline
+			\multirow{2}{*}{\textbf{No}} & \multirow{2}{*}{\textit{\textbf{Method}}} & \multicolumn{2}{c|}{\textit{\textbf{Input}}} & \multirow{2}{*}{\textit{\textbf{Output}}} & 
+			\multirow{2}{*}{\textbf{Keterangan}}\\
+			\cline{3-4}
+			& & \textbf{Tipe} & \textbf{Variabel} & & \\
+			\hline
+			1 & addCustomerGroup & Customer & customer & customer, HttpStatus & \textit{Method} ini digunakan untuk membuat \textit{object} CustomerGroup yang baru melalui \textit{webservice}\\
+			\hline
+			2 & updateCustomerGroup & Customer & customer & HttpStatus & \textit{Method} ini digunakan untuk mengubah attribut dari \textit{object} CustomerGroup yang baru melalui \textit{webservice}\\
+			\hline
+			3 & getCustomerGroup & Customer & customer & customer, HttpStatus & \textit{Method} ini digunakan untuk mengambil satu \textit{object} CustomerGroup yang baru melalui \textit{webservice}\\
+			\hline
+			4 & getAllCustomerGroup & Customer & customer & customer, HttpStatus & \textit{Method} ini digunakan untuk mengambil semua \textit{list} \textit{object} CustomerGroup yang baru melalui \textit{webservice}\\
+			\hline
+		\end{tabular}
+	\end{adjustbox}
+\end{table}
+\begin{table}[H]
+	\centering
+	\small
+	\begin{adjustbox}{width=1\textwidth}	
+		\begin{tabular}{|p{0.4cm}|p{3.5cm}|p{1.4cm}|p{1.7cm}|p{1.55cm}|p{3cm}|}
+			\hline
+			5 & deleteCustomerGroup & Customer & customer & customer, HttpStatus & \textit{Method} ini digunakan untuk menghapus satu \textit{object} CustomerGroup yang baru melalui \textit{webservice}\\
+			\hline
+		\end{tabular}
+	\end{adjustbox}
+\end{table}
+\subsubsection{\textit{Package} Model Customer}
+\textit{Package} customer model berisi entitas-entitas penyusun dari \textit{service} customer. Berikut ini merupakan daftar \textit{class} untuk \textit{package} model.
+\begin{table}[H]
+	\small
+	\centering
+	\caption{Daftar {\itshape Class} pada {\itshape Package} model}
+	\begin{adjustbox}{width=1\textwidth}
+		\begin{tabular}{| p {3 cm} | p {8 cm} | p {3 cm} |}
+			\hline
+			{\bfseries Package} & {\bfseries Class} & {\bfseries Jenis Class} \\
+			\hline
+			\multirow{13}{*}{Model} & Regency & {\itshape Class} \\
+			& AddressType & {\itshape Class} \\
+			& Contact & {\itshape Class} \\
+			& ContactAddress & {\itshape Class} \\
+			& ContactEducation & {\itshape Class} \\
+			& Country & {\itshape Class} \\
+			& Customer & {\itshape Class} \\
+			& Customergroup & {\itshape Class} \\
+			& HealthConsumer & {\itshape Class} \\
+			& Insurance & {\itshape Class} \\
+			& InsuranceBridgeConf & {\itshape Class} \\
+			& Profession & {\itshape Class} \\
+			& Province & {\itshape Class} \\
+			\hline
+		\end{tabular}
+	\end{adjustbox}
+\end{table}
+\begin{table}[H]
+	\caption{Daftar attribut pada \textit{Class} Customer}
+	\centering
+	\small
+	\begin{adjustbox}{width=1\textwidth}	
+		\begin{tabular}{|p{4cm} p{2.1cm} p{3cm} p{3.1cm}|}
+			\hline
+			\multicolumn{2}{|l}{\textbf{Variabel:}}&\multicolumn{2}{l|}{\textbf{Variabel:}}\\
+			boolean&cust\_no&Date&registrationdate\\
+			boolean&active&int&idPriceLevel\\
+			double&creditlimit&double&disc\\
+			Customergroup&customergroup&&\\
+			\hline
+		\end{tabular}
+	\end{adjustbox}
+\end{table}
+
+\begin{table}[H]
+	\caption{Daftar attribut pada \textit{Class} Customergroup}
+	\centering
+	\small
+	\begin{adjustbox}{width=1\textwidth}	
+		\begin{tabular}{|p{4cm} p{2.1cm} p{3cm} p{3.1cm}|}
+			\hline
+			\multicolumn{2}{|l}{\textbf{Variabel:}}&\multicolumn{2}{l|}{}\\
+			long&systemid&&\\
+			String&groupname&&\\
+			String&memo&&\\
+			\hline
+		\end{tabular}
+	\end{adjustbox}
+\end{table}
+
+\begin{table}[H]
+	\caption{Daftar attribut pada \textit{Class} Contact}
+	\centering
+	\small
+	\begin{adjustbox}{width=1\textwidth}	
+		\begin{tabular}{|p{2cm} p{2.1cm} p{5cm} p{3.1cm}|}
+			\hline
+			\multicolumn{2}{|l}{\textbf{Variabel:}}&\multicolumn{2}{l|}{\textbf{Variabel:}}\\
+			long&systemid&String&initial\\
+			String&lastname&int&amountofchildren\\
+			int&maritalstatus&List$<$ContactAddress$>$&arrAddress\\
+			String&middlename&Collection$<$ContactEducation$>$&arrEdu\\
+			Date&birthday&String&notes\\
+			String&birthplace&String&officeext\\
+			String&bloodtype&String&passportid\\
+			double&bodyheight&byte[]&photo\\
+			double&bodyweight&String&prefixtitle\\
+			String&citizenid&String&sms\\
+			String&citizentype&String&suffixtitle\\
+			Country&citizenship&Date&sys\_createdate\\
+			String&email&String&sys\_creator\\
+			String&firstname&Date&sys\_lastupdate\\
+			int&gender&String&sys\_lastupdater\\
+			String&homephone&String&taxid\\
+			String&messaging&String&web\\
+			\hline
+		\end{tabular}
+	\end{adjustbox}
+\end{table}
+\begin{table}[H]
+	\caption{Daftar attribut pada \textit{Class} Contact Address}
+	\centering
+	\small
+	\begin{adjustbox}{width=1\textwidth}	
+		\begin{tabular}{|p{4cm} p{2.1cm} p{3cm} p{3.1cm}|}
+			\hline
+			\multicolumn{2}{|l}{\textbf{Variabel:}}&\multicolumn{2}{l|}{\textbf{Variabel:}}\\
+			Long&systemid&String&postcode\\
+			AddressType&addresstype&Regency&regency\\
+			String&street&boolean&asbillingaddress\\
+			String&fax&Date&sys\_createdate\\
+			Contact&owner&String&sys\_creator\\
+			String&phone&Date&sys\_lastupdate\\
+			String&sys\_lastupdater&&\\
+			\hline
+		\end{tabular}
+	\end{adjustbox}
+\end{table}
+\begin{table}[H]
+	\caption{Daftar attribut pada \textit{Class} Address Type}
+	\centering
+	\small
+	\begin{adjustbox}{width=1\textwidth}	
+		\begin{tabular}{|p{4cm} p{2.1cm} p{3cm} p{3.1cm}|}
+			\hline
+			\multicolumn{2}{|l}{\textbf{Variabel:}}&\multicolumn{2}{l|}{\textbf{}}\\
+			Integer&systemid&&\\
+			String&memo&&\\
+			String&typename&&\\
+			\hline
+		\end{tabular}
+	\end{adjustbox}
+\end{table}
+\begin{table}[H]
+	\caption{Daftar attribut pada \textit{Class} Contact Education}
+	\centering
+	\small
+	\begin{adjustbox}{width=1\textwidth}	
+		\begin{tabular}{|p{3cm} p{3.1cm} p{3cm} p{3.1cm}|}
+			\hline
+			\multicolumn{2}{|l}{\textbf{Variabel:}}&\multicolumn{2}{l|}{\textbf{\textbf{Variabel:}}}\\
+			Date&finishrolling&Contact&owner\\
+			String&gpa&String&sponsors\\
+			int&grade&Date&startrolling\\
+			String&institutionaladdress&Date&sys\_createdate\\
+			String&institutionname&int&sys\_creator\\
+			String&major&Date&sys\_lastupdate\\
+			String&notes&int&sys\_lastupdater\\
+			\hline
+		\end{tabular}
+	\end{adjustbox}
+\end{table}
+\begin{table}[H]
+	\caption{Daftar attribut pada \textit{Class} Country}
+	\centering
+	\small
+	\begin{adjustbox}{width=1\textwidth}	
+		\begin{tabular}{|p{4cm} p{2.1cm} p{3cm} p{3.1cm}|}
+			\hline
+			\multicolumn{2}{|l}{\textbf{Variabel:}}&\multicolumn{2}{l|}{\textbf{}}\\
+			Long&systemid&&\\
+			String&name&&\\
+			\hline
+		\end{tabular}
+	\end{adjustbox}
+\end{table}
+\begin{table}[H]
+	\caption{Daftar attribut pada \textit{Class} HealthConsumer}
+	\centering
+	\small
+	\begin{adjustbox}{width=1\textwidth}	
+		\begin{tabular}{|p{4cm} p{2.1cm} p{3cm} p{3.1cm}|}
+			\hline
+			\multicolumn{2}{|l}{\textbf{Variabel:}}&\multicolumn{2}{l|}{\textbf{}}\\
+			String&regis\_no&&\\
+			Profession&id\_prof&&\\
+			Insurance&insurance&&\\
+			String&insurance\_type&&\\
+			String&insurance\_no&&\\
+			String&insurance\_prg&&\\
+			\hline
+		\end{tabular}
+	\end{adjustbox}
+\end{table}
+\begin{table}[H]
+	\caption{Daftar attribut pada \textit{Class} Insurance}
+	\centering
+	\small
+	\begin{adjustbox}{width=1\textwidth}	
+		\begin{tabular}{|p{5cm} p{3.1cm} p{2cm} p{2.1cm}|}
+			\hline
+			\multicolumn{2}{|l}{\textbf{Variabel:}}&\multicolumn{2}{l|}{\textbf{}}\\
+			List$<$InsuranceBridgeConf$>$&insuranceBrigdeConfList&&\\
+			int&systemid&&\\
+			String&insurance&&\\
+			String&memo&&\\
+			boolean&active&&\\
+			boolean&sysbuiltin&&\\
+			\hline
+		\end{tabular}
+	\end{adjustbox}
+\end{table}
+\begin{table}[H]
+	\caption{Daftar attribut pada \textit{Class} InsuranceBridgeConf}
+	\centering
+	\small
+	\begin{adjustbox}{width=1\textwidth}	
+		\begin{tabular}{|p{5cm} p{3.1cm} p{2cm} p{2.1cm}|}
+			\hline
+			\multicolumn{2}{|l}{\textbf{Variabel:}}&\multicolumn{2}{l|}{\textbf{}}\\
+			Long&systemid&&\\
+			String&field&&\\
+			String&def\_val&&\\
+			String&memo&&\\
+			\hline
+		\end{tabular}
+	\end{adjustbox}
+\end{table}
+\begin{table}[H]
+	\caption{Daftar attribut pada \textit{Class} Profession}
+	\centering
+	\small
+	\begin{adjustbox}{width=1\textwidth}	
+		\begin{tabular}{|p{5cm} p{3.1cm} p{2cm} p{2.1cm}|}
+			\hline
+			\multicolumn{2}{|l}{\textbf{Variabel:}}&\multicolumn{2}{l|}{\textbf{}}\\
+			Integer&systemid&&\\
+			String&profname&&\\
+			String&memo&&\\
+			Calendar&sys\_createdate&&\\
+			Calendar&last\_createdate&&\\
+			\hline
+		\end{tabular}
+	\end{adjustbox}
+\end{table}
+\begin{table}[H]
+	\caption{Daftar attribut pada \textit{Class} Province}
+	\centering
+	\small
+	\begin{adjustbox}{width=1\textwidth}	
+		\begin{tabular}{|p{5cm} p{3.1cm} p{2cm} p{2.1cm}|}
+			\hline
+			\multicolumn{2}{|l}{\textbf{Variabel:}}&\multicolumn{2}{l|}{\textbf{}}\\
+			Long&systemid&&\\
+			Country&countryCode&&\\
+			String&name&&\\
+			Set$<$Regency$>$&regencySet&&\\
+			\hline
+		\end{tabular}
+	\end{adjustbox}
+\end{table}
+\begin{table}[H]
+	\caption{Daftar attribut pada \textit{Class} Regency}
+	\centering
+	\small
+	\begin{adjustbox}{width=1\textwidth}	
+		\begin{tabular}{|p{5cm} p{3.1cm} p{2cm} p{2.1cm}|}
+			\hline
+			\multicolumn{2}{|l}{\textbf{Variabel:}}&\multicolumn{2}{l|}{\textbf{}}\\
+			Long&systemid&&\\
+			Province&provId&&\\
+			String&name&&\\
+			\hline
+		\end{tabular}
+	\end{adjustbox}
+\end{table}
+\subsubsection{\textit{Package} Repository}
+\textit{Package} repository berisi \textit{class-class} yang menjadi representasi model dari tabel-tabel yang berada pada basis data. Berikut ini merupakan \textit{class-class} yang terdapat pada \textit{package} repository.
+\begin{table}[H]
+	\small
+	\centering
+	\caption{Daftar {\itshape Class} pada {\itshape Package} repository}
+	\begin{adjustbox}{width=1\textwidth}
+		\begin{tabular}{| p {3 cm} | p {8 cm} | p {3 cm} |}
+			\hline
+			{\bfseries Package} & {\bfseries Class} & {\bfseries Jenis Class} \\
+			\hline
+			\multirow{2}{*}{repository} & CustomerRepository & {\itshape Interface} \\
+			& CustomergroupRepository & {\itshape Interface} \\
+			\hline
+		\end{tabular}
+	\end{adjustbox}
+\end{table}
+\subsubsection{\textit{Package} Service}
+\textit{Package} service berisi \textit{class-class} yang menginisialisasi \textit{web service} customer yang akan terbentuk dan digunakan pada \textit{package} controller. Berikut ini merupakan \textit{class-class} yang terdapat pada \textit{package} service.
+\begin{table}[H]
+	\small
+	\centering
+	\caption{Daftar {\itshape Class} pada {\itshape Package} serviec}
+	\begin{adjustbox}{width=1\textwidth}
+		\begin{tabular}{| p {3 cm} | p {8 cm} | p {3 cm} |}
+			\hline
+			{\bfseries Package} & {\bfseries Class} & {\bfseries Jenis Class} \\
+			\hline
+			\multirow{5}{*}{service} & CRUDService & {\itshape Interface} \\
+			& CustomergroupService & {\itshape Interface} \\
+			& CustomerService & {\itshape Interface} \\
+			& DefaultCustomergroupService & {\itshape Class} \\
+			& DefaultCustomerService & {\itshape Class} \\
+			\hline
+		\end{tabular}
+	\end{adjustbox}
+\end{table}
+\subsection{\textit{Project} \textit{Human Resource}}
+\textit{Project Human Resource} berisi susunan \textit{class} pembentuk \textit{webservice Human Resource}. Dalam project ini terdapat 4 buah \textit{package} yang berfungsi untuk memisahkan \textit{class} sesuai dengan fungsinya masing-masing. Ke empat \textit{package} ini yaitu \textit{package} controller yang berisi method-method yang dijalankan pada \textit{web service}, \textit{package} model yang berisi entitas dan tabel, \textit{package} repository yang menghubungkan entitas di \textit{package} model dengan database, dan \textit{package} service yang menginisialisasi \textit{webserviec} yang akan terbentuk. Pada bagian ini akan dijelaskan mengenai \textit{class} dan \textit{method} yang digunakan pada pengembangan \textit{ webservice customer}:
+\subsubsection{\textit{Package} Controller}
+\textit{Package} controller berisi method API yang dapat digunakan untuk berkomunikasi dengan \textit{service} Human Resource. \textit{Class} yang terdapat dalam \textit{package} ini adalah \textit{class} EmployeeController dan JobSpecialityController yang berisi 5 buah fungsi API. Di bawah ini merupakan daftar \textit{class} untuk \textit{package} controller pada \textit{webservice} \textit{Human Resource}.
+\begin{table}[H]
+	\small
+	\centering
+	\caption{Daftar {\itshape Class} pada {\itshape Package} Controller}
+	\begin{adjustbox}{width=1\textwidth}
+		\begin{tabular}{| p {3 cm} | p {8 cm} | p {3 cm} |}
+			\hline
+			{\bfseries Package} & {\bfseries Class} & {\bfseries Jenis Class} \\
+			\hline
+			\multirow{2}{*}{Controller} & EmployeeController & {\itshape Class} \\
+			& JobspecialityController & {\itshape Class} \\
+			\hline
+		\end{tabular}
+	\end{adjustbox}
+\end{table}
+\begin{table}[H]
+	\caption{Daftar \textit{Method} pada \textit{Class} EmployeeController}
+	\centering
+	\small
+	\begin{adjustbox}{width=1\textwidth}	
+		\begin{tabular}{|p{0.4cm}|p{2.5cm}|p{0.9cm}|p{1.5cm}|p{3.4cm}|p{2.5cm}|}
+			\hline
+			\multirow{2}{*}{\textbf{No}} & \multirow{2}{*}{\textit{\textbf{Method}}} & \multicolumn{2}{c|}{\textit{\textbf{Input}}} & \multirow{2}{*}{\textit{\textbf{Output}}} & 
+			\multirow{2}{*}{\textbf{Keterangan}}\\
+			\cline{3-4}
+			& & \textbf{Tipe} & \textbf{Variabel} & & \\
+			\hline
+			1 & addEmployee & void & Employee & Employee, HttpStatus & \textit{Method} ini digunakan untuk membuat \textit{object} employee yang baru melalui \textit{webservice}\\
+			\hline
+			2 & updateEmployee & void & Employee & HttpStatus & \textit{Method} ini digunakan untuk mengubah attribut dari \textit{object} employee yang baru melalui \textit{webservice}\\
+			\hline
+			3 & getEmployee & void & id & Employee, HttpStatus & \textit{Method} ini digunakan untuk mengambil satu \textit{object} employee yang baru melalui \textit{webservice}\\
+			\hline
+			4 & getAllEmployees & void & - & $<$List$<$Employee$>$$>$, HttpStatus & \textit{Method} ini digunakan untuk mengambil semua \textit{list} \textit{object} employee yang baru melalui \textit{webservice}\\
+			\hline
+		\end{tabular}
+	\end{adjustbox}
+\end{table}
+\begin{table}[H]
+	\centering
+	\small
+	\begin{adjustbox}{width=1\textwidth}	
+		\begin{tabular}{|p{0.4cm}|p{2.5cm}|p{0.9cm}|p{1.5cm}|p{3.4cm}|p{2.5cm}|}
+			\hline
+			5 & deleteEmployee & void & id & HttpStatus & \textit{Method} ini digunakan untuk menghapus satu \textit{object} employee yang baru melalui \textit{webservice}\\
+			\hline
+		\end{tabular}
+	\end{adjustbox}
+\end{table}
+\begin{table}[H]
+	\caption{Daftar \textit{Method} pada \textit{Class} JobspecialityController}
+	\centering
+	\small
+	\begin{adjustbox}{width=1\textwidth}	
+		\begin{tabular}{|p{0.4cm}|p{3.2cm}|p{0.8cm}|p{1.9cm}|p{2.85cm}|p{2.4cm}|}
+			\hline
+			\multirow{2}{*}{\textbf{No}} & \multirow{2}{*}{\textit{\textbf{Method}}} & \multicolumn{2}{c|}{\textit{\textbf{Input}}} & \multirow{2}{*}{\textit{\textbf{Output}}} & 
+			\multirow{2}{*}{\textbf{Keterangan}}\\
+			\cline{3-4}
+			& & \textbf{Tipe} & \textbf{Variabel} & & \\
+			\hline
+			1 & addJobSpeciality & void & Jobspeciality & Jobspeciality, HttpStatus & \textit{Method} ini digunakan untuk membuat \textit{object} Jobspeciality yang baru melalui \textit{webservice}\\
+			\hline
+			2 & updateJobSpeciality & void & Jobspeciality & HttpStatus & \textit{Method} ini digunakan untuk mengubah attribut dari \textit{object} Jobspeciality yang baru melalui \textit{webservice}\\
+			\hline
+			3 & getJobSpeciality & void & id & Jobspeciality, HttpStatus & \textit{Method} ini digunakan untuk mengambil satu \textit{object} Jobspeciality yang baru melalui \textit{webservice}\\
+			\hline
+		\end{tabular}
+	\end{adjustbox}
+\end{table}
+\begin{table}[H]
+	\centering
+	\small
+	\begin{adjustbox}{width=1\textwidth}	
+		\begin{tabular}{|p{0.4cm}|p{3.2cm}|p{1.cm}|p{1.7cm}|p{2.75cm}|p{2.5cm}|}
+			\hline
+			4 & getAllJobsSpeciality & void & - & $<$List
+			$<$Jobspeciality$>$$>$, HttpStatus & \textit{Method} ini digunakan untuk mengambil semua \textit{list} \textit{object} Jobspeciality yang baru melalui \textit{webservice}\\
+			\hline
+			5 & deleteJobSpeciality & void & id & Jobspeciality, HttpStatus & \textit{Method} ini digunakan untuk menghapus satu \textit{object} CustomerGroup yang baru melalui \textit{webservice}\\
+			\hline
+		\end{tabular}
+	\end{adjustbox}
+\end{table}
+\subsubsection{\textit{Package} Model Human Resource}
+\textit{Package} Human Resource model berisi entitas-entitas penyusun dari \textit{service} Human Resource. Berikut ini merupakan daftar \textit{class} untuk \textit{package} model.
+\begin{table}[H]
+	\small
+	\centering
+	\caption{Daftar {\itshape Class} pada {\itshape Package} model}
+	\begin{adjustbox}{width=1\textwidth}
+		\begin{tabular}{| p {3 cm} | p {8 cm} | p {3 cm} |}
+			\hline
+			{\bfseries Package} & {\bfseries Class} & {\bfseries Jenis Class} \\
+			\hline
+			\multirow{12}{*}{Model} & Regency & {\itshape Class} \\
+			& AddressType & {\itshape Class} \\
+			& Contact & {\itshape Class} \\
+			& ContactAddress & {\itshape Class} \\
+			& ContactEducation & {\itshape Class} \\
+			& Country & {\itshape Class} \\
+			& Department & {\itshape Class} \\
+			& Employee & {\itshape Class} \\
+			& Employment & {\itshape Class} \\
+			& Jobspeciality & {\itshape Class} \\
+			& Province & {\itshape Class} \\
+			& RoleInDept & {\itshape Class} \\
+			\hline
+		\end{tabular}
+	\end{adjustbox}
+\end{table}
+\begin{table}[H]
+	\caption{Daftar attribut pada \textit{Class} Employment}
+	\centering
+	\small
+	\begin{adjustbox}{width=1\textwidth}	
+		\begin{tabular}{|p{4cm} p{2.1cm} p{3cm} p{3.1cm}|}
+			\hline
+			\multicolumn{2}{|l}{\textbf{Variabel:}}&\multicolumn{2}{l|}{\textbf{Variabel:}}\\
+			Long&systemid&Employee&employee\\
+			String&ein&Date&hiredate\\
+			BigInteger&basesalary&RoleInDept&roleIndept\\
+			Integer&contracttype&String& sourceinstitution\\
+			int&sourcetype&Date& createdate\\
+			Date&lastupdate&Date& terminatedate\\
+			\hline
+		\end{tabular}
+	\end{adjustbox}
+\end{table}
+\begin{table}[H]
+	\caption{Daftar attribut pada \textit{Class} Employee}
+	\centering
+	\small
+	\begin{adjustbox}{width=1\textwidth}	
+		\begin{tabular}{|p{4cm} p{2.1cm} p{3cm} p{3.1cm}|}
+			\hline
+			\multicolumn{2}{|l}{\textbf{Variabel:}}&\multicolumn{2}{l|}{}\\
+			String&m\_ein&&\\
+			Jobspeciality&jobspeciality&&\\
+			Collection$<$Employment$>$&employmentCollection&&\\
+			\hline
+		\end{tabular}
+	\end{adjustbox}
+\end{table}
+\begin{table}[H]
+	\caption{Daftar attribut pada \textit{Class} Departement}
+	\centering
+	\small
+	\begin{adjustbox}{width=1\textwidth}	
+		\begin{tabular}{|p{4cm} p{2.1cm} p{3cm} p{3.1cm}|}
+			\hline
+			\multicolumn{2}{|l}{\textbf{Variabel:}}&\multicolumn{2}{l|}{\textbf{}}\\
+			int&systemid&&\\
+			String&deptname&&\\
+			String&memo&&\\
+			Collection$<$RoleInDept$>$&roles&&\\
+			Date&createdate&&\\
+			Date&lastupdate&&\\
+			\hline
+		\end{tabular}
+	\end{adjustbox}
+\end{table}
+\begin{table}[H]
+	\caption{Daftar attribut pada \textit{Class} Contact}
+	\centering
+	\small
+	\begin{adjustbox}{width=1\textwidth}	
+		\begin{tabular}{|p{2cm} p{2.1cm} p{5cm} p{3.1cm}|}
+			\hline
+			\multicolumn{2}{|l}{\textbf{Variabel:}}&\multicolumn{2}{l|}{\textbf{Variabel:}}\\
+			long&systemid&String&initial\\
+			String&lastname&int&amountofchildren\\
+			int&maritalstatus&List$<$ContactAddress$>$&arrAddress\\
+			String&middlename&Collection$<$ContactEducation$>$&arrEdu\\
+			Date&birthday&String&notes\\
+			String&birthplace&String&officeext\\
+			String&bloodtype&String&passportid\\
+			double&bodyheight&byte[]&photo\\
+			double&bodyweight&String&prefixtitle\\
+			String&citizenid&String&sms\\
+			String&citizentype&String&suffixtitle\\
+			Country&citizenship&Date&sys\_createdate\\
+			String&email&String&sys\_creator\\
+			String&firstname&Date&sys\_lastupdate\\
+			int&gender&String&sys\_lastupdater\\
+			String&homephone&String&taxid\\
+			String&messaging&String&web\\
+			\hline
+		\end{tabular}
+	\end{adjustbox}
+\end{table}
+\begin{table}[H]
+	\caption{Daftar attribut pada \textit{Class} ContactAddress}
+	\centering
+	\small
+	\begin{adjustbox}{width=1\textwidth}	
+		\begin{tabular}{|p{4cm} p{2.1cm} p{3cm} p{3.1cm}|}
+			\hline
+			\multicolumn{2}{|l}{\textbf{Variabel:}}&\multicolumn{2}{l|}{\textbf{Variabel:}}\\
+			Long&systemid&String&postcode\\
+			AddressType&addresstype&Regency&regency\\
+			String&street&boolean&asbillingaddress\\
+			String&fax&Date&sys\_createdate\\
+			Contact&owner&String&sys\_creator\\
+			String&phone&Date&sys\_lastupdate\\
+			String&sys\_lastupdater&&\\
+			\hline
+		\end{tabular}
+	\end{adjustbox}
+\end{table}
+\begin{table}[H]
+	\caption{Daftar attribut pada \textit{Class} AddressType}
+	\centering
+	\small
+	\begin{adjustbox}{width=1\textwidth}	
+		\begin{tabular}{|p{4cm} p{2.1cm} p{3cm} p{3.1cm}|}
+			\hline
+			\multicolumn{2}{|l}{\textbf{Variabel:}}&\multicolumn{2}{l|}{\textbf{}}\\
+			Integer&systemid&&\\
+			String&memo&&\\
+			String&typename&&\\
+			\hline
+		\end{tabular}
+	\end{adjustbox}
+\end{table}
+\begin{table}[H]
+	\caption{Daftar attribut pada \textit{Class} ContactEducation}
+	\centering
+	\small
+	\begin{adjustbox}{width=1\textwidth}	
+		\begin{tabular}{|p{3cm} p{3.1cm} p{3cm} p{3.1cm}|}
+			\hline
+			\multicolumn{2}{|l}{\textbf{Variabel:}}&\multicolumn{2}{l|}{\textbf{\textbf{Variabel:}}}\\
+			Date&finishrolling&Contact&owner\\
+			String&gpa&String&sponsors\\
+			int&grade&Date&startrolling\\
+			String&institutionaladdress&Date&sys\_createdate\\
+			String&institutionname&int&sys\_creator\\
+			String&major&Date&sys\_lastupdate\\
+			String&notes&int&sys\_lastupdater\\
+			\hline
+		\end{tabular}
+	\end{adjustbox}
+\end{table}
+\begin{table}[H]
+	\caption{Daftar attribut pada \textit{Class} Country}
+	\centering
+	\small
+	\begin{adjustbox}{width=1\textwidth}	
+		\begin{tabular}{|p{4cm} p{2.1cm} p{3cm} p{3.1cm}|}
+			\hline
+			\multicolumn{2}{|l}{\textbf{Variabel:}}&\multicolumn{2}{l|}{\textbf{}}\\
+			Long&systemid&&\\
+			String&name&&\\
+			\hline
+		\end{tabular}
+	\end{adjustbox}
+\end{table}
+\begin{table}[H]
+	\caption{Daftar attribut pada \textit{Class} Jobspeciality}
+	\centering
+	\small
+	\begin{adjustbox}{width=1\textwidth}	
+		\begin{tabular}{|p{5cm} p{3.1cm} p{2cm} p{2.1cm}|}
+			\hline
+			\multicolumn{2}{|l}{\textbf{Variabel:}}&\multicolumn{2}{l|}{\textbf{}}\\
+			Long&systemid&&\\
+			String&specialityName&&\\
+			String&memo&&\\
+			\hline
+		\end{tabular}
+	\end{adjustbox}
+\end{table}
+\begin{table}[H]
+	\caption{Daftar attribut pada \textit{Class} RoleInDept}
+	\centering
+	\small
+	\begin{adjustbox}{width=1\textwidth}	
+		\begin{tabular}{|p{5cm} p{3.1cm} p{2cm} p{2.1cm}|}
+			\hline
+			\multicolumn{2}{|l}{\textbf{Variabel:}}&\multicolumn{2}{l|}{\textbf{}}\\
+			int&systemid&&\\
+			Department&department&&\\
+			String&rolename&&\\
+			String&abbreviation&&\\
+			RoleInDept&parentRole&&\\
+			String&memo&&\\
+			\hline
+		\end{tabular}
+	\end{adjustbox}
+\end{table}
+\begin{table}[H]
+	\caption{Daftar attribut pada \textit{Class} Province}
+	\centering
+	\small
+	\begin{adjustbox}{width=1\textwidth}	
+		\begin{tabular}{|p{5cm} p{3.1cm} p{2cm} p{2.1cm}|}
+			\hline
+			\multicolumn{2}{|l}{\textbf{Variabel:}}&\multicolumn{2}{l|}{\textbf{}}\\
+			Long&systemid&&\\
+			Country&countryCode&&\\
+			String&name&&\\
+			Set$<$Regency$>$&regencySet&&\\
+			\hline
+		\end{tabular}
+	\end{adjustbox}
+\end{table}
+\begin{table}[H]
+	\caption{Daftar attribut pada \textit{Class} Regency}
+	\centering
+	\small
+	\begin{adjustbox}{width=1\textwidth}	
+		\begin{tabular}{|p{5cm} p{3.1cm} p{2cm} p{2.1cm}|}
+			\hline
+			\multicolumn{2}{|l}{\textbf{Variabel:}}&\multicolumn{2}{l|}{\textbf{}}\\
+			Long&systemid&&\\
+			Province&provId&&\\
+			String&name&&\\
+			\hline
+		\end{tabular}
+	\end{adjustbox}
+\end{table}
+\subsubsection{\textit{Package} Repository}
+\textit{Package} repository berisi \textit{class-class} yang menjadi representasi model dari tabel-tabel yang berada pada basis data. Berikut ini merupakan \textit{class-class} yang terdapat pada \textit{package} repository.
+\begin{table}[H]
+	\small
+	\centering
+	\caption{Daftar {\itshape Class} pada {\itshape Package} repository}
+	\begin{adjustbox}{width=1\textwidth}
+		\begin{tabular}{| p {3 cm} | p {8 cm} | p {3 cm} |}
+			\hline
+			{\bfseries Package} & {\bfseries Class} & {\bfseries Jenis Class} \\
+			\hline
+			\multirow{2}{*}{repository} & EmployeeRepository & {\itshape Interface} \\
+			& JobspecialityRepository & {\itshape Interface} \\
+			\hline
+		\end{tabular}
+	\end{adjustbox}
+\end{table}
+\subsubsection{\textit{Package} Service}
+\textit{Package} service berisi \textit{class-class} yang menginisialisasi \textit{web service} human resource yang akan terbentuk dan digunakan pada \textit{package} controller. Berikut ini merupakan \textit{class-class} yang terdapat pada \textit{package} service.
+\begin{table}[H]
+	\small
+	\centering
+	\caption{Daftar {\itshape Class} pada {\itshape Package} service}
+	\begin{adjustbox}{width=1\textwidth}
+		\begin{tabular}{| p {3 cm} | p {8 cm} | p {3 cm} |}
+			\hline
+			{\bfseries Package} & {\bfseries Class} & {\bfseries Jenis Class} \\
+			\hline
+			\multirow{5}{*}{service} & CRUDService & {\itshape Interface} \\
+			& EmployeeService & {\itshape Interface} \\
+			& JobspecialityService & {\itshape Interface} \\
+			& DefaultEmployeeService & {\itshape Class} \\
+			& DefaultJobspecialityService & {\itshape Class} \\
+			\hline
+		\end{tabular}
+	\end{adjustbox}
+\end{table}
+\subsection{\textit{Project} \textit{Medical Unit}}
+\textit{Project Medical Unit} berisi susunan \textit{class} pembentuk \textit{webservice Medical Unit}. Dalam project ini terdapat 4 buah \textit{package} yang berfungsi untuk memisahkan \textit{class} sesuai dengan fungsinya masing-masing. Ke empat \textit{package} ini yaitu \textit{package} controller yang berisi method-method yang dijalankan pada \textit{web service}, \textit{package} model yang berisi entitas dan tabel, \textit{package} repository yang menghubungkan entitas di \textit{package} model dengan database, dan \textit{package} service yang menginisialisasi \textit{webserviec} yang akan terbentuk. Pada bagian ini akan dijelaskan mengenai \textit{class} dan \textit{method} yang digunakan pada pengembangan \textit{ webservice Unit Medis}:
+\subsubsection{\textit{Package} Controller}
+\textit{Package} controller berisi method API yang dapat digunakan untuk berkomunikasi dengan \textit{service} Human Resource. \textit{Class} yang terdapat dalam \textit{package} ini adalah \textit{class} UnitmedisController yang berisi 5 buah fungsi API. Di bawah ini merupakan daftar \textit{class} untuk \textit{package} controller pada \textit{webservice} Unit Medis.
+\begin{table}[H]
+	\small
+	\centering
+	\caption{Daftar {\itshape Class} pada {\itshape Package} Controller}
+	\begin{adjustbox}{width=1\textwidth}
+		\begin{tabular}{| p {3 cm} | p {8 cm} | p {3 cm} |}
+			\hline
+			{\bfseries Package} & {\bfseries Class} & {\bfseries Jenis Class} \\
+			\hline
+			\multirow{1}{*}{Controller} & UnitmedisController & {\itshape Class} \\
+			\hline
+		\end{tabular}
+	\end{adjustbox}
+\end{table}
+\begin{table}[H]
+	\caption{Daftar \textit{Method} pada \textit{Class} UnitmedisController}
+	\centering
+	\small
+	\begin{adjustbox}{width=1\textwidth}	
+		\begin{tabular}{|p{0.4cm}|p{2.8cm}|p{0.9cm}|p{1.8cm}|p{2.8cm}|p{2.5cm}|}
+			\hline
+			\multirow{2}{*}{\textbf{No}} & \multirow{2}{*}{\textit{\textbf{Method}}} & \multicolumn{2}{c|}{\textit{\textbf{Input}}} & \multirow{2}{*}{\textit{\textbf{Output}}} & 
+			\multirow{2}{*}{\textbf{Keterangan}}\\
+			\cline{3-4}
+			& & \textbf{Tipe} & \textbf{Variabel} & & \\
+			\hline
+			1 & addMedicalUnit & void & MedicalUnit & MedicalUnit, HttpStatus & \textit{Method} ini digunakan untuk membuat \textit{object} unit medis yang baru melalui \textit{webservice}\\
+			\hline
+			2 & updateMedicalUnit & void & MedicalUnit & HttpStatus & \textit{Method} ini digunakan untuk mengubah attribut dari \textit{object} unit medis yang baru melalui \textit{webservice}\\
+			\hline
+			3 & getMedicalUnit & void & id & MedicalUnit, HttpStatus & \textit{Method} ini digunakan untuk mengambil satu \textit{object} unit medis yang baru melalui \textit{webservice}\\
+			\hline
+			4 & getAllMedicalUnit & void & - & $<$List
+			$<$MedicalUnit$>$$>$, HttpStatus & \textit{Method} ini digunakan untuk mengambil semua \textit{list} \textit{object} unit medis yang baru melalui \textit{webservice}\\
+			\hline
+			5 & deleteMedicalUnit & void & id & HttpStatus & \textit{Method} ini digunakan untuk menghapus satu \textit{object} unit medis yang baru melalui \textit{webservice}\\
+			\hline
+		\end{tabular}
+	\end{adjustbox}
+\end{table}
+\subsubsection{\textit{Package} Model Medical Unit}
+\textit{Package} Medical Unit model berisi entitas-entitas penyusun dari \textit{service} Medical Unit. Berikut ini merupakan daftar \textit{class} untuk \textit{package} model.
+\begin{table}[H]
+	\small
+	\centering
+	\caption{Daftar {\itshape Class} pada {\itshape Package} model}
+	\begin{adjustbox}{width=1\textwidth}
+		\begin{tabular}{| p {3 cm} | p {8 cm} | p {3 cm} |}
+			\hline
+			{\bfseries Package} & {\bfseries Class} & {\bfseries Jenis Class} \\
+			\hline
+			\multirow{16}{*}{Model} & MedicalUnit & {\itshape Class} \\
+			& WorkingUnit & {\itshape Class} \\
+			& WorkingUnitMembership & {\itshape Class} \\
+			& WorkingUnitMembershipPK & {\itshape Class} \\
+			& WUGroup & {\itshape Class} \\
+			& AddressType & {\itshape Class} \\
+			& Contact & {\itshape Class} \\
+			& ContactAddress & {\itshape Class} \\
+			& ContactEducation & {\itshape Class} \\
+			& Country & {\itshape Class} \\
+			& Department & {\itshape Class} \\
+			& Employee & {\itshape Class} \\
+			& Employment & {\itshape Class} \\
+			& Jobspeciality & {\itshape Class} \\
+			& Province & {\itshape Class} \\
+			& RoleInDept & {\itshape Class} \\
+			& Regency & {\itshape Class} \\
+			\hline
+		\end{tabular}
+	\end{adjustbox}
+\end{table}
+\begin{table}[H]
+	\caption{Daftar attribut pada \textit{Class} WorkingUnit}
+	\centering
+	\small
+	\begin{adjustbox}{width=1\textwidth}	
+		\begin{tabular}{|p{4cm} p{2.1cm} p{3cm} p{3.1cm}|}
+			\hline
+			\multicolumn{2}{|l}{\textbf{Variabel:}}&\multicolumn{2}{l|}{\textbf{Variabel:}}\\
+			Long&systemid&&\\
+			WUGroup&wugroup&&\\
+			String&workunit\_name&&\\
+			String&memo&&\\
+			Calendar&createdate&&\\
+			Calendar&lastupdate&&\\
+			\hline
+		\end{tabular}
+	\end{adjustbox}
+\end{table}
+\begin{table}[H]
+	\caption{Daftar attribut pada \textit{Class} MedicalUnit}
+	\centering
+	\small
+	\begin{adjustbox}{width=1\textwidth}	
+		\begin{tabular}{|p{4cm} p{2.1cm} p{3cm} p{3.1cm}|}
+			\hline
+			\multicolumn{2}{|l}{\textbf{Variabel:}}&\multicolumn{2}{l|}{}\\
+			Long&systemid&&\\
+			\hline
+		\end{tabular}
+	\end{adjustbox}
+\end{table}
+\begin{table}[H]
+	\caption{Daftar attribut pada \textit{Class} WorkingUnitMembership}
+	\centering
+	\small
+	\begin{adjustbox}{width=1\textwidth}	
+		\begin{tabular}{|p{4cm} p{2.1cm} p{3cm} p{3.1cm}|}
+			\hline
+			\multicolumn{2}{|l}{\textbf{Variabel:}}&\multicolumn{2}{l|}{}\\
+			WorkingUnit&workingunit&&\\
+			Employee&employee&&\\
+			boolean&workingunitpersonincharge&&\\
+			String&description&&\\
+			Calendar&sys\_createdate&&\\
+			Calendar&syssys\_lastupdate&&\\
+			\hline
+		\end{tabular}
+	\end{adjustbox}
+\end{table}
+\begin{table}[H]
+	\caption{Daftar attribut pada \textit{Class} WUGroup}
+	\centering
+	\small
+	\begin{adjustbox}{width=1\textwidth}	
+		\begin{tabular}{|p{4cm} p{2.1cm} p{3cm} p{3.1cm}|}
+			\hline
+			\multicolumn{2}{|l}{\textbf{Variabel:}}&\multicolumn{2}{l|}{}\\
+			Long&systemid&&\\
+			String&groupname&&\\
+			String&memo&&\\
+			\hline
+		\end{tabular}
+	\end{adjustbox}
+\end{table}
+\begin{table}[H]
+	\caption{Daftar attribut pada \textit{Class} WorkingUnitMembershipPK}
+	\centering
+	\small
+	\begin{adjustbox}{width=1\textwidth}	
+		\begin{tabular}{|p{4cm} p{2.1cm} p{3cm} p{3.1cm}|}
+			\hline
+			\multicolumn{2}{|l}{\textbf{Variabel:}}&\multicolumn{2}{l|}{}\\
+			Long&workingunit&&\\
+			Long&employee&&\\
+			\hline
+		\end{tabular}
+	\end{adjustbox}
+\end{table}
+\begin{table}[H]
+	\caption{Daftar attribut pada \textit{Class} Employment}
+	\centering
+	\small
+	\begin{adjustbox}{width=1\textwidth}	
+		\begin{tabular}{|p{4cm} p{2.1cm} p{3cm} p{3.1cm}|}
+			\hline
+			\multicolumn{2}{|l}{\textbf{Variabel:}}&\multicolumn{2}{l|}{\textbf{Variabel:}}\\
+			Long&systemid&Employee&employee\\
+			String&ein&Date&hiredate\\
+			BigInteger&basesalary&RoleInDept&roleIndept\\
+			Integer&contracttype&String& sourceinstitution\\
+			int&sourcetype&Date& createdate\\
+			Date&lastupdate&Date& terminatedate\\
+			\hline
+		\end{tabular}
+	\end{adjustbox}
+\end{table}
+\begin{table}[H]
+	\caption{Daftar attribut pada \textit{Class} Employee}
+	\centering
+	\small
+	\begin{adjustbox}{width=1\textwidth}	
+		\begin{tabular}{|p{4cm} p{2.1cm} p{3cm} p{3.1cm}|}
+			\hline
+			\multicolumn{2}{|l}{\textbf{Variabel:}}&\multicolumn{2}{l|}{}\\
+			String&m\_ein&&\\
+			Jobspeciality&jobspeciality&&\\
+			Collection$<$Employment$>$&employmentCollection&&\\
+			\hline
+		\end{tabular}
+	\end{adjustbox}
+\end{table}
+\begin{table}[H]
+	\caption{Daftar attribut pada \textit{Class} Departement}
+	\centering
+	\small
+	\begin{adjustbox}{width=1\textwidth}	
+		\begin{tabular}{|p{4cm} p{2.1cm} p{3cm} p{3.1cm}|}
+			\hline
+			\multicolumn{2}{|l}{\textbf{Variabel:}}&\multicolumn{2}{l|}{\textbf{}}\\
+			int&systemid&&\\
+			String&deptname&&\\
+			String&memo&&\\
+			Collection$<$RoleInDept$>$&roles&&\\
+			Date&createdate&&\\
+			Date&lastupdate&&\\
+			\hline
+		\end{tabular}
+	\end{adjustbox}
+\end{table}
+\begin{table}[H]
+\caption{Daftar attribut pada \textit{Class} ContactAddress}
+\centering
+\small
+\begin{adjustbox}{width=1\textwidth}	
 	\begin{tabular}{|p{4cm} p{2.1cm} p{3cm} p{3.1cm}|}
 		\hline
 		\multicolumn{2}{|l}{\textbf{Variabel:}}&\multicolumn{2}{l|}{\textbf{Variabel:}}\\
-		Stemmer (Class Lib)&stemmer&Array&data\\
-		Array (String)&question\_dic&Array&label\\
-		Array (String)&negasi&Int&size\\
-		Array (String)&stopword&Array(String)&abbreviation\_dic\\
+		Long&systemid&String&postcode\\
+		AddressType&addresstype&Regency&regency\\
+		String&street&boolean&asbillingaddress\\
+		String&fax&Date&sys\_createdate\\
+		Contact&owner&String&sys\_creator\\
+		String&phone&Date&sys\_lastupdate\\
+		String&sys\_lastupdater&&\\
 		\hline
 	\end{tabular}
-	\end{adjustbox}
+\end{adjustbox}
 \end{table}
-
-\begin{small}
-	\begin{longtable}{@{\extracolsep{\fill}}|p{0.4cm}|p{3.2cm}|p{1.4cm}|p{1.7cm}|p{1cm}|p{3.55cm}|}
-		\hline
-		\multirow{2}{*}{\textbf{No}} & \multirow{2}{*}{\textit{\textbf{Method}}} & \multicolumn{2}{c|}{\textit{\textbf{Input}}} & \multirow{2}{*}{\textit{\textbf{Output}}} & 
-		\multirow{2}{*}{\textbf{Keterangan}}\\
-		\cline{3-4}
-		& & \textbf{Tipe} & \textbf{Variabel} & & \\
-		\hline
-		\endhead
-		1 & case\_folding & 
-		\begin{itemize}[leftmargin=*,label={-}]
-			\item String
-		\end{itemize}
-		& \begin{itemize}[leftmargin=*,label={-}]
-			\item tweet
-		\end{itemize}
-		& String & \textit{Method} ini digunakan untuk mengecilkan setiap huruf pada \textit{tweet}. \\
-		\hline
-		2 & remove\_hashtag\_ mention\_url & 
-		\begin{itemize}[leftmargin=*,label={-}]
-			\item String
-		\end{itemize}
-		& \begin{itemize}[leftmargin=*,label={-}]
-			\item tweet
-		\end{itemize}
-		& String & \textit{Method} ini digunakan untuk menghapus semua textit{hashtag}, \textit{mention}, URL pada \textit{tweet}. \\
-		\hline
-		3 & remove\_punctuation & 
-		\begin{itemize}[leftmargin=*,label={-}]
-			\item String
-		\end{itemize}
-		& \begin{itemize}[leftmargin=*,label={-}]
-			\item tweet
-		\end{itemize}
-		& String & \textit{Method} ini digunakan untuk menghapus semua tanda baca yang ada pada \textit{tweet} kecuali tanda seru (!), tanda tanya (?), tanda petik ("), tanda petik tunggal ('), dan tanda pemisah (-). 
-		\\
-		\hline
-		4 & tokenize & 
-		\begin{itemize}[leftmargin=*,label={-}]
-			\item String
-		\end{itemize}
-		& \begin{itemize}[leftmargin=*,label={-}]
-			\item tweet
-		\end{itemize}
-		& Array & \textit{Method} ini digunakan untuk memisahkan teks menjadi token-token yang terdiri dari satu kata. \\
-		\hline
-		5 & misuse\_of\_word & 
-		\begin{itemize}[leftmargin=*,label={-}]
-			\item String
-		\end{itemize}
-		& \begin{itemize}[leftmargin=*,label={-}]
-			\item tweet
-		\end{itemize}
-		& String & \textit{Method} ini digunakan untuk menghilangkan huruf sama yang saling bersebelahan. \\
-		\hline
-		6 & abbreviation\_word & 
-		\begin{itemize}[leftmargin=*,label={-}]
-			\item String
-		\end{itemize}
-		& \begin{itemize}[leftmargin=*,label={-}]
-			\item tweet
-		\end{itemize}
-		& String & \textit{Method} ini berguna untuk mengubah kata-kata singkatan menjadi kata persamaanya. \\
-		\hline
-		7 & stopword\_removal & 
-		\begin{itemize}[leftmargin=*,label={-}]
-			\item String
-		\end{itemize}
-		& \begin{itemize}[leftmargin=*,label={-}]
-			\item tweet\end{itemize}
-		& String & \textit{Method} ini digunakan untuk menghilangkan kata-kata yang dianggap tidak memiliki makna. \\
-		\hline
-		8 & stemming & 
-		\begin{itemize}[leftmargin=*,label={-}]
-			\item String
-		\end{itemize}
-		& \begin{itemize}[leftmargin=*,label={-}]
-			\item tweet
-		\end{itemize}
-		& String & \textit{Method} ini digunakan untuk mengubah kata menjadi kata dasar. \\
-		\hline
-		9 & get\_count\_max & 
-		\begin{itemize}[leftmargin=*,label={-}]
-			\item String
-		\end{itemize}
-		& \begin{itemize}[leftmargin=*,label={-}]
-			\item tweet
-		\end{itemize}
-		& Int, Int, Int, Int & \textit{Method} ini digunakan untuk mendapatkan kemunculan terbanyak tanda baca tanya (?), tanda seru (!), tanda \textit{quotation} (", '), dan kata kapital. \\
-		\hline
-		10 & write\_file & 
-		\begin{itemize}[leftmargin=*,label={-}]
-			\item Array\item Array
-		\end{itemize}
-		& \begin{itemize}[leftmargin=*,label={-}]
-			\item data\item label
-		\end{itemize}
-		& Array, Array & \textit{Method} ini digunakan untuk melakukan random terhadap data dan label, kemudian menyimpan data dan label kedalam \textit{file} .txt. \\
-		\hline
-		11 & get\_size & \begin{itemize}[leftmargin=*,label={-}]
-			\item Array\end{itemize}
-		& \begin{itemize}[leftmargin=*,label={-}]
-			\item label\end{itemize}
-		& Int & \textit{Method} ini digunakan untuk menghitung jumlah data yang akan digunakan sebagai data \textit{training}, dengan mengalikan jumlah keseluruhan data dengan 75\%. \\
-		\hline
-		12 & Fit & \begin{itemize}[leftmargin=*,label={-}]
-			\item Array\item Array\end{itemize}
-		& \begin{itemize}[leftmargin=*,label={-}]
-			\item data\item label\end{itemize}
-		& Int, Int, Int, Int, Array & Fitur ini digunakan untuk melakukan \textit{preprocessing} secara keseluruhan terhadap data \textit{tweet}, serta mengembalikan hasil kemunculan maksimal tanda baca, dan kata kapital. \\
-		\hline
-	\end{longtable}
-\end{small}
-	
-
-\addtocounter{table}{-1}
-\subsection{\textit{Class} Features}
-\textit{Class }features merupakan \textit{class }yang digunakan untuk menangani hal terkait \textit{feature}, dimulai dari penambahan \textit{feature set}, penyimpanan nilai fitur ke dalam \textit{file}, pengambilan \textit{feature }berdasarkan jenis klasifikasi. Jenis klasifikasi yang ada pada sistem ini adalah klasifikasi 4 kelas 
-(positif, negatif, netral, sarkasme), klasifikasi 3 kelas (positif, negatif, netral), 1 kelas (sarkasme/non-sarkasme). Berikut ini adalah \textit{method }pada \textit{class }features:
 \begin{table}[H]
-	\caption{Daftar \textit{Method} pada \textit{Class} Features}
+	\caption{Daftar attribut pada \textit{Class} Contact}
 	\centering
 	\small
 	\begin{adjustbox}{width=1\textwidth}	
-	\begin{tabular}{|p{4.2cm} p{3cm} p{2cm} p{3cm}|}
-		\hline
-		\multicolumn{2}{|l}{\textbf{Variabel:}}&\multicolumn{2}{l|}{\textbf{Variabel:}}\\
-		FeatureExtraction (Class)&feature\_extraction&Array&IDF\\
-		Array&feature\_training&Array&label\_training\\
-		Topic (Class)&topic\_mod& &\\
-		\hline
-	\end{tabular}
+		\begin{tabular}{|p{2cm} p{2.1cm} p{5cm} p{3.1cm}|}
+			\hline
+			\multicolumn{2}{|l}{\textbf{Variabel:}}&\multicolumn{2}{l|}{\textbf{Variabel:}}\\
+			long&systemid&String&initial\\
+			String&lastname&int&amountofchildren\\
+			int&maritalstatus&List$<$ContactAddress$>$&arrAddress\\
+			String&middlename&Collection$<$ContactEducation$>$&arrEdu\\
+			Date&birthday&String&notes\\
+			String&birthplace&String&officeext\\
+			String&bloodtype&String&passportid\\
+			double&bodyheight&byte[]&photo\\
+			double&bodyweight&String&prefixtitle\\
+			String&citizenid&String&sms\\
+			String&citizentype&String&suffixtitle\\
+			Country&citizenship&Date&sys\_createdate\\
+			String&email&String&sys\_creator\\
+			String&firstname&Date&sys\_lastupdate\\
+			int&gender&String&sys\_lastupdater\\
+			String&homephone&String&taxid\\
+			String&messaging&String&web\\
+			\hline
+		\end{tabular}
 	\end{adjustbox}
 \end{table}
-\begin{small}
-	\begin{longtable}{@{\extracolsep{\fill}}|p{0.4cm}|p{3.3cm}|p{1.4cm}|p{1.4cm}|p{1.20cm}|p{3.55cm}|}
-		\hline
-		\multirow{2}{*}{\textbf{No}} & \multirow{2}{*}{\textit{\textbf{Method}}} & \multicolumn{2}{c|}{\textit{\textbf{Input}}} & \multirow{2}{*}{\textit{\textbf{Output}}} & 
-		\multirow{2}{*}{\textbf{Keterangan}}\\
-		\cline{3-4}
-		& & \textbf{Tipe} & \textbf{Variabel} & & \\
-		\hline
-		\endhead
-		1 & get\_sar\_feature & \begin{itemize}[leftmargin=*,label={-}]
-			\item Array\item Array\end{itemize}
-		& \begin{itemize}[leftmargin=*,label={-}]
-			\item data\item label\end{itemize}
-		& Array, Array & \textit{Method} ini digunakan untuk menghapus semua data kecuali data positif dan sarkasme. \\
-		\hline
-		2 & get\_net\_feature & \begin{itemize}[leftmargin=*,label={-}]
-			\item Array\item Array\end{itemize}
-		& \begin{itemize}[leftmargin=*,label={-}]
-			\item data\item label\end{itemize}
-		& Array, Array & \textit{Method} ini digunakan untuk menghapus semua data sarkasme. \\
-		\hline
-		3 & add\_non\_sar\_feature & \begin{itemize}[leftmargin=*,label={-}]
-			\item String\end{itemize}
-		& \begin{itemize}[leftmargin=*,label={-}]
-			\item tweet\end{itemize}
-		& Array & \textit{Method} ini digunakan untuk mendapatkan semua nilai fitur untuk kelas positif, negatif dan netral. \\
-		\hline
-		4 & add\_sar\_feature & \begin{itemize}[leftmargin=*,label={-}]
-			\item String\end{itemize}
-		& \begin{itemize}[leftmargin=*,label={-}]
-			\item tweet\end{itemize}
-		& Array & \textit{Method} ini digunakan untuk mendapatkan semua nilai fitur untuk kelas sarkasme. \\
-		\hline
-		5 & Fit & \begin{itemize}[leftmargin=*,label={-}]
-			\item Array\item String\end{itemize}
-		& \begin{itemize}[leftmargin=*,label={-}]
-			\item data\item type\end{itemize}
-		& Array & \textit{Method} ini digunakan untuk memanggil \textit{method} add\_sar\_feature dan add\_non\_sar\_feature untuk menambahkan fitur dari data \textit{training }berdasarkan \textit{type}, jika \textit{type }sama dengan sarkasme, maka akan menambahkan fitur sarkasme, dan sebaliknya. \\
-		\hline
-		6 & save\_feature & \begin{itemize}[leftmargin=*,label={-}]
-			\item Int
-			\item Array
-			\item Array
-		\end{itemize}
-		& \begin{itemize}[leftmargin=*,label={-}]
-			\item n\_ classify
-			\item temp\_ train
-			\item temp\_ test
-		\end{itemize}
-		& - & \textit{Method} ini digunakan untuk menyimpan hasil fitur ekstraksi data \textit{training} dan labelnya ke dalam \textit{file} .txt. \\
-		\hline
-		7 & get\_train\_feature & 
-		\begin{itemize}[leftmargin=*,label={-}]
-			\item Int
-			\item Array
-			\item Array
-			\item Array
-			\item Array
-		\end{itemize}
-		& \begin{itemize}[leftmargin=*,label={-}]
-			\item n\_ classify
-			\item data\_ train
-			\item label\_ train
-			\item data\_ test
-			\item label\_ test
-		\end{itemize}
-		& Array, Array, Array, Array & \textit{Method} ini digunakan untuk memisahkan dan mengekstraksi fitur dari data yang akan digunakan menjadi dua, yaitu data untuk fitur ekstraksi non-sarkasme, dan data untuk fitur ekstraksi sarkasme. \\
-		\hline
-		8 & get\_test\_feature & 
-		\begin{itemize}[leftmargin=*,label={-}]
-			\item Int
-			\item Array
-			\item Array
-		\end{itemize}
-		& \begin{itemize}[leftmargin=*,label={-}]
-			\item n\_ classify
-			\item data\_ test
-			\item label\_ test
-		\end{itemize}
-		& Array, Array & \textit{Method} ini digunakan untuk menghapus data sarkasme pada klasifikasi tiga kelas, dan menghapus data negatif dan netral pada klasifikasi 1 kelas. \\
-		\hline
-	\end{longtable}
-\end{small}
-
-\addtocounter{table}{-1}
-\subsection{\textit{Class} FeatureExtraction}
-\textit{Class }FeatureExtraction merupakan \textit{class }yang digunakan untuk mengekstraksi atau mengambil nilai dari sebuah \textit{tweet} yang akan digunakan sebagai fitur. Berikut ini adalah \textit{method} pada \textit{class }FeatureExtraction:
 \begin{table}[H]
-	\caption{Daftar \textit{Method} pada \textit{Class} FeatureExtraction}
-	\centering
-	\small
-	\begin{adjustbox}{width=1\textwidth}		
-	\begin{tabular}{|p{5cm} p{3.1cm} p{1cm} p{3.1cm}|}
-		\hline
-		\multicolumn{2}{|l}{\textbf{Variabel:}}&\multicolumn{2}{l|}{\textbf{Variabel:}}\\
-		Preprocessing (Class Lib)&preprocess&Int&max\_qout\\
-		SentimentExtraction (Class)&sentiments&Int&max\_cap\\
-		Tagger (Class Lib)&tagger&Int&max\_excl\\
-		Array (String)&interjection\_dic&Int&max\_quest\\
-		\hline
-	\end{tabular}
-	\end{adjustbox}
-\end{table}
-\begin{small}
-	\begin{longtable}{@{\extracolsep{\fill}}|p{0.4cm}|p{3.2cm}|p{1.4cm}|p{1.7cm}|p{1.20cm}|p{3.35cm}|}
-		\hline
-		\multirow{2}{*}{\textbf{No}} & \multirow{2}{*}{\textit{\textbf{Method}}} & \multicolumn{2}{c|}{\textit{\textbf{Input}}} & \multirow{2}{*}{\textit{\textbf{Output}}} & 
-		\multirow{2}{*}{\textbf{Keterangan}}\\
-		\cline{3-4}
-		& & \textbf{Tipe} & \textbf{Variabel} & & \\
-		\hline
-		\endhead
-		1 & unigram & \begin{itemize}[leftmargin=*,label={-}]
-			\item Array\item String\item Array\end{itemize}
-		& \begin{itemize}[leftmargin=*,label={-}]
-			\item features\item tweet\item IDF\end{itemize}
-		& Array & \textit{Method} ini digunakan untuk menghitung kemunculan kata pada teks, dan mengembalikan nilai fitur kata yang sudah dihitung menggunakan TF-IDF \\
-		\hline
-		2 & tagging & \begin{itemize}[leftmargin=*,label={-}]
-			\item String\end{itemize}
-		& \begin{itemize}[leftmargin=*,label={-}]
-			\item tweet\end{itemize}
-		& String & \textit{Method} ini digunakan untuk melakukan \textit{tagging} terhadap setiap kata, sebagai contoh "mementingkan/ VBT" \\
-		\hline
-		3 & part\_of\_speech & \begin{itemize}[leftmargin=*,label={-}]
-			\item Array\item String\end{itemize}
-		& \begin{itemize}[leftmargin=*,label={-}]
-			\item features\item tweet\end{itemize}
-		& Array & Method ini digunakan untuk menerima \textit{tweet} yang sudah diberi \textit{tag}, dan akan menghitung kemunculan \textit{tag} seperti kemunculan kata benda, kata sifat, kata kerja, kata keterangan dan kata negasi. \\
-		\hline
-		4 & sentiment\_score & \begin{itemize}[leftmargin=*,label={-}]
-			\item Array\item String\end{itemize}
-		& \begin{itemize}[leftmargin=*,label={-}]
-			\item features\item tweet\end{itemize}
-		& Array & \textit{Method} ini digunakan untuk menerima parameter \textit{tweet} yang sudah diberi \textit{tag}, kemudian melakukan \textit{scoring }sentimen terhadap \textit{tweet}. \\
-		\hline
-		5 & punctuation\_based & \begin{itemize}[leftmargin=*,label={-}]
-			\item Array\item String\item String\end{itemize}
-		& \begin{itemize}[leftmargin=*,label={-}]
-			\item features\item tweet\item type\end{itemize}
-		& Array & \textit{Method} ini digunakan untuk menghitung kemunculan tanda tanya (?), tanda seru (!), tanda petik (") dan tanda petik tunggal ('). Setiap kemunculan akan dibagi jumlah kemunculan terbanyak pada data \textit{training}. \\
-		\hline
-		6 & capitalization & \begin{itemize}[leftmargin=*,label={-}]
-			\item Array\item String\end{itemize}
-		& \begin{itemize}[leftmargin=*,label={-}]
-			\item features\item tweet\end{itemize}
-		& Array & \textit{Method} ini digunakan untuk meghitung kemunculan kata kapital kemudian jumlah kemunculan dibagi jumlah kemunculan terbanyak pada data \textit{training}. \\
-		\hline
-		7 & stopword\_removal & \begin{itemize}[leftmargin=*,label={-}]
-			\item String\end{itemize}
-		& \begin{itemize}[leftmargin=*,label={-}]
-			\item tweet\end{itemize}
-		& String & \textit{Method} ini digunakan untuk menghilangkan kata-kata yang dianggap tidak memiliki makna. \\
-		\hline
-		8 & Topic & \begin{itemize}[leftmargin=*,label={-}]
-			\item Array\item String\item Class\end{itemize}
-		& \begin{itemize}[leftmargin=*,label={-}]
-			\item features\item tweet\item topic\_ mod\end{itemize}
-		& Array & \textit{Method} ini digunakan untuk menerima \textit{class} topic yang sudah dilatih pada data \textit{training}, dan digunakan untuk mendapatkan topik dari \textit{tweet}. \\
-		\hline
-		9 & interjection\_word & \begin{itemize}[leftmargin=*,label={-}]
-			\item Array\item String\end{itemize}
-		& \begin{itemize}[leftmargin=*,label={-}]
-			\item features\item tweet\end{itemize}
-		& Array & \textit{Method} ini digunakan untuk menghitung jumlah kemunculan kata \textit{interjection }seperti, "wow", "wahh". \\
-		\hline
-		10 & question\_word & \begin{itemize}[leftmargin=*,label={-}]
-			\item Array\item String\end{itemize}
-		& \begin{itemize}[leftmargin=*,label={-}]
-			\item features\item tweet\end{itemize}
-		& Array & \textit{Method} ini digunakan untuk memberikan nilai fitur kata tanya sebagai 1 (\textit{true}) atau 0 (\textit{false}), jika terdapat kata tanya pada \textit{tweet}. \\
-		\hline
-		11 & Idf & \begin{itemize}[leftmargin=*,label={-}]
-			\item Array
-			\item Array
-		\end{itemize}
-		& \begin{itemize}[leftmargin=*,label={-}]
-			\item data\item label\end{itemize}
-		& Array & \textit{Method} ini digunakan untuk menghitung nilai IDF dari masukan data \textit{training}. \\
-		\hline
-	\end{longtable}
-\end{small}
-
-\addtocounter{table}{-1}
-\subsection{\textit{Class} SentimentExtraction}
-\textit{Class }SentimentExtraction merupakan \textit{class }yang digunakan untuk mendapatkan nilai sentimen positif dan negatif dari sebuah \textit{tweet}. Berikut ini adalah \textit{method} pada \textit{class }SentimentExtraction:
-\begin{table}[H]
-	\caption{Daftar \textit{Method} pada \textit{Class} SentimentExtraction}
-	\centering
-	\small
-	\begin{adjustbox}{width=1\textwidth}		
-	\begin{tabular}{|p{5cm} p{2.1cm} p{3cm} p{2.1cm}|}
-		\hline
-		\multicolumn{2}{|l}{\textbf{Variabel:}}&\multicolumn{2}{l|}{\textbf{Variabel:}}\\
-		Defaultdict (Collection)&senti\_score&Negation (class)&negasi\\
-		Preprocessing (Class)&preprocess& & \\
-		\hline
-	\end{tabular}
-	\end{adjustbox}
-\end{table}
-
-\begin{table}[H]
+	\caption{Daftar attribut pada \textit{Class} AddressType}
 	\centering
 	\small
 	\begin{adjustbox}{width=1\textwidth}	
-	\begin{tabular}{|p{0.4cm}|p{3.2cm}|p{1.4cm}|p{1.7cm}|p{1.20cm}|p{3.35cm}|}
-		\hline
-		\multirow{2}{*}{\textbf{No}} & \multirow{2}{*}{\textit{\textbf{Method}}} & \multicolumn{2}{c|}{\textit{\textbf{Input}}} & \multirow{2}{*}{\textit{\textbf{Output}}} & 
-		\multirow{2}{*}{\textbf{Keterangan}}\\
-		\cline{3-4}
-		& & \textbf{Tipe} & \textbf{Variabel} & & \\
-		\hline
-		1 & score\_sentence & \begin{itemize}[leftmargin=*,label={-}]
-			\item Array\end{itemize}
-		& \begin{itemize}[leftmargin=*,label={-}]
-			\item tweet\end{itemize}
-		& Array [][] & \textit{Method} ini akan menerima masukan array \textit{tweet} yang sudah diberi \textit{tag}, kemudian melakukan iterasi setiap kata, dan memanggil \textit{method} score\_word untuk mendapatkan nilai sentimen positif dan negatif. \\
-		\hline
-		2 & score\_word & \begin{itemize}[leftmargin=*,label={-}]
-			\item String\item String\end{itemize}
-		& \begin{itemize}[leftmargin=*,label={-}]
-			\item word\item tag\end{itemize}
-		& Array [][] & \textit{Method} ini akan memberi nilai sentimen positif dan negatif berdasarkan kata dan \textit{tag }dari kata. \\
-		\hline
-	\end{tabular}
+		\begin{tabular}{|p{4cm} p{2.1cm} p{3cm} p{3.1cm}|}
+			\hline
+			\multicolumn{2}{|l}{\textbf{Variabel:}}&\multicolumn{2}{l|}{\textbf{}}\\
+			Integer&systemid&&\\
+			String&memo&&\\
+			String&typename&&\\
+			\hline
+		\end{tabular}
 	\end{adjustbox}
 \end{table}
-\subsection{\textit{Class} Negation}
-\textit{Class }Negation merupakan \textit{class} yang digunakan untuk mengatasi kata negasi yang terdapat pada \textit{tweet}. Berikut ini adalah \textit{method }pada \textit{class }Negation:
-
 \begin{table}[H]
-	\caption{Daftar \textit{Method} pada \textit{Class} Negation}
+	\caption{Daftar attribut pada \textit{Class} ContactEducation}
 	\centering
 	\small
 	\begin{adjustbox}{width=1\textwidth}	
-	\begin{tabular}{|p{4cm} p{9cm}|}
-		\hline
-		\multicolumn{2}{|l|}{\textbf{Variabel:}}\\
-		Preprocessing (Class)&preprocess\\
-		\hline
-	\end{tabular}
+		\begin{tabular}{|p{3cm} p{3.1cm} p{3cm} p{3.1cm}|}
+			\hline
+			\multicolumn{2}{|l}{\textbf{Variabel:}}&\multicolumn{2}{l|}{\textbf{\textbf{Variabel:}}}\\
+			Date&finishrolling&Contact&owner\\
+			String&gpa&String&sponsors\\
+			int&grade&Date&startrolling\\
+			String&institutionaladdress&Date&sys\_createdate\\
+			String&institutionname&int&sys\_creator\\
+			String&major&Date&sys\_lastupdate\\
+			String&notes&int&sys\_lastupdater\\
+			\hline
+		\end{tabular}
 	\end{adjustbox}
 \end{table}
 \begin{table}[H]
+	\caption{Daftar attribut pada \textit{Class} Country}
 	\centering
 	\small
 	\begin{adjustbox}{width=1\textwidth}	
-	\begin{tabular}{|p{0.4cm}|p{3.2cm}|p{1.4cm}|p{1.7cm}|p{1.20cm}|p{3.35cm}|}
-		\hline
-		\multirow{2}{*}{\textbf{No}} & \multirow{2}{*}{\textit{\textbf{Method}}} & \multicolumn{2}{c|}{\textit{\textbf{Input}}} & \multirow{2}{*}{\textit{\textbf{Output}}} & 
-		\multirow{2}{*}{\textbf{Keterangan}}\\
-		\cline{3-4}
-		& & \textbf{Tipe} & \textbf{Variabel} & & \\
-		\hline
-		1 & negation\_handling & \begin{itemize}[leftmargin=*,label={-}]
-			\item String
-			\item String
-			\item Array [][]
-			\item Bool\end{itemize}
-		& \begin{itemize}[leftmargin=*,label={-}]
-			\vspace{-0.5cm}
-			\item prev
-			\item pprev
-			\item score
-			\item change\end{itemize}
-		& Array [][], Bool & \textit{Method} ini akan digunakan pada \textit{sentiment} \textit{score}, untuk melakukan pengecekan kata negasi, jika terdapat kata negasi maka nilai dari kata setelah kata negasi akan ditambah dan dikali dua. \\
-		\hline
-	\end{tabular}
+		\begin{tabular}{|p{4cm} p{2.1cm} p{3cm} p{3.1cm}|}
+			\hline
+			\multicolumn{2}{|l}{\textbf{Variabel:}}&\multicolumn{2}{l|}{\textbf{}}\\
+			Long&systemid&&\\
+			String&name&&\\
+			\hline
+		\end{tabular}
 	\end{adjustbox}
 \end{table}
-\subsection{\textit{Class} Topic}
-\textit{Class }Topic merupakan \textit{class} yang digunakan untuk melakukan \textit{topic} \textit{modelling} yang akan dilatih dari data \textit{training}. Berikut ini adalah \textit{method }pada \textit{class }Topic:
 \begin{table}[H]
-	\caption{Daftar \textit{Method} pada \textit{Class} Topic}
+	\caption{Daftar attribut pada \textit{Class} Jobspeciality}
 	\centering
 	\small
 	\begin{adjustbox}{width=1\textwidth}	
-	\begin{tabular}{|p{4cm} p{2.1cm} p{4cm} p{2.1cm}|}
-		\hline
-		\multicolumn{2}{|l}{\textbf{Variabel:}}&\multicolumn{2}{l|}{\textbf{Variabel:}}\\
-		Int&nbtopic&String&alpha\\
-		Preprocessing (Class)&preprocess&LdaModel (Class Lib)&lda \\
-		Corpora (Class Lib)&dictionary& & \\
-		\hline
-	\end{tabular}
+		\begin{tabular}{|p{5cm} p{3.1cm} p{2cm} p{2.1cm}|}
+			\hline
+			\multicolumn{2}{|l}{\textbf{Variabel:}}&\multicolumn{2}{l|}{\textbf{}}\\
+			Long&systemid&&\\
+			String&specialityName&&\\
+			String&memo&&\\
+			\hline
+		\end{tabular}
 	\end{adjustbox}
 \end{table}
 \begin{table}[H]
+	\caption{Daftar attribut pada \textit{Class} RoleInDept}
 	\centering
 	\small
 	\begin{adjustbox}{width=1\textwidth}	
-	\begin{tabular}{|p{0.4cm}|p{3.2cm}|p{1.4cm}|p{1.7cm}|p{1.20cm}|p{3.35cm}|}
-		\hline
-		\multirow{2}{*}{\textbf{No}} & \multirow{2}{*}{\textit{\textbf{Method}}} & \multicolumn{2}{c|}{\textit{\textbf{Input}}} & \multirow{2}{*}{\textit{\textbf{Output}}} & 
-		\multirow{2}{*}{\textbf{Keterangan}}\\
-		\cline{3-4}
-		& & \textbf{Tipe} & \textbf{Variabel} & & \\
-		\hline
-		1 & Fit & \begin{itemize}[leftmargin=*,label={-}]
-			\item Array\end{itemize}
-		& \begin{itemize}[leftmargin=*,label={-}]
-			\vspace{-0.5cm}
-			\item tweet\end{itemize}
-		& Array & \textit{Method} ini akan digunakan untuk melakukan \textit{topic} \textit{modelling} dengan \textit{library} LDA dari gensim. 
-		\\
-		\hline
-		2 & transform & \begin{itemize}[leftmargin=*,label={-}]
-			\vspace{-0.5cm}
-			\item String\end{itemize}
-		& \begin{itemize}[leftmargin=*,label={-}]
-			\vspace{-0.5cm}
-			\item tweet\end{itemize}
-		& Array & \textit{Method} ini akan digunakan untuk menadapatkan topik dari sebuah \textit{tweet}. \\
-		\hline
-	\end{tabular}
+		\begin{tabular}{|p{5cm} p{3.1cm} p{2cm} p{2.1cm}|}
+			\hline
+			\multicolumn{2}{|l}{\textbf{Variabel:}}&\multicolumn{2}{l|}{\textbf{}}\\
+			int&systemid&&\\
+			Department&department&&\\
+			String&rolename&&\\
+			String&abbreviation&&\\
+			RoleInDept&parentRole&&\\
+			String&memo&&\\
+			\hline
+		\end{tabular}
 	\end{adjustbox}
 \end{table}
-\subsection{\textit{Class} SVM}
-\textit{Class }SVM merupakan \textit{class }yang digunakan untuk melakukan \textit{training} pada data \textit{training} dan mendapatkan hasil dari klasifikasi pada data \textit{testing}. Berikut ini adalah \textit{method} pada \textit{class }SVM:
 \begin{table}[H]
-	\caption{Daftar \textit{Method} pada \textit{Class} SVM}
+	\caption{Daftar attribut pada \textit{Class} Province}
 	\centering
 	\small
 	\begin{adjustbox}{width=1\textwidth}	
-	\begin{tabular}{|p{4cm} p{2.1cm} p{4cm} p{2.1cm}|}
-		\hline
-		\multicolumn{2}{|l}{\textbf{Variabel:}}&\multicolumn{2}{l|}{\textbf{Variabel:}}\\
-		Float&c&Array&alphas\\
-		Float&tol&Array&bias \\
-		Int&max\_passes&FMeasure (class)&f\_measure\\
-		\hline
-	\end{tabular}
+		\begin{tabular}{|p{5cm} p{3.1cm} p{2cm} p{2.1cm}|}
+			\hline
+			\multicolumn{2}{|l}{\textbf{Variabel:}}&\multicolumn{2}{l|}{\textbf{}}\\
+			Long&systemid&&\\
+			Country&countryCode&&\\
+			String&name&&\\
+			Set$<$Regency$>$&regencySet&&\\
+			\hline
+		\end{tabular}
 	\end{adjustbox}
 \end{table}
-\begin{small}
-	\begin{longtable}{@{\extracolsep{\fill}}|p{0.4cm}|p{3.2cm}|p{1.4cm}|p{1.9cm}|p{1.20cm}|p{3.35cm}|}
-		\hline
-		\multirow{2}{*}{\textbf{No}} & \multirow{2}{*}{\textit{\textbf{Method}}} & \multicolumn{2}{c|}{\textit{\textbf{Input}}} & \multirow{2}{*}{\textit{\textbf{Output}}} & 
-		\multirow{2}{*}{\textbf{Keterangan}}\\
-		\cline{3-4}
-		& & \textbf{Tipe} & \textbf{Variabel} & & \\
-		\hline
-		\endhead
-		1 & smo & \begin{itemize}[leftmargin=*,label={-}]
-			\item Array\item Array\end{itemize}
-		& \begin{itemize}[leftmargin=*,label={-}]
-			\item features\item label\end{itemize}
-		& Array, Float & \textit{Method} ini akan digunakan untuk mendapatkan nilai alpha dan bias, dari data \textit{training}.\textit{ } \\
-		\hline
-		2 & error & \begin{itemize}[leftmargin=*,label={-}]
-			\item Array\item Array\item Array\item Float\item Int\end{itemize}
-		& \begin{itemize}[leftmargin=*,label={-}]
-			\item feature\item label\item alpha\item bias\item i\end{itemize}
-		& Float & \textit{Method} ini akan digunakan untuk mendapatkan nilai \textit{error }yang akan digunakan pada method smo. \\
-		\hline
-		3 & classification & \begin{itemize}[leftmargin=*,label={-}]
-			\item Array\item Float\item Array\item Array\item Array\item Array\item 
-			Array\end{itemize}
-		& \begin{itemize}[leftmargin=*,label={-}]
-			\item alpha
-			\item b
-			\item feature\_ train
-			\item feature\_ test
-			\item label\_ train
-			\item label\_ test
-			\item model\_ type
-		\end{itemize}
-		& Array, Array, Array, Array & \textit{Method} ini untuk menghitung hasil prediksi menggunakan persamaan SVM, mengembalikan nilai \textit{f-measure, }akurasi dari setiap metode klasifikasi yang digunakan, dan hasil prediksi. \\
-		\hline
-		4 & f\_measure\_sarkasme & 
-		\begin{itemize}[leftmargin=*,label={-}]
-			\item Array
-			\item Array
-		\end{itemize}
-		& \begin{itemize}[leftmargin=*,label={-}]
-			\item value\_ prediction
-			\item label\_ actual
-		\end{itemize}
-		& Float & \textit{Method} ini digunakan untuk mengubah nilai value\_prediction menjadi nilai 1 atau -1, khusus klasifikasi 1 kelas. \\
-		\hline
-		5 & direct\_method & \begin{itemize}[leftmargin=*,label={-}]
-			\item Array\item Array\end{itemize}
-		& \begin{itemize}[leftmargin=*,label={-}]
-			\item value\_ prediction\item label\_ actual\end{itemize}
-		& Array, Array, Array & \textit{Method} ini digunakan untuk melakukan klasifikasi dengan \textit{direct method}. Keluaran dari \textit{method} ini adalah \textit{f-measure} dan prediksi. \\
-		\hline
-		6 & levelled\_method & \begin{itemize}[leftmargin=*,label={-}]
-			\item Array\item Array\end{itemize}
-		& \begin{itemize}[leftmargin=*,label={-}]
-			\item value\_ prediction\item label\_ actual\end{itemize}
-		& Array, Array, Array & \textit{Method} ini digunakan untuk melakukan 		klasifikasi dengan \textit{levelled method}. Keluaran dari method ini adalah \textit{f-measure} dan prediksi. \\
-		\hline
-		7 & convert\_label & \begin{itemize}[leftmargin=*,label={-}]
-			\item Array\item String\end{itemize}
-		& \begin{itemize}[leftmargin=*,label={-}]
-			\item label\item type\end{itemize}
-		& Array & \textit{Method} ini digunakan untuk mengubah label dari data sesuai dengan kelas yang akan melalui proses \textit{training}. \\
-		\hline
-		8 & get\_data\_label & \begin{itemize}[leftmargin=*,label={-}]
-			\item String\end{itemize}
-		& \begin{itemize}[leftmargin=*,label={-}]
-			\item prediksi\end{itemize}
-		& String & \textit{Method} ini digunakan untuk mendapatkan nilai label seperti semula. Sebagai contoh, jika prediksi "sarkasme" maka akan diubah kembali menjadi 2, untuk melalui proses perhitungan akurasi. \\
-		\hline
-		9 & save\_alpha\_bias & \begin{itemize}[leftmargin=*,label={-}]
-			\item Int\item Array\item Float\end{itemize}
-		& \begin{itemize}[leftmargin=*,label={-}]
-			\item n\_classify\item alpha\item bias\end{itemize}
-		& - & \textit{Method} ini untuk menyimpan nilai alpha dan bias ke dalam \textit{file}. \\
-		\hline
-	\end{longtable}
-\end{small}
-
-\addtocounter{table}{-1}
-\subsection{\textit{Class} FMeasure}
-\textit{Class} FMeasure merupakan \textit{class} yang digunakan untuk mendapatkan akurasi dari klasifikasi data \textit{testing}. Berikut ini adalah \textit{method} pada \textit{class }FMeasure:
 \begin{table}[H]
-	\caption{Daftar \textit{Method} pada \textit{Class} FMeasure}
+	\caption{Daftar attribut pada \textit{Class} Regency}
 	\centering
 	\small
 	\begin{adjustbox}{width=1\textwidth}	
-	\begin{tabular}{|p{4cm} p{2.1cm} p{4cm} p{2.1cm}|}
-		\hline
-		\multicolumn{2}{|l}{\textbf{Variabel:}}&\multicolumn{2}{l|}{\textbf{Variabel:}}\\
-		Float&c&Array&alphas\\
-		Float&tol&Array&bias \\
-		Int&max\_passes&FMeasure (class)&f\_measure\\
-		\hline
-	\end{tabular}
+		\begin{tabular}{|p{5cm} p{3.1cm} p{2cm} p{2.1cm}|}
+			\hline
+			\multicolumn{2}{|l}{\textbf{Variabel:}}&\multicolumn{2}{l|}{\textbf{}}\\
+			Long&systemid&&\\
+			Province&provId&&\\
+			String&name&&\\
+			\hline
+		\end{tabular}
 	\end{adjustbox}
 \end{table}
-\begin{small}	
-	\begin{longtable}{@{\extracolsep{\fill}}|p{0.4cm}|p{3.2cm}|p{1.4cm}|p{1.9cm}|p{1.20cm}|p{3.35cm}|}
-		\hline
-		\multirow{2}{*}{\textbf{No}} & \multirow{2}{*}{\textit{\textbf{Method}}} & \multicolumn{2}{c|}{\textit{\textbf{Input}}} & \multirow{2}{*}{\textit{\textbf{Output}}} & 
-		\multirow{2}{*}{\textbf{Keterangan}}\\
-		\cline{3-4}
-		& & \textbf{Tipe} & \textbf{Variabel} & & \\
-		\hline
-		\endhead
-		1 & confusion\_matrix & \begin{itemize}[leftmargin=*,label={-}]
-			\item Array\item Array\end{itemize}
-		& \begin{itemize}[leftmargin=*,label={-}]
-			\item label\_ actual\item label\_ prediction\end{itemize}
-		& Array, Array, Array & \textit{Method} ini digunakan untuk mendapatkan nilai \textit{True Positive, False Positive} dan \textit{False Negative} dari label prediksi dan label sebenarnya. \\
-		\hline
-		2 & f\_measure\_ all & \begin{itemize}[leftmargin=*,label={-}]
-			\item Array\item Array\item Array\end{itemize}
-		& \begin{itemize}[leftmargin=*,label={-}]
-			\item TP\item FP\item FN\end{itemize}
-		& Array & \textit{Method} ini digunakan untuk menghitung f\_measure dari setiap kelas yang ada. \\
-		\hline
-		3 & precision\_ recall & \begin{itemize}[leftmargin=*,label={-}]
-			\item Int\item Int\end{itemize}
-		& \begin{itemize}[leftmargin=*,label={-}]
-			\item TP\item FP\_FN\end{itemize}
-		& Float & \textit{Method} ini untuk mendapatkan nilai \textit{
-			precision} dan \textit{recall} berdasarkan \textit{true positive, false positive} dan \textit{false negative }yang sudah didapatkan. \\
-		\hline
-		4 & accuracy & \begin{itemize}[leftmargin=*,label={-}]
-			\item Int\item Int\end{itemize}
-		& \begin{itemize}[leftmargin=*,label={-}]
-			\item precision\item recall\end{itemize}
-		& Float & \textit{Method} ini digunakan untuk mendapatkan \textit{f-measure} berdasarkan nilai \textit{precision} dan \textit{recall}. \\
-		\hline
-	\end{longtable}
-\end{small}
-
-\addtocounter{table}{-1}
-\subsection{\textit{Class} Learning}
-\textit{Class }Learning merupakan \textit{class }yang digunakan untuk melakukan pemodelan pada data \textit{training} dan klasifikasi pada data \textit{testing} dimulai dari pengambil data menggunakan \textit{class }Loader, melakukan \textit{preprocessing }menggunakan \textit{class }Preprocessing, mendapatkan \textit{feature set} menggunakan \textit{class }Feature hingga melakukan klasifikasi 
-menggunakan \textit{class }SVM. Berikut ini adalah \textit{method} pada \textit{class }Learning:
+\subsubsection{\textit{Package} Repository}
+\textit{Package} repository berisi \textit{class-class} yang menjadi representasi model dari tabel-tabel yang berada pada basis data. Berikut ini merupakan \textit{class-class} yang terdapat pada \textit{package} repository.
 \begin{table}[H]
-	\caption{Daftar \textit{Method} pada \textit{Class} FMeasure}
-	\centering
 	\small
-	\begin{adjustbox}{width=1\textwidth}	
-	\begin{tabular}{|p{4cm} p{1cm} p{4cm} p{3.2cm}|}
-		\hline
-		\multicolumn{2}{|l}{\textbf{Variabel:}}&\multicolumn{2}{l|}{\textbf{Variabel:}}\\
-		Loader (Class)&load&Preprocessing (Class)&preprocess\\
-		Features (Class)&fitur&SVM (Class)&svm\_classifier \\
-		\hline
-	\end{tabular}
-	\end{adjustbox}
-\end{table}
-\begin{table}[H]
 	\centering
-	\small
+	\caption{Daftar {\itshape Class} pada {\itshape Package} repository}
 	\begin{adjustbox}{width=1\textwidth}
-	\begin{tabular}{|p{0.4cm}|p{3.2cm}|p{1.4cm}|p{1.7cm}|p{1.20cm}|p{3.35cm}|}
-		\hline
-		\multirow{2}{*}{\textbf{No}} & \multirow{2}{*}{\textit{\textbf{Method}}} & \multicolumn{2}{c|}{\textit{\textbf{Input}}} & \multirow{2}{*}{\textit{\textbf{Output}}} & 
-		\multirow{2}{*}{\textbf{Keterangan}}\\
-		\cline{3-4}
-		& & \textbf{Tipe} & \textbf{Variabel} & & \\
-		\hline
-		1 & get\_model\_type & \begin{itemize}[leftmargin=*,label={-}]
-			\item Int\end{itemize}
-		& \begin{itemize}[leftmargin=*,label={-}]
-			\item n\_ classify\end{itemize}
-		& Array & \textit{Method} ini akan digunakan untuk mengembalikan jenis 		klasifikasi yang akan dilakukan, jika n\_classify=0, maka akan dilakukan klasifikasi 4 kelas yaitu positif, negatif, netral dan sarkasme. Jika n\_classify=1, akan melakukan klasifikasi tanpa sarkasme. Jika n\_classify=2, akan melakukan klasifikasi sarkasme atau non-sarkasme. \\
-		\hline
-		2 & model & \begin{itemize}[leftmargin=*,label={-}]
-			\item String\end{itemize}
-		& \begin{itemize}[leftmargin=*,label={-}]
-			\item file name\end{itemize}
-		& - & \textit{Method} ini berguna untuk melakukan \textit{learning}	terhadap data \textit{training} dan melakukan klasifikasi terhadap data \textit{testing}. \\
-		\hline
-	\end{tabular}
+		\begin{tabular}{| p {3 cm} | p {8 cm} | p {3 cm} |}
+			\hline
+			{\bfseries Package} & {\bfseries Class} & {\bfseries Jenis Class} \\
+			\hline
+			\multirow{1}{*}{repository} & UnitmedisRepository & {\itshape Interface} \\
+			\hline
+		\end{tabular}
 	\end{adjustbox}
 \end{table}
-\subsection{\textit{Class} Main}
-\textit{Class }Main merupakan \textit{class }yang digunakan untuk menjalankan sistem berupa \textit{website} pada \textit{localhost}. Berikut ini adalah \textit{method} pada \textit{class }Main:
+\subsubsection{\textit{Package} Service}
+\textit{Package} service berisi \textit{class-class} yang menginisialisasi \textit{web service} human resource yang akan terbentuk dan digunakan pada \textit{package} controller. Berikut ini merupakan \textit{class-class} yang terdapat pada \textit{package} service.
 \begin{table}[H]
-	\caption{Daftar \textit{Method} pada \textit{Class} FMeasure}
+	\small
+	\centering
+	\caption{Daftar {\itshape Class} pada {\itshape Package} service}
+	\begin{adjustbox}{width=1\textwidth}
+		\begin{tabular}{| p {3 cm} | p {8 cm} | p {3 cm} |}
+			\hline
+			{\bfseries Package} & {\bfseries Class} & {\bfseries Jenis Class} \\
+			\hline
+			\multirow{3}{*}{service} & CRUDService & {\itshape Interface} \\
+			& UnitmedisService & {\itshape Interface} \\
+			& DefaultUnitmedisService & {\itshape Class} \\
+			\hline
+		\end{tabular}
+	\end{adjustbox}
+\end{table}
+\subsection{\textit{Project} Rawat Jalan}
+\textit{Project} Rawat Jalan berisi susunan \textit{class} pembentuk \textit{webservice} Rawat Jalan. Dalam project ini terdapat 4 buah \textit{package} yang berfungsi untuk memisahkan \textit{class} sesuai dengan fungsinya masing-masing. Ke empat \textit{package} ini yaitu \textit{package} controller yang berisi method-method yang dijalankan pada \textit{web service}, \textit{package} model yang berisi entitas dan tabel, \textit{package} repository yang menghubungkan entitas di \textit{package} model dengan database, dan \textit{package} service yang menginisialisasi \textit{webserviec} yang akan terbentuk. Pada bagian ini akan dijelaskan mengenai \textit{class} dan \textit{method} yang digunakan pada pengembangan \textit{webservice} Rawat Jalan:
+\subsubsection{\textit{Package} Controller}
+
+\textit{Package} controller berisi method API yang dapat digunakan untuk berkomunikasi dengan \textit{service} Rawat Jalan. \textit{Class} yang terdapat dalam \textit{package} ini adalah \textit{class} OutpatientWUQueueController yang berisi 5 buah fungsi API. Di bawah ini merupakan daftar \textit{class} untuk \textit{package} controller pada \textit{webservice} Rawat Jalan.
+\begin{table}[H]
+	\small
+	\centering
+	\caption{Daftar {\itshape Class} pada {\itshape Package} Controller}
+	\begin{adjustbox}{width=1\textwidth}
+		\begin{tabular}{| p {3 cm} | p {8 cm} | p {3 cm} |}
+			\hline
+			{\bfseries Package} & {\bfseries Class} & {\bfseries Jenis Class} \\
+			\hline
+			\multirow{1}{*}{Controller} & OutpatientWUQueueController & {\itshape Class} \\
+			\hline
+		\end{tabular}
+	\end{adjustbox}
+\end{table}
+\begin{table}[H]
+	\caption{Daftar \textit{Method} pada \textit{Class} OutpatientWUQueueController}
 	\centering
 	\small
+	\begin{adjustbox}{width=1\textwidth}	
+		\begin{tabular}{|p{0.4cm}|p{2.8cm}|p{0.9cm}|p{1.8cm}|p{2.8cm}|p{2.5cm}|}
+			\hline
+			\multirow{2}{*}{\textbf{No}} & \multirow{2}{*}{\textit{\textbf{Method}}} & \multicolumn{2}{c|}{\textit{\textbf{Input}}} & \multirow{2}{*}{\textit{\textbf{Output}}} & 
+			\multirow{2}{*}{\textbf{Keterangan}}\\
+			\cline{3-4}
+			& & \textbf{Tipe} & \textbf{Variabel} & & \\
+			\hline
+			1 & addOutpatient
+			Queue & void & Outpatient
+			WUQueue & Outpatient
+			WUQueue, HttpStatus & \textit{Method} ini digunakan untuk membuat \textit{object} rawat jalan yang baru melalui \textit{webservice}\\
+			\hline
+			2 & updateOutpatient
+			Queue & void & Outpatient
+			WUQueue & HttpStatus & \textit{Method} ini digunakan untuk mengubah attribut dari \textit{object} rawat jalan yang baru melalui \textit{webservice}\\
+			\hline
+			3 & getOutpatient
+			Queue & void & id & Outpatient
+			WUQueue, HttpStatus & \textit{Method} ini digunakan untuk mengambil satu \textit{object} rawat jalan yang baru melalui \textit{webservice}\\
+			\hline
+			4 & getAllOut
+			patientQueue & void & - & $<$List
+			$<$OutpatientWU
+			Queue$>$$>$, HttpStatus & \textit{Method} ini digunakan untuk mengambil semua \textit{list} \textit{object} rawat jalan yang baru melalui \textit{webservice}\\
+			\hline
+			5 & deleteOutpatient
+			Queue & void & id & HttpStatus & \textit{Method} ini digunakan untuk menghapus satu \textit{object} rawat jalan yang baru melalui \textit{webservice}\\
+			\hline
+		\end{tabular}
+	\end{adjustbox}
+\end{table}
+\subsubsection{\textit{Package} Model Rawat Jalan}
+\textit{Package} Rawat Jalan model berisi entitas-entitas penyusun dari \textit{service} Rawat Jalan. Berikut ini merupakan daftar \textit{class} untuk \textit{package} model.
+\begin{table}[H]
+	\small
+	\centering
+	\caption{Daftar {\itshape Class} pada {\itshape Package} model}
 	\begin{adjustbox}{width=1\textwidth}
-	\begin{tabular}{|p{4cm} p{9cm}|}
-		\hline
-		\multicolumn{2}{|l|}{\textbf{Variabel:}}\\
-		Learning (Class)&learn\\
-		\hline
-	\end{tabular}
+		\begin{tabular}{| p {3 cm} | p {8 cm} | p {3 cm} |}
+			\hline
+			{\bfseries Package} & {\bfseries Class} & {\bfseries Jenis Class} \\
+			\hline
+			\multirow{26}{*}{Model} & OutpatientWUQueue & {\itshape Class} \\
+			& OutpatientWUQueueHistory & {\itshape Class} \\
+			& OutpatientWUQueuePK & {\itshape Class} \\
+			& WorkingUnit & {\itshape Class} \\
+			& WorkingUnitMembership & {\itshape Class} \\
+			& WorkingUnitMembershipPK & {\itshape Class} \\
+			& WUGroup & {\itshape Class} \\
+			& AddressType & {\itshape Class} \\
+			& Contact & {\itshape Class} \\
+			& ContactAddress & {\itshape Class} \\
+			& ContactEducation & {\itshape Class} \\
+			& Customer & {\itshape Class} \\
+			& Customergroup & {\itshape Class} \\
+			& HealthConsumer & {\itshape Class} \\
+			& Insurance & {\itshape Class} \\
+			& InsuranceBridgeConf & {\itshape Class} \\
+			& Profession & {\itshape Class} \\
+			& Country & {\itshape Class} \\
+			& Department & {\itshape Class} \\
+			& Employee & {\itshape Class} \\
+			& Employment & {\itshape Class} \\
+			& Jobspeciality & {\itshape Class} \\
+			& Province & {\itshape Class} \\
+			& RoleInDept & {\itshape Class} \\
+			& Regency & {\itshape Class} \\
+			& MedicalUnit & {\itshape Class} \\
+			\hline
+		\end{tabular}
 	\end{adjustbox}
 \end{table}
 \begin{table}[H]
+	\caption{Daftar attribut pada \textit{Class} OutpatientWUQueue}
 	\centering
 	\small
-	\begin{adjustbox}{width=1\textwidth}
-	\begin{tabular}{|p{0.4cm}|p{3.2cm}|p{1.4cm}|p{1.7cm}|p{1.20cm}|p{3.35cm}|}
-		\hline
-		\multirow{2}{*}{\textbf{No}} & \multirow{2}{*}{\textit{\textbf{Method}}} & \multicolumn{2}{c|}{\textit{\textbf{Input}}} & \multirow{2}{*}{\textit{\textbf{Output}}} & 
-		\multirow{2}{*}{\textbf{Keterangan}}\\
-		\cline{3-4}
-		& & \textbf{Tipe} & \textbf{Variabel} & & \\
-		\hline
-		1 & classify & \begin{itemize}[leftmargin=*,label={-}]
-			\item String\end{itemize}
-		& \begin{itemize}[leftmargin=*,label={-}]
-			\item teks\end{itemize}
-		& String & \textit{Method} ini untuk mengembalikan hasil klasifikasi 
-		dari teks masukan\textit{ }kepada UI. \\
-		\hline
-		2 & upload & - & - & Array, Array, Array, Array, Array, Array, Array & 
-		\textit{Method} ini digunakan untuk menerima \textit{file} yang diisi pada \textit{form }masukan \textit{file} pada website, kemudian melakukan \textit{training} pada \textit{file} tersebut. Hasil akurasi dan data yang digunakan untuk \textit{training }dan \textit{testing} akan ditampilkan pada tampilan. \\
-		\hline
-		3 & home & - & - & - & \textit{Method} ini untuk melakukan \textit{redirect} ke halaman awal website. \\
-		\hline
-	\end{tabular}
+	\begin{adjustbox}{width=1\textwidth}	
+		\begin{tabular}{|p{4.5cm} p{2.1cm} p{2.5cm} p{3.1cm}|}
+			\hline
+			\multicolumn{2}{|l}{\textbf{Variabel:}}&\multicolumn{2}{l|}{\textbf{\textbf{Variabel:}}}\\
+			OutpatientWUQueue&hc&Calendar&syscreatetime\\
+			MedicalUnit&medunit&Calendar&syslastupdate\\
+			String&regis\_no&Insurance&insurance\\
+			Date&registertimee&String&insuranceno\\
+			Date&finishtime&String&insurancetype\\
+			int&priority&String&via\\
+			String&memo&String&rujukan\_tipe\\
+			String&rujukan\_doc\_no&String&rujukan\_nama\_asal\\
+			OutpatientWUQueueHistory&history&String&insuranceprg\\
+			\hline
+		\end{tabular}
 	\end{adjustbox}
 \end{table}
-\section{Implementasi Perangkat Lunak}
-Pada bagian ini akan dijelaskan mengenai implementasi aplikasi analisis sentimen dimulai dari pengambilan data, \textit{text preprocessing}, \textit{feature extraction}, hingga klasifikasi SVM dengan SMO.
-\subsection{Implementasi Pengambilan Data}
-Pada bagian ini akan dilakukan proses pengambilan data dari \textit{file} ekstensi .txt. Berikut ini adalah proses yang akan dilakukan dalam pengambilan data:
 \begin{table}[H]
-	\normalsize
-	\begin{adjustbox}{width=1\textwidth}
-	\begin{tabular}{|p{13.55cm}|}
-		\hline
-		\begin{enumerate}[leftmargin=*]
-			\item Memilih data \textit{file} dengan ekstensi .txt yang berisi data dan labelnya yang dipisahkan dengan \textit{tab }($\backslash$t)
-			\item Membuka \textit{file} dengan \textit{method} pada Python, yaitu open(\textit{filename}), kemudian memisahkan data dan label berdasarkan \textit{tab} ($\backslash$t) dengan \textit{method} pada Python reader(\textit{file}, \textit{delimiter }= "$\backslash$t").
-			\item Melakukan \textit{looping }atau pengulangan pada data yang sudah dipisahkan berdasarkan \textit{tab},	dan menyimpan data beserta labelnya ke dalam variabel dengan tipe	array.
-		\end{enumerate}\\
-		\hline
-	\end{tabular}
+	\caption{Daftar attribut pada \textit{Class} outpatienthistory}
+	\centering
+	\small
+	\begin{adjustbox}{width=1\textwidth}	
+		\begin{tabular}{|p{3.5cm} p{3.1cm} p{2.5cm} p{3.1cm}|}
+			\hline
+			\multicolumn{2}{|l}{\textbf{Variabel:}}&\multicolumn{2}{l|}{\textbf{\textbf{Variabel:}}}\\
+			OutpatientWUQueue&hc&Calendar&syscreatetime\\
+			MedicalUnit&medunit&Calendar&syslastupdate\\
+			String&regis\_no&Insurance&insurance\\
+			Date&registertimee&String&insuranceno\\
+			Date&finishtime&String&insurancetype\\
+			int&priority&String&via\\
+			String&memo&String&rujukan\_tipe\\
+			String&rujukan\_nama\_asal&String&rujukan\_doc\_no\\
+			String&insuranceprg&&\\
+			\hline
+		\end{tabular}
 	\end{adjustbox}
 \end{table}
-\subsection{Implementasi \textit{Text Preprocessing}}
-Sebelum melakukan pengambilan data beserta labelnya, setiap data akan melalui proses \textit{text preprocessing} dengan melakukan iterasi atau pengulangan pada data yang sudah disimpan pada array. \textit{Text preprocessing }yang dilakukan secara umum adalah \textit{remove 	hashtag}, URL, \textit{mention}, \textit{remove} \textit{punctuation}, \textit{tokenize}, \textit{stopword removal}, yang lainnya akan dijalankan saat penambahan fitur. Sebagai contoh fitur \textit{part of speech} hanya akan melakukan \textit{case folding} Berikut ini merupakan proses yang akan dilakukan dalam \textit{text preprocessing}:
+\begin{table}[H]
+	\caption{Daftar attribut pada \textit{Class} OutpatientWUQueuePK}
+	\centering
+	\small
+	\begin{adjustbox}{width=1\textwidth}	
+		\begin{tabular}{|p{4cm} p{2.1cm} p{3cm} p{3.1cm}|}
+			\hline
+			\multicolumn{2}{|l}{\textbf{Variabel:}}&\multicolumn{2}{l|}{\textbf{}}\\
+			long&hc&&\\
+			long&medunit&&\\
+			\hline
+		\end{tabular}
+	\end{adjustbox}
+\end{table}
+\begin{table}[H]
+	\caption{Daftar attribut pada \textit{Class} HealthConsumer}
+	\centering
+	\small
+	\begin{adjustbox}{width=1\textwidth}	
+		\begin{tabular}{|p{4cm} p{2.1cm} p{3cm} p{3.1cm}|}
+			\hline
+			\multicolumn{2}{|l}{\textbf{Variabel:}}&\multicolumn{2}{l|}{\textbf{}}\\
+			String&regis\_no&&\\
+			Profession&id\_prof&&\\
+			Insurance&insurance&&\\
+			String&insurance\_type&&\\
+			String&insurance\_no&&\\
+			String&insurance\_prg&&\\
+			\hline
+		\end{tabular}
+	\end{adjustbox}
+\end{table}
+\begin{table}[H]
+	\caption{Daftar attribut pada \textit{Class} Insurance}
+	\centering
+	\small
+	\begin{adjustbox}{width=1\textwidth}	
+		\begin{tabular}{|p{5cm} p{3.1cm} p{2cm} p{2.1cm}|}
+			\hline
+			\multicolumn{2}{|l}{\textbf{Variabel:}}&\multicolumn{2}{l|}{\textbf{}}\\
+			List$<$InsuranceBridgeConf$>$&insuranceBrigdeConfList&&\\
+			int&systemid&&\\
+			String&insurance&&\\
+			String&memo&&\\
+			boolean&active&&\\
+			boolean&sysbuiltin&&\\
+			\hline
+		\end{tabular}
+	\end{adjustbox}
+\end{table}
+\begin{table}[H]
+	\caption{Daftar attribut pada \textit{Class} InsuranceBridgeConf}
+	\centering
+	\small
+	\begin{adjustbox}{width=1\textwidth}	
+		\begin{tabular}{|p{5cm} p{3.1cm} p{2cm} p{2.1cm}|}
+			\hline
+			\multicolumn{2}{|l}{\textbf{Variabel:}}&\multicolumn{2}{l|}{\textbf{}}\\
+			Long&systemid&&\\
+			String&field&&\\
+			String&def\_val&&\\
+			String&memo&&\\
+			\hline
+		\end{tabular}
+	\end{adjustbox}
+\end{table}
+\begin{table}[H]
+	\caption{Daftar attribut pada \textit{Class} Profession}
+	\centering
+	\small
+	\begin{adjustbox}{width=1\textwidth}	
+		\begin{tabular}{|p{5cm} p{3.1cm} p{2cm} p{2.1cm}|}
+			\hline
+			\multicolumn{2}{|l}{\textbf{Variabel:}}&\multicolumn{2}{l|}{\textbf{}}\\
+			Integer&systemid&&\\
+			String&profname&&\\
+			String&memo&&\\
+			Calendar&sys\_createdate&&\\
+			Calendar&last\_createdate&&\\
+			\hline
+		\end{tabular}
+	\end{adjustbox}
+\end{table}
+\begin{table}[H]
+	\caption{Daftar attribut pada \textit{Class} Customer}
+	\centering
+	\small
+	\begin{adjustbox}{width=1\textwidth}	
+		\begin{tabular}{|p{4cm} p{2.1cm} p{3cm} p{3.1cm}|}
+			\hline
+			\multicolumn{2}{|l}{\textbf{Variabel:}}&\multicolumn{2}{l|}{\textbf{Variabel:}}\\
+			boolean&cust\_no&Date&registrationdate\\
+			boolean&active&int&idPriceLevel\\
+			double&creditlimit&double&disc\\
+			Customergroup&customergroup&&\\
+			\hline
+		\end{tabular}
+	\end{adjustbox}
+\end{table}
 
-\begin{enumerate}[leftmargin=*]
-	\normalsize
-	\item \textit{Case Folding}\\
-	\begin{adjustbox}{width=1\width}
-	\framebox[\linewidth]{\parbox{\linewidth}{\begin{enumerate}[label={}, leftmargin=5pt,rightmargin=5pt]
-				\item Mengubah setiap huruf pada \textit{tweet} menjadi huruf kecil dengan \textit{method} variabel.lower().
-			\end{enumerate}}}
+\begin{table}[H]
+	\caption{Daftar attribut pada \textit{Class} Customergroup}
+	\centering
+	\small
+	\begin{adjustbox}{width=1\textwidth}	
+		\begin{tabular}{|p{4cm} p{2.1cm} p{3cm} p{3.1cm}|}
+			\hline
+			\multicolumn{2}{|l}{\textbf{Variabel:}}&\multicolumn{2}{l|}{}\\
+			long&systemid&&\\
+			String&groupname&&\\
+			String&memo&&\\
+			\hline
+		\end{tabular}
 	\end{adjustbox}
-	\item \textit{Remove} \textit{Hashtag, }URL, \textit{Mention}\\
-	\begin{adjustbox}{width=1\width}
-	\framebox[\linewidth]{\parbox{\linewidth}{\begin{enumerate}[label={}, leftmargin=5pt,rightmargin=5pt]
-				\item Menghapus semua \textit{hashtag}, URL, \textit{mention} pada \textit{tweet} dengan \textit{method} pada \textit{library }Tweet-preprocessor, yaitu clean(\textit{tweet}).
-			\end{enumerate}}}
+\end{table}
+\begin{table}[H]
+	\caption{Daftar attribut pada \textit{Class} WorkingUnit}
+	\centering
+	\small
+	\begin{adjustbox}{width=1\textwidth}	
+		\begin{tabular}{|p{4cm} p{2.1cm} p{3cm} p{3.1cm}|}
+			\hline
+			\multicolumn{2}{|l}{\textbf{Variabel:}}&\multicolumn{2}{l|}{\textbf{}}\\
+			Long&systemid&&\\
+			WUGroup&wugroup&&\\
+			String&workunit\_name&&\\
+			String&memo&&\\
+			Calendar&createdate&&\\
+			Calendar&lastupdate&&\\
+			\hline
+		\end{tabular}
 	\end{adjustbox}
-	\item \textit{Remove Punctuation}\\
-	\begin{adjustbox}{width=1\width}
-	\framebox[\linewidth]{\parbox{\linewidth}{\begin{enumerate}[label={\arabic*}, leftmargin=15pt,rightmargin=5pt]
-				\item Menginisialisasikan tanda baca yang ada ke sebuah variabel dengan tipe array dengan \textit{method }pada Python, yaitu set(string.punctuation)
-				\item Menghapus semua tanda baca kecuali tanda baca tanya (?), tanda seru (!), tanda petik(", ') dan tanda pemisah (-) dengan melakukan iterasi setiap \textit{character }pada \textit{tweet}, dan menghapus kemunculan tanda baca yang terdapat pada variabel tanda baca pada tahap 1.
-			\end{enumerate}}}
+\end{table}
+\begin{table}[H]
+	\caption{Daftar attribut pada \textit{Class} MedicalUnit}
+	\centering
+	\small
+	\begin{adjustbox}{width=1\textwidth}	
+		\begin{tabular}{|p{4cm} p{2.1cm} p{3cm} p{3.1cm}|}
+			\hline
+			\multicolumn{2}{|l}{\textbf{Variabel:}}&\multicolumn{2}{l|}{}\\
+			Long&systemid&&\\
+			\hline
+		\end{tabular}
 	\end{adjustbox}
-	\item \textit{Tokenization}\\
-	\begin{adjustbox}{width=1\width}
-	\framebox[\linewidth]{\parbox{\linewidth}{\begin{enumerate}[label={}, leftmargin=5pt,rightmargin=5pt]
-				\item Melakukan \textit{tokenize} pada \textit{tweet} dengan \textit{method} pada \textit{library }NLTK, yaitu word\_tokenize(\textit{tweet}).
-			\end{enumerate}}}
+\end{table}
+\begin{table}[H]
+	\caption{Daftar attribut pada \textit{Class} WorkingUnitMembership}
+	\centering
+	\small
+	\begin{adjustbox}{width=1\textwidth}	
+		\begin{tabular}{|p{4cm} p{2.1cm} p{3cm} p{3.1cm}|}
+			\hline
+			\multicolumn{2}{|l}{\textbf{Variabel:}}&\multicolumn{2}{l|}{}\\
+			WorkingUnit&workingunit&&\\
+			Employee&employee&&\\
+			boolean&workingunitpersonincharge&&\\
+			String&description&&\\
+			Calendar&sys\_createdate&&\\
+			Calendar&syssys\_lastupdate&&\\
+			\hline
+		\end{tabular}
 	\end{adjustbox}
-	\item \textit{Misuse of Word}\\
-	\begin{adjustbox}{width=1\width}
-	\framebox[\linewidth]{\parbox{\linewidth}{\begin{enumerate}[label={}, leftmargin=5pt,rightmargin=5pt]
-				\item Menggabungkan setiap huruf yang sama dan bersebelahan, dengan melakukan iterasi setiap token yang dihasilkan pada tahap \textit{tokenization}, dengan \textit{method }itertools.groupby(token).
-			\end{enumerate}}}
+\end{table}
+\begin{table}[H]
+	\caption{Daftar attribut pada \textit{Class} WUGroup}
+	\centering
+	\small
+	\begin{adjustbox}{width=1\textwidth}	
+		\begin{tabular}{|p{4cm} p{2.1cm} p{3cm} p{3.1cm}|}
+			\hline
+			\multicolumn{2}{|l}{\textbf{Variabel:}}&\multicolumn{2}{l|}{}\\
+			Long&systemid&&\\
+			String&groupname&&\\
+			String&memo&&\\
+			\hline
+		\end{tabular}
 	\end{adjustbox}
-	\item \textit{Abbreviation Word}\\
-	\begin{adjustbox}{width=1\width}
-	\framebox[\linewidth]{\parbox{\linewidth}{\begin{enumerate}[label={\arabic*}, leftmargin=15pt,rightmargin=5pt]
-				\item Menginisialisasi kamus kata singkatan yang dibuat secara manual pada \textit{file} ekstensi .txt ke dalam variabel \textit{abbreviation\_dic }tipe array.
-				\item Melakukan iterasi setiap token dan menggantinya dengan persamaannya jika terdapat pada variabel kamus kata singkatan.
-			\end{enumerate}}}
+\end{table}
+\begin{table}[H]
+	\caption{Daftar attribut pada \textit{Class} WorkingUnitMembershipPK}
+	\centering
+	\small
+	\begin{adjustbox}{width=1\textwidth}	
+		\begin{tabular}{|p{4cm} p{2.1cm} p{3cm} p{3.1cm}|}
+			\hline
+			\multicolumn{2}{|l}{\textbf{Variabel:}}&\multicolumn{2}{l|}{}\\
+			Long&workingunit&&\\
+			Long&employee&&\\
+			\hline
+		\end{tabular}
 	\end{adjustbox}
-	\pagebreak
-	\item \textit{Stopword Removal}\\
-	\begin{adjustbox}{width=1\width}
-	\framebox[\linewidth]{\parbox{\linewidth}{\begin{enumerate}[label={\arabic*}, leftmargin=15pt,rightmargin=5pt]
-				\item Menginisialisasi kamus kata \textit{stopword} pada \textit{file} ekstensi .txt ke dalam variabel stopword tipe array.
-				
-				\item Melakukan	iterasi setiap token dan menghapus token tersebut jika terdapat pada	variabel stopword.
-			\end{enumerate}}}
+\end{table}
+\begin{table}[H]
+	\caption{Daftar attribut pada \textit{Class} Employment}
+	\centering
+	\small
+	\begin{adjustbox}{width=1\textwidth}	
+		\begin{tabular}{|p{4cm} p{2.1cm} p{3cm} p{3.1cm}|}
+			\hline
+			\multicolumn{2}{|l}{\textbf{Variabel:}}&\multicolumn{2}{l|}{\textbf{Variabel:}}\\
+			Long&systemid&Employee&employee\\
+			String&ein&Date&hiredate\\
+			BigInteger&basesalary&RoleInDept&roleIndept\\
+			Integer&contracttype&String& sourceinstitution\\
+			int&sourcetype&Date& createdate\\
+			Date&lastupdate&Date& terminatedate\\
+			\hline
+		\end{tabular}
 	\end{adjustbox}
-	\item \textit{Stemming}\\
-	\begin{adjustbox}{width=1\width}
-	\framebox[\linewidth]{\parbox{\linewidth}{\begin{enumerate}[label={}, leftmargin=5pt,rightmargin=5pt]
-				\item Mengubah kata menjadi bentuk kata dasarnya dengan \textit{method} pada \textit{library }sastrawi, yaitu stem(\textit{tweet}).
-			\end{enumerate}}}
+\end{table}
+\begin{table}[H]
+	\caption{Daftar attribut pada \textit{Class} Employee}
+	\centering
+	\small
+	\begin{adjustbox}{width=1\textwidth}	
+		\begin{tabular}{|p{4cm} p{2.1cm} p{3cm} p{3.1cm}|}
+			\hline
+			\multicolumn{2}{|l}{\textbf{Variabel:}}&\multicolumn{2}{l|}{}\\
+			String&m\_ein&&\\
+			Jobspeciality&jobspeciality&&\\
+			Collection$<$Employment$>$&employmentCollection&&\\
+			\hline
+		\end{tabular}
 	\end{adjustbox}
-\end{enumerate}
-\subsection{Implementasi \textit{Feature Extraction}}
-Setelah \textit{text preprocessing}, akan dilakukan \textit{feature extraction }untuk mendapatkan nilai fitur dari setiap teks. Berikut ini merupakan proses yang akan dilakukan dalam \textit{feature extraction}:
-\begin{enumerate}[leftmargin=*]
-	\normalsize
-	\item \textit{Unigram}\\
-	\begin{adjustbox}{width=1\width}
-	\framebox[\linewidth]{\parbox{\linewidth}{\begin{enumerate}[label={\arabic*}, leftmargin=15pt,rightmargin=5pt]
-				\item Melakukan \textit{case folding} terhadap \textit{tweet}, \textit{stemming}, \textit{misuse of word, tokenize}.
-				\item Menghitung jumlah kemunculan kata pada \textit{tweet} dan disimpan ke	dalam variabel tipe object (\{\}).
-				\item Menghitung nilai TF setiap kata dan dikalikan dengan IDF katanya. \item Hasil fitur akan disimpan dalam	variabel features tipe object (\{\})
-			\end{enumerate}}}
+\end{table}
+\begin{table}[H]
+	\caption{Daftar attribut pada \textit{Class} Departement}
+	\centering
+	\small
+	\begin{adjustbox}{width=1\textwidth}	
+		\begin{tabular}{|p{4cm} p{2.1cm} p{3cm} p{3.1cm}|}
+			\hline
+			\multicolumn{2}{|l}{\textbf{Variabel:}}&\multicolumn{2}{l|}{\textbf{}}\\
+			int&systemid&&\\
+			String&deptname&&\\
+			String&memo&&\\
+			Collection$<$RoleInDept$>$&roles&&\\
+			Date&createdate&&\\
+			Date&lastupdate&&\\
+			\hline
+		\end{tabular}
 	\end{adjustbox}
+\end{table}
+\begin{table}[H]
+\caption{Daftar attribut pada \textit{Class} ContactAddress}
+\centering
+\small
+\begin{adjustbox}{width=1\textwidth}	
+	\begin{tabular}{|p{4cm} p{2.1cm} p{3cm} p{3.1cm}|}
+		\hline
+		\multicolumn{2}{|l}{\textbf{Variabel:}}&\multicolumn{2}{l|}{\textbf{Variabel:}}\\
+		Long&systemid&String&postcode\\
+		AddressType&addresstype&Regency&regency\\
+		String&street&boolean&asbillingaddress\\
+		String&fax&Date&sys\_createdate\\
+		Contact&owner&String&sys\_creator\\
+		String&phone&Date&sys\_lastupdate\\
+		String&sys\_lastupdater&&\\
+		\hline
+	\end{tabular}
+\end{adjustbox}
+\end{table}
+\begin{table}[H]
+	\caption{Daftar attribut pada \textit{Class} Contact}
+	\centering
+	\small
+	\begin{adjustbox}{width=1\textwidth}	
+		\begin{tabular}{|p{2cm} p{2.1cm} p{5cm} p{3.1cm}|}
+			\hline
+			\multicolumn{2}{|l}{\textbf{Variabel:}}&\multicolumn{2}{l|}{\textbf{Variabel:}}\\
+			long&systemid&String&initial\\
+			String&lastname&int&amountofchildren\\
+			int&maritalstatus&List$<$ContactAddress$>$&arrAddress\\
+			String&middlename&Collection$<$ContactEducation$>$&arrEdu\\
+			Date&birthday&String&notes\\
+			String&birthplace&String&officeext\\
+			String&bloodtype&String&passportid\\
+			double&bodyheight&byte[]&photo\\
+			double&bodyweight&String&prefixtitle\\
+			String&citizenid&String&sms\\
+			String&citizentype&String&suffixtitle\\
+			Country&citizenship&Date&sys\_createdate\\
+			String&email&String&sys\_creator\\
+			String&firstname&Date&sys\_lastupdate\\
+			int&gender&String&sys\_lastupdater\\
+			String&homephone&String&taxid\\
+			String&messaging&String&web\\
+			\hline
+		\end{tabular}
+	\end{adjustbox}
+\end{table}
+\begin{table}[H]
+	\caption{Daftar attribut pada \textit{Class} AddressType}
+	\centering
+	\small
+	\begin{adjustbox}{width=1\textwidth}	
+		\begin{tabular}{|p{4cm} p{2.1cm} p{3cm} p{3.1cm}|}
+			\hline
+			\multicolumn{2}{|l}{\textbf{Variabel:}}&\multicolumn{2}{l|}{\textbf{}}\\
+			Integer&systemid&&\\
+			String&memo&&\\
+			String&typename&&\\
+			\hline
+		\end{tabular}
+	\end{adjustbox}
+\end{table}
+\begin{table}[H]
+	\caption{Daftar attribut pada \textit{Class} ContactEducation}
+	\centering
+	\small
+	\begin{adjustbox}{width=1\textwidth}	
+		\begin{tabular}{|p{3cm} p{3.1cm} p{3cm} p{3.1cm}|}
+			\hline
+			\multicolumn{2}{|l}{\textbf{Variabel:}}&\multicolumn{2}{l|}{\textbf{\textbf{Variabel:}}}\\
+			Date&finishrolling&Contact&owner\\
+			String&gpa&String&sponsors\\
+			int&grade&Date&startrolling\\
+			String&institutionaladdress&Date&sys\_createdate\\
+			String&institutionname&int&sys\_creator\\
+			String&major&Date&sys\_lastupdate\\
+			String&notes&int&sys\_lastupdater\\
+			\hline
+		\end{tabular}
+	\end{adjustbox}
+\end{table}
+\begin{table}[H]
+	\caption{Daftar attribut pada \textit{Class} Country}
+	\centering
+	\small
+	\begin{adjustbox}{width=1\textwidth}	
+		\begin{tabular}{|p{4cm} p{2.1cm} p{3cm} p{3.1cm}|}
+			\hline
+			\multicolumn{2}{|l}{\textbf{Variabel:}}&\multicolumn{2}{l|}{\textbf{}}\\
+			Long&systemid&&\\
+			String&name&&\\
+			\hline
+		\end{tabular}
+	\end{adjustbox}
+\end{table}
+\begin{table}[H]
+	\caption{Daftar attribut pada \textit{Class} Jobspeciality}
+	\centering
+	\small
+	\begin{adjustbox}{width=1\textwidth}	
+		\begin{tabular}{|p{5cm} p{3.1cm} p{2cm} p{2.1cm}|}
+			\hline
+			\multicolumn{2}{|l}{\textbf{Variabel:}}&\multicolumn{2}{l|}{\textbf{}}\\
+			Long&systemid&&\\
+			String&specialityName&&\\
+			String&memo&&\\
+			\hline
+		\end{tabular}
+	\end{adjustbox}
+\end{table}
+\begin{table}[H]
+	\caption{Daftar attribut pada \textit{Class} RoleInDept}
+	\centering
+	\small
+	\begin{adjustbox}{width=1\textwidth}	
+		\begin{tabular}{|p{5cm} p{3.1cm} p{2cm} p{2.1cm}|}
+			\hline
+			\multicolumn{2}{|l}{\textbf{Variabel:}}&\multicolumn{2}{l|}{\textbf{}}\\
+			int&systemid&&\\
+			Department&department&&\\
+			String&rolename&&\\
+			String&abbreviation&&\\
+			RoleInDept&parentRole&&\\
+			String&memo&&\\
+			\hline
+		\end{tabular}
+	\end{adjustbox}
+\end{table}
+\begin{table}[H]
+	\caption{Daftar attribut pada \textit{Class} Province}
+	\centering
+	\small
+	\begin{adjustbox}{width=1\textwidth}	
+		\begin{tabular}{|p{5cm} p{3.1cm} p{2cm} p{2.1cm}|}
+			\hline
+			\multicolumn{2}{|l}{\textbf{Variabel:}}&\multicolumn{2}{l|}{\textbf{}}\\
+			Long&systemid&&\\
+			Country&countryCode&&\\
+			String&name&&\\
+			Set$<$Regency$>$&regencySet&&\\
+			\hline
+		\end{tabular}
+	\end{adjustbox}
+\end{table}
+\begin{table}[H]
+	\caption{Daftar attribut pada \textit{Class} Regency}
+	\centering
+	\small
+	\begin{adjustbox}{width=1\textwidth}	
+		\begin{tabular}{|p{5cm} p{3.1cm} p{2cm} p{2.1cm}|}
+			\hline
+			\multicolumn{2}{|l}{\textbf{Variabel:}}&\multicolumn{2}{l|}{\textbf{}}\\
+			Long&systemid&&\\
+			Province&provId&&\\
+			String&name&&\\
+			\hline
+		\end{tabular}
+	\end{adjustbox}
+\end{table}
+\subsubsection{\textit{Package} Repository}
+\textit{Package} repository berisi \textit{class-class} yang menjadi representasi model dari tabel-tabel yang berada pada basis data. Berikut ini merupakan \textit{class-class} yang terdapat pada \textit{package} repository.
+\begin{table}[H]
+	\small
+	\centering
+	\caption{Daftar {\itshape Class} pada {\itshape Package} repository}
+	\begin{adjustbox}{width=1\textwidth}
+		\begin{tabular}{| p {3 cm} | p {8 cm} | p {3 cm} |}
+			\hline
+			{\bfseries Package} & {\bfseries Class} & {\bfseries Jenis Class} \\
+			\hline
+			\multirow{1}{*}{repository} & OutpatientWUQueueRepository & {\itshape Interface} \\
+			\hline
+		\end{tabular}
+	\end{adjustbox}
+\end{table}
+\subsubsection{\textit{Package} Service}
+\textit{Package} service berisi \textit{class-class} yang menginisialisasi \textit{web service} human resource yang akan terbentuk dan digunakan pada \textit{package} controller. Berikut ini merupakan \textit{class-class} yang terdapat pada \textit{package} service.
+\begin{table}[H]
+	\small
+	\centering
+	\caption{Daftar {\itshape Class} pada {\itshape Package} service}
+	\begin{adjustbox}{width=1\textwidth}
+		\begin{tabular}{| p {3 cm} | p {8 cm} | p {3 cm} |}
+			\hline
+			{\bfseries Package} & {\bfseries Class} & {\bfseries Jenis Class} \\
+			\hline
+			\multirow{3}{*}{service} & CRUDService & {\itshape Interface} \\
+			& OutpatientWUQueueService & {\itshape Interface} \\
+			& DefaultOutpatientWUQueueService & {\itshape Class} \\
+			\hline
+		\end{tabular}
+	\end{adjustbox}
+\end{table}
+\subsection{\textit{Project} \textit{Medical Records}}
+\textit{Project Medical Records} berisi susunan \textit{class} pembentuk \textit{webservice Medical Records}. Dalam project ini terdapat 4 buah \textit{package} yang berfungsi untuk memisahkan \textit{class} sesuai dengan fungsinya masing-masing. Ke empat \textit{package} ini yaitu \textit{package} controller yang berisi method-method yang dijalankan pada \textit{web service}, \textit{package} model yang berisi entitas dan tabel, \textit{package} repository yang menghubungkan entitas di \textit{package} model dengan database, dan \textit{package} service yang menginisialisasi \textit{webserviec} yang akan terbentuk. Pada bagian ini akan dijelaskan mengenai \textit{class} dan \textit{method} yang digunakan pada pengembangan \textit{ webservice} Medical Records:
+\subsubsection{\textit{Package} Controller}
+\textit{Package} controller berisi method API yang dapat digunakan untuk berkomunikasi dengan \textit{service} Rawat Jalan. \textit{Class} yang terdapat dalam \textit{package} ini adalah \textit{class} OutpatientWUQueueController yang berisi 5 buah fungsi API. Di bawah ini merupakan daftar \textit{class} untuk \textit{package} controller pada \textit{webservice} Rawat Jalan.
+\begin{table}[H]
+	\small
+	\centering
+	\caption{Daftar {\itshape Class} pada {\itshape Package} Controller}
+	\begin{adjustbox}{width=1\textwidth}
+		\begin{tabular}{| p {3 cm} | p {8 cm} | p {3 cm} |}
+			\hline
+			{\bfseries Package} & {\bfseries Class} & {\bfseries Jenis Class} \\
+			\hline
+			\multirow{1}{*}{Controller} & MedicalRecordController & {\itshape Class} \\
+			\hline
+		\end{tabular}
+	\end{adjustbox}
+\end{table}
+\begin{table}[H]
+	\caption{Daftar \textit{Method} pada \textit{Class} OutpatientWUQueueController}
+	\centering
+	\small
+	\begin{adjustbox}{width=1\textwidth}	
+		\begin{tabular}{|p{0.4cm}|p{2.8cm}|p{0.9cm}|p{1.8cm}|p{2.8cm}|p{2.5cm}|}
+			\hline
+			\multirow{2}{*}{\textbf{No}} & \multirow{2}{*}{\textit{\textbf{Method}}} & \multicolumn{2}{c|}{\textit{\textbf{Input}}} & \multirow{2}{*}{\textit{\textbf{Output}}} & 
+			\multirow{2}{*}{\textbf{Keterangan}}\\
+			\cline{3-4}
+			& & \textbf{Tipe} & \textbf{Variabel} & & \\
+			\hline
+			1 & addMedicalRecord & void & MR
+			Examination & MRExamination, HttpStatus & \textit{Method} ini digunakan untuk membuat \textit{object} rekam medis yang baru melalui \textit{webservice}\\
+			\hline
+			2 & update
+			MedicalRecord & void & MR
+			Examination & HttpStatus & \textit{Method} ini digunakan untuk mengubah attribut dari \textit{object} rekam medis yang baru melalui \textit{webservice}\\
+			\hline
+			3 & getMedicalRecord & void & id & MRExamination, HttpStatus & \textit{Method} ini digunakan untuk mengambil satu \textit{object} rekam medis yang baru melalui \textit{webservice}\\
+			\hline
+			4 & get
+			AllMedicalRecord & void & - & $<$List
+			$<$MRExamination
+			$>$$>$, HttpStatus & \textit{Method} ini digunakan untuk mengambil semua \textit{list} \textit{object} rekam medis yang baru melalui \textit{webservice}\\
+			\hline
+			5 & delete
+			MedicalRecord & void & id & HttpStatus & \textit{Method} ini digunakan untuk menghapus satu \textit{object} rekam medis yang baru melalui \textit{webservice}\\
+			\hline
+		\end{tabular}
+	\end{adjustbox}
+\end{table}
+\subsubsection{\textit{Package} Model \textit{Medical Record}}
+\textit{Package} Rawat Jalan model berisi entitas-entitas penyusun dari \textit{service} Rawat Jalan. Berikut ini merupakan daftar \textit{class} untuk \textit{package} model.
+\begin{table}[H]
+	\small
+	\centering
+	\caption{Daftar {\itshape Class} pada {\itshape Package} model}
+	\begin{adjustbox}{width=1\textwidth}
+		\begin{tabular}{| p {3 cm} | p {8 cm} | p {3 cm} |}
+			\hline
+			{\bfseries Package} & {\bfseries Class} & {\bfseries Jenis Class} \\
+			\hline
+			\multirow{23}{*}{Model} & MRMasterRecord & {\itshape Class} \\
+			& MRExamination & {\itshape Class} \\
+			& MRExamResult & {\itshape Class} \\
+			& MRSupportDoc & {\itshape Class} \\
+			& AddressType & {\itshape Class} \\
+			& Contact & {\itshape Class} \\
+			& ContactAddress & {\itshape Class} \\
+			& ContactEducation & {\itshape Class} \\
+			& Country & {\itshape Class} \\
+			& Customer & {\itshape Class} \\
+			& Customergroup & {\itshape Class} \\
+			& Department & {\itshape Class} \\
+			& Employee & {\itshape Class} \\
+			& Employment & {\itshape Class} \\
+			& HealthConsumer & {\itshape Class} \\
+			& Insurance & {\itshape Class} \\
+			& InsuranceBridgeConf & {\itshape Class} \\
+			& Jobspeciality & {\itshape Class} \\
+			& Profession & {\itshape Class} \\
+			& Province & {\itshape Class} \\
+			& RoleInDept & {\itshape Class} \\
+			& Regency & {\itshape Class} \\
+			\hline
+		\end{tabular}
+	\end{adjustbox}
+\end{table}
+\begin{table}[H]
+	\caption{Daftar attribut pada \textit{Class} MRMasterRecord}
+	\centering
+	\small
+	\begin{adjustbox}{width=1\textwidth}	
+		\begin{tabular}{|p{2cm} p{2.1cm} p{5cm} p{3.1cm}|}
+			\hline
+			\multicolumn{2}{|l}{\textbf{Variabel:}}&\multicolumn{2}{l|}{\textbf{\textbf{Variabel:}}}\\
+			Long&systemid&int&ref\_type\\
+			String&ref\_id&HealthConsumer&owner\\
+			Employee&conductedby&Date&transactiondate\\
+			String&memo&Collection$<$MRSupportDoc$>$&supportDocs\\
+			Date&sys\_createdate&Date&sys\_lastupdate\\
+			\hline
+		\end{tabular}
+	\end{adjustbox}
+\end{table}
+\begin{table}[H]
+	\caption{Daftar attribut pada \textit{Class} MRExamination}
+	\centering
+	\small
+	\begin{adjustbox}{width=1\textwidth}	
+		\begin{tabular}{|p{4cm} p{2.1cm} p{3cm} p{3.1cm}|}
+			\hline
+			\multicolumn{2}{|l}{\textbf{Variabel:}}&\multicolumn{2}{l|}{\textbf{}}\\
+			String&examname&&\\
+			List$<$MRExamResult$>$&mRExamResultCollection&&\\
+			\hline
+		\end{tabular}
+	\end{adjustbox}
+\end{table}
+\begin{table}[H]
+	\caption{Daftar attribut pada \textit{Class} MRExamResult}
+	\centering
+	\small
+	\begin{adjustbox}{width=1\textwidth}	
+		\begin{tabular}{|p{4cm} p{2.1cm} p{3cm} p{3.1cm}|}
+			\hline
+			\multicolumn{2}{|l}{\textbf{Variabel:}}&\multicolumn{2}{l|}{\textbf{}}\\
+			String&param\_name&&\\
+			MRExamination&parent&&\\
+			String&param\_value&&\\
+			String&param\_metric&&\\
+			\hline
+		\end{tabular}
+	\end{adjustbox}
+\end{table}
+\begin{table}[H]
+	\caption{Daftar attribut pada \textit{Class} MRSupportDoc}
+	\centering
+	\small
+	\begin{adjustbox}{width=1\textwidth}	
+		\begin{tabular}{|p{2.2cm} p{3.1cm} p{3cm} p{3.9cm}|}
+			\hline
+			\multicolumn{2}{|l}{\textbf{Variabel:}}&\multicolumn{2}{l|}{\textbf{\textbf{Variabel:}}}\\
+			Long&systemid&MRMasterRecord&parent\\
+			String&filename&byte[]&filebytes\\
+			String&memo&Date&sysLastupdate\\
+			String&param\_metric&String&relativepathonfilestorage\\
+			BigIntegertring&approxfilesizeinbytes&Date&sysCreatedate\\
+			\hline
+		\end{tabular}
+	\end{adjustbox}
+\end{table}
+\begin{table}[H]
+	\caption{Daftar attribut pada \textit{Class} HealthConsumer}
+	\centering
+	\small
+	\begin{adjustbox}{width=1\textwidth}	
+		\begin{tabular}{|p{4cm} p{2.1cm} p{3cm} p{3.1cm}|}
+			\hline
+			\multicolumn{2}{|l}{\textbf{Variabel:}}&\multicolumn{2}{l|}{\textbf{}}\\
+			String&regis\_no&&\\
+			Profession&id\_prof&&\\
+			Insurance&insurance&&\\
+			String&insurance\_type&&\\
+			String&insurance\_no&&\\
+			String&insurance\_prg&&\\
+			\hline
+		\end{tabular}
+	\end{adjustbox}
+\end{table}
+\begin{table}[H]
+	\caption{Daftar attribut pada \textit{Class} Insurance}
+	\centering
+	\small
+	\begin{adjustbox}{width=1\textwidth}	
+		\begin{tabular}{|p{5cm} p{3.1cm} p{2cm} p{2.1cm}|}
+			\hline
+			\multicolumn{2}{|l}{\textbf{Variabel:}}&\multicolumn{2}{l|}{\textbf{}}\\
+			List$<$InsuranceBridgeConf$>$&insuranceBrigdeConfList&&\\
+			int&systemid&&\\
+			String&insurance&&\\
+			String&memo&&\\
+			boolean&active&&\\
+			boolean&sysbuiltin&&\\
+			\hline
+		\end{tabular}
+	\end{adjustbox}
+\end{table}
+\begin{table}[H]
+	\caption{Daftar attribut pada \textit{Class} InsuranceBridgeConf}
+	\centering
+	\small
+	\begin{adjustbox}{width=1\textwidth}	
+		\begin{tabular}{|p{5cm} p{3.1cm} p{2cm} p{2.1cm}|}
+			\hline
+			\multicolumn{2}{|l}{\textbf{Variabel:}}&\multicolumn{2}{l|}{\textbf{}}\\
+			Long&systemid&&\\
+			String&field&&\\
+			String&def\_val&&\\
+			String&memo&&\\
+			\hline
+		\end{tabular}
+	\end{adjustbox}
+\end{table}
+\begin{table}[H]
+	\caption{Daftar attribut pada \textit{Class} Profession}
+	\centering
+	\small
+	\begin{adjustbox}{width=1\textwidth}	
+		\begin{tabular}{|p{5cm} p{3.1cm} p{2cm} p{2.1cm}|}
+			\hline
+			\multicolumn{2}{|l}{\textbf{Variabel:}}&\multicolumn{2}{l|}{\textbf{}}\\
+			Integer&systemid&&\\
+			String&profname&&\\
+			String&memo&&\\
+			Calendar&sys\_createdate&&\\
+			Calendar&last\_createdate&&\\
+			\hline
+		\end{tabular}
+	\end{adjustbox}
+\end{table}
+\begin{table}[H]
+	\caption{Daftar attribut pada \textit{Class} Customer}
+	\centering
+	\small
+	\begin{adjustbox}{width=1\textwidth}	
+		\begin{tabular}{|p{4cm} p{2.1cm} p{3cm} p{3.1cm}|}
+			\hline
+			\multicolumn{2}{|l}{\textbf{Variabel:}}&\multicolumn{2}{l|}{\textbf{Variabel:}}\\
+			boolean&cust\_no&Date&registrationdate\\
+			boolean&active&int&idPriceLevel\\
+			double&creditlimit&double&disc\\
+			Customergroup&customergroup&&\\
+			\hline
+		\end{tabular}
+	\end{adjustbox}
+\end{table}
 
-	\item \textit{Part of Speech}\\
-	\begin{adjustbox}{width=1\width}	
-	\framebox[\linewidth]{\parbox{\linewidth}{\begin{enumerate}[label={\arabic*}, leftmargin=15pt,rightmargin=5pt]
-				\item Melakukan \textit{case folding} terhadap \textit{tweet}.
-				\item Melakukan \textit{tagging }terhadap \textit{tweet} dengan \textit{method} pada \textit{library }IPosTagger, yaitu taggingStr(\textit{tweet})
-				\item Hasil \textit{tweet} yang sudah diberi \textit{tag} akan dilakukan perhitungan kemunculan setiap \textit{tag}.
-				\item Hasil	fitur akan disimpan dalam variabel features tipe object (\{\})
-			\end{enumerate}}}	
+\begin{table}[H]
+	\caption{Daftar attribut pada \textit{Class} Customergroup}
+	\centering
+	\small
+	\begin{adjustbox}{width=1\textwidth}	
+		\begin{tabular}{|p{4cm} p{2.1cm} p{3cm} p{3.1cm}|}
+			\hline
+			\multicolumn{2}{|l}{\textbf{Variabel:}}&\multicolumn{2}{l|}{}\\
+			long&systemid&&\\
+			String&groupname&&\\
+			String&memo&&\\
+			\hline
+		\end{tabular}
 	\end{adjustbox}
-	
-	\item \textit{Sentiment Score}\\
-	\begin{adjustbox}{width=1\width}
-	\framebox[\linewidth]{\parbox{\linewidth}{\begin{enumerate}[label={\arabic*}, leftmargin=15pt,rightmargin=5pt]
-				\item Menginisialisasi variabel senti\_score dengan tipe defaultdict untuk menyimpan kata, \textit{tag} beserta nilai sentimen positif dan negatifnya.
-				\item Melakukan \textit{case folding} terhadap \textit{tweet}.
-				\item Melakukan \textit{tagging }terhadap \textit{tweet} dengan \textit{method} pada \textit{library }IPosTagger, yaitu taggingStr(\textit{tweet})
-				\item Hasil \textit{tweet} yang sudah diberi \textit{tag} akan dicek ke dalam variabel senti\_score untuk mendapatkan nilai sentimennya. 
-				\item Hasil fitur akan disimpan dalam variabel features tipe object (\{\})
-			\end{enumerate}}}
-	\end{adjustbox}	
-	\pagebreak
-		\item \textit{Punctuation Based}\\
-	\begin{adjustbox}{width=1\width}	
-		\framebox[\linewidth]{\parbox{\linewidth}{\begin{enumerate}[label={\arabic*}, leftmargin=15pt,rightmargin=5pt]
-					\item Menghitung kemunculan tanda baca tanya (?), tanda seru (!) dan tanda petik (', ") dengan \textit{method} pada Python, yaitu 
-					count(tanda\_baca).
-					\item Hasil fitur akan disimpan dalam variabel features tipe object (\{\})
-				\end{enumerate}}}
+\end{table}
+\begin{table}[H]
+	\caption{Daftar attribut pada \textit{Class} Employment}
+	\centering
+	\small
+	\begin{adjustbox}{width=1\textwidth}	
+		\begin{tabular}{|p{4cm} p{2.1cm} p{3cm} p{3.1cm}|}
+			\hline
+			\multicolumn{2}{|l}{\textbf{Variabel:}}&\multicolumn{2}{l|}{\textbf{Variabel:}}\\
+			Long&systemid&Employee&employee\\
+			String&ein&Date&hiredate\\
+			BigInteger&basesalary&RoleInDept&roleIndept\\
+			Integer&contracttype&String& sourceinstitution\\
+			int&sourcetype&Date& createdate\\
+			Date&lastupdate&Date& terminatedate\\
+			\hline
+		\end{tabular}
 	\end{adjustbox}
-	\item \textit{Capitalization}\\
-	\begin{adjustbox}{width=1\width}
-		\framebox[\linewidth]{\parbox{\linewidth}{\begin{enumerate}[label={\arabic*}, leftmargin=15pt,rightmargin=5pt]
-					\item Menghitung kemunculan kata kapital, dan membagi jumlah kemunculan kapital dengan kemunculan maksimal kata kapital pada data \textit{training}.
-					\item Hasil fitur akan disimpan dalam variabel features tipe object (\{\})
-				\end{enumerate}}}
+\end{table}
+\begin{table}[H]
+	\caption{Daftar attribut pada \textit{Class} Employee}
+	\centering
+	\small
+	\begin{adjustbox}{width=1\textwidth}	
+		\begin{tabular}{|p{4cm} p{2.1cm} p{3cm} p{3.1cm}|}
+			\hline
+			\multicolumn{2}{|l}{\textbf{Variabel:}}&\multicolumn{2}{l|}{}\\
+			String&m\_ein&&\\
+			Jobspeciality&jobspeciality&&\\
+			Collection$<$Employment$>$&employmentCollection&&\\
+			\hline
+		\end{tabular}
 	\end{adjustbox}
-		\item \textit{Topic}\\
-	\begin{adjustbox}{width=1\width}
-		\framebox[\linewidth]{\parbox{\linewidth}{\begin{enumerate}[label={\arabic*}, leftmargin=15pt,rightmargin=5pt]
-					\item Melakukan \textit{training topic modelling }LDA dengan \textit{method }pada \textit{library }gensim, yaitu LdaModel(\textit{corpus}, \textit{dictionary}, jumlah\_topik, alpha). Menyimpan model dan	\textit{dictionary} kedalam \textit{file pickle} dengan \textit{method} save(\textit{filename}). Model dan \textit{dictionary }
-					disimpan ke dalam variabel lda dan dictionary.
-					\item Setelah mendapatkan model \textit{topic}, lakukan \textit{case\_folding}, \textit{stemming}, \textit{misuse of word}, \textit{tokenize} pada \textit{tweet}.
-					\item Melakukan perhitungan kemunculan kata dengan \textit{method} pada \textit{gensim}, yaitu doc2bow(token) dan menyimpan hasilnya ke dalam variabel corpus\_sentence.
-					\item Mendapatkan probabilitas \textit{tweet} terhadap topik yang ada dengan memanggil model LDA, yaitu lda$[$corpus\_sentence$]$.
-					\item Hasil fitur akan disimpan dalam variabel features tipe object (\{\})
-				\end{enumerate}}}
-		\end{adjustbox}
-		\item \textit{Interjection}\\
-		\begin{adjustbox}{width=1\width}
-		\framebox[\linewidth]{\parbox{\linewidth}{\begin{enumerate}[label={\arabic*}, leftmargin=15pt,rightmargin=5pt]
-					\item Melakukan \textit{case folding}, \textit{misuse of word}, 
-					\textit{tokenize}.
-					\item Melakukan iterasi dan menghitung kemunculan kata interjeksi
-					\item Hasil fitur akan disimpan dalam variabel features tipe object (\{\})
-				\end{enumerate}}}
-		\end{adjustbox}
-		\item \textit{Question Word}\\
-		\begin{adjustbox}{width=1\width}
-		\framebox[\linewidth]{\parbox{\linewidth}{\begin{enumerate}[label={\arabic*}, leftmargin=15pt,rightmargin=5pt]
-					\item Melakukan \textit{case folding}, \textit{misuse of word}, 
-					\textit{tokenize}.
-					\item Melakukan iterasi dan menghitung kemunculan kata tanya
-					\item Hasil fitur akan disimpan dalam variabel features tipe object (\{\})
-				\end{enumerate}}}
-		\end{adjustbox}
-		\item TF-IDF\\
-		\begin{adjustbox}{width=1\width}
-		\framebox[\linewidth]{\parbox{\linewidth}{\begin{enumerate}[label={\arabic*}, leftmargin=15pt,rightmargin=5pt]
-					\item Melakukan \textit{case\_folding}, menghapus semua kata negasi pada variabel array, dan kata tanya pada variabel array. Setelah itu	\textit{stemming}, \textit{misuse of word}, \textit{tokenize}.
-					\item Menghitung kemunculan kata pada sejumlah data \textit{training}.
-					\item Menghitung nilai IDF yang disimpan pada variabel tipe  defaultdict.
-				\end{enumerate}}}
-		\end{adjustbox}
-\end{enumerate}
-
-Semua hasil fitur ekstraksi pada data \textit{training} akan disimpan ke dalam \textit{file }fitur\_training.pickle dengam \textit{method} pada \textit{library numpy}, yaitu numpy.save(\textit{filename}).
-\subsection{Implementasi SVM dengan SMO}
-Setelah melalui proses \textit{feature extraction}, selanjutnya melakukan proses \textit{learning} dengan \textit{Simplified Sequential Minimal Optimization }(SMO) dan klasifikasi menggunakan SVM linear. Berikut ini merupakan proses yang dilakukan dalam \textit{learning }dan klasifikasi:
-
-\begin{enumerate}[leftmargin=*]
-	\item Menggunakan hasil fitur ekstraksi data \textit{training} untuk mencari nilai alpha dan bias.\item Mengubah setiap label menjadi +1 atau -1 sesuai dengan model yang ingin dibuat, yaitu label\_train$[$'all'$]$ untuk label model positif, 	negatif, netral, dan label\_train$[$'sar'$]$ untuk label model sarkasme.
-	\item Menghitung nilai alpha dan bias untuk setiap model menggunakan 
-	SMO. Hasil dari perhitungan alpha dan bias akan disimpan kedalam \textit{file pickle} dengan metode numpy.save(\textit{filename}).
-	\item Pada tahap testing akan melakukan tahap 1 sampai dengan 2, kemudian menghitung nilai f(x) menggunakan alpha dan bias pada tahap 3 berdasarkan masing-masing model.
-	\item Pengklasifikasian pada data \textit{testing} akan dilakukan dengan 2 macam cara klasifikasi, yaitu \textit{direct method }dan \textit{levelled method}.
-	\item Pengecekan pada \textit{direct method }akan melakukan perhitungan f(x) pada model positif, negatif, netral dan sarkasme. Kemudian hasil dari model positif, negatif, netral akan dicari nilai tertingginya. Jika nilai yang didapatkan adalah model positif, maka akan melakukan pengecekan model sarkasme. Jika nilai sign(f(x)) $>$=1 maka \textit{tweet} akan diklasifikasikan sebagai sarkasme, jika bukan maka 
-	\textit{tweet} akan diklasifikasikan sebagai positif.
-	\item Pengecekan pada \textit{levelled method }akan melakukan perhitungan f(x) pada model netral. Jika sign(f(x))$>$=1 maka akan diklasifikasikan \textit{tweet} sebagai netral, sebaliknya termasuk kelas opini. Jika termasuk kelas opini, maka akan melakukan pengecekan pada model positif dan negatif. Perhitungan nilai sign(f(x)) pada model positif dan negatif akan diambil nilai tertinggi. Jika nilai tertinggi adalah pada model positif, maka akan dilakukan pengecekan pada model 
-	sarkasme. Jika sign(f(x))$>$=1 maka akan termasuk kelas sarkasme, sebaliknya kelas positif.
-\end{enumerate}
+\end{table}
+\begin{table}[H]
+	\caption{Daftar attribut pada \textit{Class} Departement}
+	\centering
+	\small
+	\begin{adjustbox}{width=1\textwidth}	
+		\begin{tabular}{|p{4cm} p{2.1cm} p{3cm} p{3.1cm}|}
+			\hline
+			\multicolumn{2}{|l}{\textbf{Variabel:}}&\multicolumn{2}{l|}{\textbf{}}\\
+			int&systemid&&\\
+			String&deptname&&\\
+			String&memo&&\\
+			Collection$<$RoleInDept$>$&roles&&\\
+			Date&createdate&&\\
+			Date&lastupdate&&\\
+			\hline
+		\end{tabular}
+	\end{adjustbox}
+\end{table}
+\begin{table}[H]
+	\caption{Daftar attribut pada \textit{Class} ContactAddress}
+	\centering
+	\small
+	\begin{adjustbox}{width=1\textwidth}	
+		\begin{tabular}{|p{4cm} p{2.1cm} p{3cm} p{3.1cm}|}
+			\hline
+			\multicolumn{2}{|l}{\textbf{Variabel:}}&\multicolumn{2}{l|}{\textbf{Variabel:}}\\
+			Long&systemid&String&postcode\\
+			AddressType&addresstype&Regency&regency\\
+			String&street&boolean&asbillingaddress\\
+			String&fax&Date&sys\_createdate\\
+			Contact&owner&String&sys\_creator\\
+			String&phone&Date&sys\_lastupdate\\
+			String&sys\_lastupdater&&\\
+			\hline
+		\end{tabular}
+	\end{adjustbox}
+\end{table}
+\begin{table}[H]
+	\caption{Daftar attribut pada \textit{Class} Contact}
+	\centering
+	\small
+	\begin{adjustbox}{width=1\textwidth}	
+		\begin{tabular}{|p{2cm} p{2.1cm} p{5cm} p{3.1cm}|}
+			\hline
+			\multicolumn{2}{|l}{\textbf{Variabel:}}&\multicolumn{2}{l|}{\textbf{Variabel:}}\\
+			long&systemid&String&initial\\
+			String&lastname&int&amountofchildren\\
+			int&maritalstatus&List$<$ContactAddress$>$&arrAddress\\
+			String&middlename&Collection$<$ContactEducation$>$&arrEdu\\
+			Date&birthday&String&notes\\
+			String&birthplace&String&officeext\\
+			String&bloodtype&String&passportid\\
+			double&bodyheight&byte[]&photo\\
+			double&bodyweight&String&prefixtitle\\
+			String&citizenid&String&sms\\
+			String&citizentype&String&suffixtitle\\
+			Country&citizenship&Date&sys\_createdate\\
+			String&email&String&sys\_creator\\
+			String&firstname&Date&sys\_lastupdate\\
+			int&gender&String&sys\_lastupdater\\
+			String&homephone&String&taxid\\
+			String&messaging&String&web\\
+			\hline
+		\end{tabular}
+	\end{adjustbox}
+\end{table}
+\begin{table}[H]
+	\caption{Daftar attribut pada \textit{Class} AddressType}
+	\centering
+	\small
+	\begin{adjustbox}{width=1\textwidth}	
+		\begin{tabular}{|p{4cm} p{2.1cm} p{3cm} p{3.1cm}|}
+			\hline
+			\multicolumn{2}{|l}{\textbf{Variabel:}}&\multicolumn{2}{l|}{\textbf{}}\\
+			Integer&systemid&&\\
+			String&memo&&\\
+			String&typename&&\\
+			\hline
+		\end{tabular}
+	\end{adjustbox}
+\end{table}
+\begin{table}[H]
+	\caption{Daftar attribut pada \textit{Class} ContactEducation}
+	\centering
+	\small
+	\begin{adjustbox}{width=1\textwidth}	
+		\begin{tabular}{|p{3cm} p{3.1cm} p{3cm} p{3.1cm}|}
+			\hline
+			\multicolumn{2}{|l}{\textbf{Variabel:}}&\multicolumn{2}{l|}{\textbf{\textbf{Variabel:}}}\\
+			Date&finishrolling&Contact&owner\\
+			String&gpa&String&sponsors\\
+			int&grade&Date&startrolling\\
+			String&institutionaladdress&Date&sys\_createdate\\
+			String&institutionname&int&sys\_creator\\
+			String&major&Date&sys\_lastupdate\\
+			String&notes&int&sys\_lastupdater\\
+			\hline
+		\end{tabular}
+	\end{adjustbox}
+\end{table}
+\begin{table}[H]
+	\caption{Daftar attribut pada \textit{Class} Country}
+	\centering
+	\small
+	\begin{adjustbox}{width=1\textwidth}	
+		\begin{tabular}{|p{4cm} p{2.1cm} p{3cm} p{3.1cm}|}
+			\hline
+			\multicolumn{2}{|l}{\textbf{Variabel:}}&\multicolumn{2}{l|}{\textbf{}}\\
+			Long&systemid&&\\
+			String&name&&\\
+			\hline
+		\end{tabular}
+	\end{adjustbox}
+\end{table}
+\begin{table}[H]
+	\caption{Daftar attribut pada \textit{Class} Jobspeciality}
+	\centering
+	\small
+	\begin{adjustbox}{width=1\textwidth}	
+		\begin{tabular}{|p{5cm} p{3.1cm} p{2cm} p{2.1cm}|}
+			\hline
+			\multicolumn{2}{|l}{\textbf{Variabel:}}&\multicolumn{2}{l|}{\textbf{}}\\
+			Long&systemid&&\\
+			String&specialityName&&\\
+			String&memo&&\\
+			\hline
+		\end{tabular}
+	\end{adjustbox}
+\end{table}
+\begin{table}[H]
+	\caption{Daftar attribut pada \textit{Class} RoleInDept}
+	\centering
+	\small
+	\begin{adjustbox}{width=1\textwidth}	
+		\begin{tabular}{|p{5cm} p{3.1cm} p{2cm} p{2.1cm}|}
+			\hline
+			\multicolumn{2}{|l}{\textbf{Variabel:}}&\multicolumn{2}{l|}{\textbf{}}\\
+			int&systemid&&\\
+			Department&department&&\\
+			String&rolename&&\\
+			String&abbreviation&&\\
+			RoleInDept&parentRole&&\\
+			String&memo&&\\
+			\hline
+		\end{tabular}
+	\end{adjustbox}
+\end{table}
+\begin{table}[H]
+	\caption{Daftar attribut pada \textit{Class} Province}
+	\centering
+	\small
+	\begin{adjustbox}{width=1\textwidth}	
+		\begin{tabular}{|p{5cm} p{3.1cm} p{2cm} p{2.1cm}|}
+			\hline
+			\multicolumn{2}{|l}{\textbf{Variabel:}}&\multicolumn{2}{l|}{\textbf{}}\\
+			Long&systemid&&\\
+			Country&countryCode&&\\
+			String&name&&\\
+			Set$<$Regency$>$&regencySet&&\\
+			\hline
+		\end{tabular}
+	\end{adjustbox}
+\end{table}
+\begin{table}[H]
+	\caption{Daftar attribut pada \textit{Class} Regency}
+	\centering
+	\small
+	\begin{adjustbox}{width=1\textwidth}	
+		\begin{tabular}{|p{5cm} p{3.1cm} p{2cm} p{2.1cm}|}
+			\hline
+			\multicolumn{2}{|l}{\textbf{Variabel:}}&\multicolumn{2}{l|}{\textbf{}}\\
+			Long&systemid&&\\
+			Province&provId&&\\
+			String&name&&\\
+			\hline
+		\end{tabular}
+	\end{adjustbox}
+\end{table}
+\subsubsection{\textit{Package} Repository}
+\textit{Package} repository berisi \textit{class-class} yang menjadi representasi model dari tabel-tabel yang berada pada basis data. Berikut ini merupakan \textit{class-class} yang terdapat pada \textit{package} repository.
+\begin{table}[H]
+	\small
+	\centering
+	\caption{Daftar {\itshape Class} pada {\itshape Package} repository}
+	\begin{adjustbox}{width=1\textwidth}
+		\begin{tabular}{| p {3 cm} | p {8 cm} | p {3 cm} |}
+			\hline
+			{\bfseries Package} & {\bfseries Class} & {\bfseries Jenis Class} \\
+			\hline
+			\multirow{1}{*}{repository} & MRMasterRecordRepository & {\itshape Interface} \\
+			\hline
+		\end{tabular}
+	\end{adjustbox}
+\end{table}
+\subsubsection{\textit{Package} Service}
+\textit{Package} service berisi \textit{class-class} yang menginisialisasi \textit{web service} human resource yang akan terbentuk dan digunakan pada \textit{package} controller. Berikut ini merupakan \textit{class-class} yang terdapat pada \textit{package} service.
+\begin{table}[H]
+	\small
+	\centering
+	\caption{Daftar {\itshape Class} pada {\itshape Package} service}
+	\begin{adjustbox}{width=1\textwidth}
+		\begin{tabular}{| p {3 cm} | p {8 cm} | p {3 cm} |}
+			\hline
+			{\bfseries Package} & {\bfseries Class} & {\bfseries Jenis Class} \\
+			\hline
+			\multirow{3}{*}{service} & CRUDService & {\itshape Interface} \\
+			& MRMasterRecordService & {\itshape Interface} \\
+			& DefaultMRMasterRecordService & {\itshape Class} \\
+			\hline
+		\end{tabular}
+	\end{adjustbox}
+\end{table}
 \section{Pengujian}
-Pada bab ini, akan dilakukan berbagai pengujian untuk menentukan kombinasi fitur terbaik, perbandingan tahap \textit{preprocessing}, menentukan parameter regularisasi SMO terbaik, dan menentukan metode klasifikasi terbaik untuk analisis sentimen.
-\subsection{Pengujian Kombinasi Fitur}
-Pada bagian ini akan dilakukan pengujian kombinasi fitur untuk mendapatkan kombinasi fitur\textit{ }terbaik. Kombinasi fitur yang akan dilakukan pada pengujian ini ada dua, yaitu KF1 dan KF 2. KF1 adalah kombinasi fitur 1 pada kelas positif, negatif dan netral yang terdiri dari fitur \textit{unigram, sentiment score, question word, }
-dan \textit{punctuation based}. KF 2 adalah kombinasi fitur 2 pada kelas sarkasme yang terdiri dari fitur \textit{unigram, sentiment score, topic, part of speech, punctuation based, interjection word} dan \textit{capitalization}. 
-
-\noindent Berikut ini adalah singkatan fitur yang akan digunakan pada tabel 
-pengujian:
-\begin{enumerate}[leftmargin=*]
-	\item U adalah \textit{Unigram}
-	\item SS adalah \textit{Sentiment Score}
-	\item QW adalah \textit{Question Word}
-	\item PB adalah \textit{Punctuation Based}
-	\item T adalah \textit{Topic}
-	\item POS adalah \textit{Part of Speech}
-	\item IW adalah \textit{Interjection Word}
-	\item C adalah \textit{Capitalization}.
-\end{enumerate}
-Berikut ini adalah singkatan metode klasifikasi pada tabel pengujian:
-\begin{enumerate}[leftmargin=*]
-	\item DM adalah \textit{Direct Method}
-	\item LM adalah \textit{Levelled Method}
-\end{enumerate}
-Berikut ini adalah singkatan dari setiap \textit{f-measure} pada tabel 
-pengujian:
-\begin{enumerate}[leftmargin=*]
-	\item FP\_L/FP\_D adalah \textit{f-measure }positif \textit{Levelled 
-		Method }dan \textit{f-measure }positif \textit{Direct Method}.
-	\item FG\_L/FG\_D adalah \textit{f-measure }negatif \textit{Levelled 
-		Method }dan \textit{f-measure }negatif \textit{Direct Method}.
-	\item FT\_L/FT\_D adalah \textit{f-measure }netral \textit{Levelled 
-		Method }dan \textit{f-measure }netral \textit{Direct Method}.
-	\item FS\_L/FS\_D adalah \textit{f-measure }sarkasme \textit{Levelled 
-		Method }dan \textit{f-measure }sarkasme \textit{Direct Method}.
-\end{enumerate}
-
-Pengujian dilakukan dengan data \textit{training} 177, data \textit{testing }59, dengan parameter C=5, tol=0.001, dan max\_passes=5. Pengujian ini akan mencari kombinasi fitur terbaik untuk klasifikasi 4 kelas (positif, negatif, netral, sarkasme) dan 3 kelas (positif, negatif, netral). Berikut ini adalah tabel pengujian pada kombinasi fitur 1 pada klasifikasi 4 kelas dan 3 kelas:
-
-\begin{small}
-	\begin{longtable}{@{\extracolsep{\fill}}|p{1cm}|p{2cm}|p{2cm}|p{1.1cm}|p{1.1cm}|p{1.1cm}|p{1.1cm}|p{1.1cm}|}
-		\caption{Tabel Pengujian Kombinasi Fitur 1}\\
-		\hline
-		\multirow{2.5}{*}{\textbf{\parbox{1cm}{No / Kelas}}} & \multirow{2.5}{*}{\parbox{2cm}{\textbf{Kombinasi fitur non-sarkasme}}} & \multirow{2.5}{*}{\parbox{2cm}{\textbf{Kombinasi fitur sarkasme}}} & 
-		\multicolumn{5}{c|}{\textbf{Akurasi \textit{F-Measure}}} \\
-		\cline{4-8}
-		& & & \textbf{FP\_L/ FP\_D} & \textbf{FN\_L/ FN\_D} & \textbf{FT\_L/ FT\_D} & \textbf{FS\_L/ FS\_D} & \textbf{LM/ DM} \\
-		\hline
-		\endhead
-		1/4 & KF1 & KF2 & 0.72 / 0.71 & 0.71 / 0.69 & 0.82 / 0.83 & 0.24 / 0.25 
-		& 0.62 / 0.62 \\
-		\hline
-		1/3 & KF1 & - & 0.88 / 0.81 & 0.75 / 0.75 & 0.88 / 0.83 & - & 0.84 / 
-		0.80 \\
-		\hline
-		2/4 & U + PB + QW & KF2 & 0.61 / 0.63 & 0.55 / 0.53 & 0.73 / 0.79 & 0.13 
-		/ 0.13 & 0.51 / 0.52 \\
-		\hline
-		2/3 & U + PB + QW & - & 0.63 / 0.62 & 0.63 / 0.59 & 0.91 / 0.81 & - & 
-		0.72 / 0.67 \\
-		\hline
-		3/4 & U + SS + QW & KF2 & 0.71 / 0.71 & 0.65 / 0.65 & 0.74 / 0.74 & 0.27 
-		/ 0.27 & 0.59 / 0.59 \\
-		\hline
-		3/3 & U + SS + QW & - & 0.79 / 0.71 & 0.71 / 0.71 & 0.78 / 0.74 & - & 
-		0.76 / 0.72 \\
-		\hline
-		4/4 & U + SS + PB & KF2 & 0.70 / 0.74 & 0.73 / 0.72 & 0.75 / 0.83 & 0.25 
-		/ 0.29 & 0.61 / 0.65 \\
-		\hline
-		4/3 & U + SS + PB & - & 0.82 / 0.79 & 0.81 / 0.77 & 0.88 / 0.83 & - & 
-		0.84 / 0.80 \\
-		\hline
-		5/4 & U + SS & KF2 & 0.63 / 0.63 & 0.74 / 0.79 & 0.65 / 0.72 & 0.29 / 
-		0.29 & 0.58 / 0.61 \\
-		\hline
-		5/3 & U + SS & - & 0.67 / 0.67 & 0.74 / 0.76 & 0.69 / 0.72 & - & 0.70 / 
-		0.72 \\
-		\hline
-		6/4 & U + PB & KF2 & 0.69 / 0.69 & 0.63 / 0.65 & 0.76 / 0.78 & 0.24 / 
-		0.13 & 0.58 / 0.56 \\
-		\hline
-		6/3 & U + PB & - & 0.58 / 0.6 & 0.67 / 0.67 & 0.85 / 0.88 & - & 0.70 / 
-		0.72 \\
-		\hline
-		7/4 & U + QW & KF2 & 0.72 / 0.72 & 0.53 / 0.57 & 0.74 / 0.70 & 0.14 / 
-		0.14 & 0.53 / 0.53 \\
-		\hline
-		7/3 & U + QW & - & 0.65 / 0.60 & 0.59 / 0.61 & 0.80 / 0.76 & - & 0.68 / 
-		0.66 \\
-		\hline
-		8/4 & SS + PB + QW & KF2 & 0.63 / 0.63 & 0.44 / 0.44 & 0.81 / 0.81 & 
-		0.19 / 0.19 & 0.52 / 0.52 \\
-		\hline
-		8/3 & SS + PB + QW & - & 0.63 / 0.63 & 0.63 / 0.59 & 0.87 / 0.84 & - & 
-		0.71 / 0.69 \\
-		\hline
-	\end{longtable}
-\end{small}
-
-Kolom "No/Kelas" pada pengujian tabel di atas, menunjukkan nomor urut pengujian dan klasifikasi kelasnya. Sebagai contoh, 1/4 adalah nomor urut pengujian ke-1 dengan klasifikasi 4 kelas (positif, negatif, netral, sarkasme), dan 1/3 adalah nomor urut pengujian ke-1 dengan klasifikasi 3 kelas (positif, negatif, netral). Berdasarkan pengujian kombinasi fitur di atas, kombinasi fitur terbaik yang dihasilkan pada fitur non-sarkasme klasifikasi 4 kelas dan 3 kelas adalah \textit{unigram, punctuation based }dan \textit{sentiment score}. Pengujian kombinasi fitur 1 untuk klasifikasi 3 kelas tidak akan dilakukan lagi, karena kombinasi fitur 2 tidak akan digunakan untuk klasifikasi 3 kelas. Setelah mendapatkan kombinasi fitur terbaik pada pengujian tabel 4.11, maka selanjutnya mencari kombinasi fitur terbaik pada kombinasi fitur 2\textit{ }dengan percobaan menggunakan hasil terbaik dari kombinasi fitur 1. Berikut ini adalah tabel pengujian pada kombinasi fitur 2 pada klasifikasi 4 kelas:
+Pada bab ini, akan dilakukan berbagai pengujian untuk menentukan performa dari arsitektur microservice dibandingkan dengan monolitik. Pengujian akan dilakukan dengan membuat \textit{test plan} yang kemudian akan didokumentasikan ke dalam\textit{matrix traceability}. Dari hasil \textit{matrix traceability} tersebut dapat ditentukan apakah desain microservice yang baru memberikan performa yang lebih baik dibandingkan dengan model monolitik yang lama.
+\subsection{Pengujian dan Perbandingan Model Arsitektur Microservice dan Monolitik}
+Pada bagian ini akan dilakukan pengujian terhadap kedua jenis model arsitektur yang didokumentasikan ke dalam \textit{matrix of traceability}. Pengujian akan dilakukan dengan membandingkan hasil \textit{test plan} yang telah dibuat. \textit{Test plan} yang dibuat akan mengacu pada masalah \textit{deployability, reliability, availability, scalability,} dan \textit{modifiability.}
 \begin{table}[H]
-	\caption{Tabel Pengujian Kombinasi Fitur 2}
-	\small
+	\centering
+	\caption{Tabel \textit{matrix of traceability} pengujian model arsitektur}
+	\label{my-label}
 	\begin{adjustbox}{width=1\textwidth}
-		\begin{tabular}{|p{1cm}|p{2cm}|p{2cm}|p{1.1cm}|p{1.1cm}|p{1.1cm}|p{1.1cm}|p{1.1cm}|}
+		\begin{tabular}{|p{1cm}|p{8.5cm}|p{1cm}|p{1cm}|p{1cm}|p{1cm}|p{1cm}|}
 			\hline
-			\multirow{2.5}{*}{\textbf{\parbox{1cm}{No}}} & \multirow{2.5}{*}{\parbox{2cm}{\textbf{Kombinasi fitur non-sarkasme}}} & \multirow{2.5}{*}{\parbox{2cm}{\textbf{Kombinasi fitur sarkasme}}} & 
-			\multicolumn{5}{c|}{\textbf{Akurasi \textit{F-Measure}}} \\
-			\cline{4-8}
-			& & & \textbf{FP\_L/ FP\_D} & \textbf{FN\_L/ FN\_D} & \textbf{FT\_L/ FT\_D} & \textbf{FS\_L/ FS\_D} & \textbf{LM/ DM} \\
-			\hline
-			1 & U + SS + PB & KF2 & 0.70 / 0.74 & 0.73 / 0.72 & 0.75 / 0.83 & 0.25 / 
-			0.29 & 0.61 / 0.65 \\
-			\hline
-			2 & U + SS + PB & T + IW + C + POS + SS + PB & 0.69 / 0.71 & 0.73 / 0.75 
-			& 0.75 / 0.83 & 0.22 / 0.25 & 0.60 / 0.64 \\
-			\hline
-			3 & U + SS + PB & U + IW + C + POS + SS + PB & 0.76 / 0.78 & 0.73 / 0.75 
-			& 0.75 / 0.83 & 0.25 / 0.29 & 0.62 / 0.66 \\
-			\hline
-			4 & U + SS + PB & U + T + IW + C + SS + PB & 0.70 / 0.74 & 0.73 / 0.75 & 
-			0.75 / 0.83 & 0.38 / 0.40 & 0.64 / 0.68 \\
-			\hline
-			5 & U + SS + PB & U + T + IW + C + PB & 0.72 / 0.73 & 0.73 / 0.75 & 0.75 
-			/ 0.83 & 0.47 / 0.47 & 0.67 / 70 \\
-			\hline
-			6 & U + SS + PB & U + T + IW + C & 0.75 / 0.76 & 0.71 / 0.71 & 0.79 / 
-			0.83 & 0.57 / 0.57 & 0.70 / 0.72 \\
-			\hline
-			7 & U + SS + PB & U + T + C & 0.75 / 0.76 & 0.71 / 0.71 & 0.79 / 0.83 & 
-			0.57 / 0.57 & 0.70 / 0.72 \\
-			\hline
-			8 & U + SS + PB & U + T & 0.78 / 0.77 & 0.71 / 0.71 & 0.79 / 0.83 & 0.46 
-			/ 0.5 & 0.69 / 0.70 \\
-			\hline
-			9 & U + SS + PB & U + C & 0.75 / 0.76 & 0.71 / 0.71 & 0.79 / 0.83 & 0.57 
-			/ 0.57 & 0.70 / 0.72 \\
-			\hline
-			10 & U + SS + PB & U & 0.74 / 0.75 & 0.71 / 0.71 & 0.79 / 0.83 & 0.36 / 
-			0.36 & 0.65 / 0.66 \\
-			\hline
+			\multicolumn{1}{|c|}{\multirow{2}{*}{\textbf{No}}} & \multicolumn{1}{c|}{\multirow{2}{*}{\textbf{Test Plan}}} & \multicolumn{2}{c|}{\textbf{Microservice}}& \multicolumn{2}{c|}{\textbf{Monolitik}} & \multicolumn{1}{c|}{\multirow{2}{*}{\textbf{Harapan}}}\\ \cline{3-6} 
+			\multicolumn{1}{|c|}{}                  & \multicolumn{1}{c|}{}                  & \multicolumn{1}{c|}{\textbf{Ya}} & \multicolumn{1}{c|}{\textbf{Tidak}} & \multicolumn{1}{c|}{\textbf{Ya}} & \multicolumn{1}{c|}{\textbf{Tidak}} & \multicolumn{1}{c|}{}\\ \hline
+			\multicolumn{1}{|c|}{1}&Perubahan yang dilakukan pada class dalam sebuah modul harus diketahui oleh modul lain yang saling melakukan pertukaran data&&\checkmark&\checkmark&&\multicolumn{1}{c|}{\textbf{Tidak}}\\ \hline
+			\multicolumn{1}{|c|}{2}&Apabila terjadi masalah terhadap database, maka masalah tersebut akan turut dirasakan oleh keseluruhan modul&&\checkmark&\checkmark&&\multicolumn{1}{c|}{\textbf{Tidak}}\\ \hline
+			\multicolumn{1}{|c|}{3}&Tingkat sekuritas yang lebih baik&\checkmark&&&\checkmark&\multicolumn{1}{c|}{\textbf{Ya}}\\ \hline
+			\multicolumn{1}{|c|}{4}&Tingkat ketergantungan yang besar apabila aplikasi dikerjakan oleh beberapa tim berbeda&&\checkmark&\checkmark&&\multicolumn{1}{c|}{\textbf{Tidak}}\\ \hline
+			\multicolumn{1}{|c|}{5}&Cara komunikasi antar modul lebih mudah untuk diimplementasikan&&\checkmark&\checkmark&&\multicolumn{1}{c|}{\textbf{Ya}}\\ \hline
+			\multicolumn{1}{|c|}{6}&Konsumen yang mengkakses \textit{method} yang diubah harus mengetahui apa perubahan yang terjadi terhadap \textit{method} tersebut&&\checkmark&\checkmark&&\multicolumn{1}{c|}{\textbf{Tidak}}\\ \hline
+			\multicolumn{1}{|c|}{7}&Waktu siklus \textit{build-test-build} yang relatif lebih cepat&\checkmark&&&\checkmark&\multicolumn{1}{c|}{\textbf{Ya}}\\ \hline
+			\multicolumn{1}{|c|}{8}&Tidak saling berebut \textit{resources} untuk setiap modulnya&\checkmark&&&\checkmark&\multicolumn{1}{c|}{\textbf{Ya}}\\ \hline
+			\multicolumn{1}{|c|}{9}&Mudah untuk melakukan \textit{querry join} dari setiap modul yang ada&&\checkmark&\checkmark&&\multicolumn{1}{c|}{\textbf{Ya}}\\ \hline
 		\end{tabular}
 	\end{adjustbox}
-
 \end{table}
-Berdasarkan pengujian di atas, kombinasi fitur 2 yang terbaik adalah \textit{unigram}, \textit{topic, }dan \textit{capitalization}, dengan metode klasifikasi terbaik adalah \textit{direct method}.
-\subsubsection{Analisis \textit{Error} Fitur Non-Sarkasme}
-Pada bagian ini akan dilakukan analisis \textit{error }terhadap setiap fitur yang ada pada fitur non-sarkasme, yaitu \textit{unigram}, \textit{punctuation based} dan \textit{sentiment score}.
-\begin{enumerate}[leftmargin=*,nolistsep]
-	\item Fitur \textit{Unigram}\\
-	Pada bagian ini akan dilakukan analisis \textit{error} ketika hanya menggunakan fitur \textit{sentiment score} dan \textit{punctuation based}, tanpa fitur \textit{unigram}. Berikut ini adalah analisis \textit{error} pada fitur \textit{unigram}:
-	
-	\begin{table}[H]
-		\caption{Analisis \textit{Error} Fitur \textit{Unigram} pada Klasifikasi Non-Sarkasme}
-		\centering
-		\small
-		\begin{adjustbox}{width=1\textwidth}
-		\begin{tabular}{|p{1.7cm}|p{3.15cm}|p{4.3cm}|p{1cm}|p{1.3cm}|}
-			\hline
-			\textbf{KF} & \textbf{Teks} & \textbf{Fitur} & \textbf{Label} & \textbf{Prediksi} \\
-			\hline
-			\multirow{6}{*}{\parbox{1.7cm}{U + PB + SS}}& \multirow{6}{*}{\parbox{3.15cm}{sarankan tema mading sekolah}} & positive\_sentiment: 0.031 
-			& \multirow{6}{*}{\parbox{1cm}{Netral}} & \multirow{6}{*}{\parbox{1.3cm}{Netral}} \\
-			\cline{3-3}
-			& & negative\_sentiment: 0.0 & & \\
-			\cline{3-3}
-			& & questionM: 0.0 & & \\
-			\cline{3-3}
-			& & sekolah: 0.13 & & \\
-			\cline{3-3}
-			& & \textbf{saran: 0.48} & & \\
-			\cline{3-3}
-			& & \textbf{tema: 0.48} & & \\
-			\hline
-			\multirow{3}{*}{\parbox{1.7cm}{SS + PB}} & \multirow{3}{*}{\parbox{3.15cm}{sarankan tema mading sekolah}} & \textbf{positive\_sentiment: 
-				0.031} & \multirow{3}{*}{\parbox{1cm}{Netral}} & \multirow{3}{*}{\parbox{1.3cm}{Positif}} \\
-			\cline{3-3}
-			& & negative\_sentiment: 0.0 & & \\
-			\cline{3-3}
-			& & questionM: 0.0 & & \\
-			\hline
-		\end{tabular}
-		\end{adjustbox}
-	\end{table}
-	Berdasarkan hasil percobaan klasifikasi di atas, tanpa fitur \textit{unigram}, teks akan selalu diklasifikasikan berdasarkan nilai sentimen. Hal ini terjadi karena tidak ada fitur kata seperti "saran" dan "tema" yang termasuk kata netral pada data \textit{training}, sehingga klasifikasi tanpa \textit{unigram} bergantung dengan nilai sentimen dari sebuah kalimat. Sebagai contoh teks netral 
-	pada data \textit{training} yang menggunakan kata "saran": "aku minta saran dong enaknya jualan apa ya modalnya gak terlalu banyak bisa online+tawarin temen sekolah. makasih sarannya$<$3".
-	
-	\item Fitur \textit{Sentiment Score}\\
-	Pada bagian ini akan dilakukan analisis \textit{error} ketika hanya menggunakan fitur \textit{unigram }dan \textit{punctuation} \textit{based}, tanpa fitur \textit{sentiment score}. Berikut ini adalah analisis \textit{error} pada fitur \textit{sentiment score}:
-	
-	\begin{table}[H]
-		\caption{Analisis \textit{Error} Fitur \textit{Sentiment Score} pada Klasifikasi Non-Sarkasme}
-		\centering
-	\small
-	\begin{adjustbox}{width=1\textwidth}
-	\begin{tabular}{|p{1.7cm}|p{3.15cm}|p{4.3cm}|p{1cm}|p{1.3cm}|}
+\begin{adjustbox}{width=1\textwidth}
+	\begin{tabular}{|p{1cm}|p{8.5cm}|p{1cm}|p{1cm}|p{1cm}|p{1cm}|p{1cm}|}
 		\hline
-		\textbf{KF} & \textbf{Teks} & \textbf{Fitur} & \textbf{Label} & \textbf{Prediksi} \\
-		\hline
-		\multirow{4}{*}{\parbox{1.7cm}{U + PB + SS}}& \multirow{4}{*}{\parbox{3.15cm}{ruang sekolah}} & questionM: 0.0 
-		& \multirow{4}{*}{\parbox{1cm}{Netral}} & \multirow{4}{*}{\parbox{1.3cm}{Netral}} \\
-		\cline{3-3}
-		& & sekolah: 0.27 & & \\
-		\cline{3-3}
-		& &  \textbf{positive\_sentiment: 0.034} & & \\
-		\cline{3-3}
-		& & \textbf{negative\_sentiment: 0.017} & & \\
-		\hline
-		\multirow{2}{*}{\parbox{1.7cm}{U + PB}} & \multirow{2}{*}{\parbox{3.15cm}{ ruang sekolah}} & questionM: 0.0 & \multirow{2}{*}{\parbox{1cm}{Netral}} & \multirow{2}{*}{\parbox{1.3cm}{Positif}} \\
-		\cline{3-3}
-		& & \textbf{sekolah: 0.27}& & \\
-		\hline
+		\multicolumn{1}{|c|}{10}&Relatif dapat menangani permasalahan \textit{big data} dan \textit{multiple user}&\checkmark&&&\checkmark&\multicolumn{1}{c|}{\textbf{Ya}}\\ \hline
+		\multicolumn{1}{|c|}{11}&Aplikasi menjadi lebih \textit{long lasting} dan relatif tidak memiliki resiko perombakan major apabila terdapat perubahan pada aplikasi&\checkmark&&&\checkmark&\multicolumn{1}{c|}{\textbf{Ya}}\\ \hline
+		\multicolumn{1}{|c|}{12}&Mudah untuk menambahkan modul baru&\checkmark&&\checkmark&&\multicolumn{1}{c|}{\textbf{Ya}}\\ \hline
+		\multicolumn{1}{|c|}{13}&Lebih mudah dan cepat beradaptasi apabila aplikasi menjadi lebih besar&\checkmark&&&\checkmark&\multicolumn{1}{c|}{\textbf{Ya}}\\ \hline
+		\multicolumn{1}{|c|}{14}&Aplikasi lebih mudah bila ingin dikembangkan menjadi lintas \textit{platform}&\checkmark&&&\checkmark&\multicolumn{1}{c|}{\textbf{Ya}}\\ \hline
+		\multicolumn{1}{|c|}{15}&Aplikasi lebih mudah untuk melakukan \textit{deploy} ke \textit{server}&\checkmark&&&\checkmark&\multicolumn{1}{c|}{\textbf{Ya}}\\ \hline
+		\multicolumn{1}{|c|}{16}&Pengujian alpikasi mudah dan cepat&\checkmark&&\checkmark&&\multicolumn{1}{c|}{\textbf{Ya}}\\ \hline
+		\multicolumn{1}{|c|}{17}&Lebih mudah untuk menerapkan teknologi baru&\checkmark&&&\checkmark&\multicolumn{1}{c|}{\textbf{Ya}}\\ \hline
+		\multicolumn{1}{|c|}{18}&Konfigurasi aplikasi mudah&&\checkmark&\checkmark&&\multicolumn{1}{c|}{\textbf{Ya}}\\ \hline
+		\multicolumn{1}{|c|}{19}&Perlu dilakukan banyak automasi agar aplikasi dapat memberikan performa terbaiknya&&\checkmark&\checkmark&&\multicolumn{1}{c|}{\textbf{Ya}}\\ \hline
+		\multicolumn{1}{|c|}{20}&Cocok untuk sistem yang dinamis dan konstan berkembang&\checkmark&&&\checkmark&\multicolumn{1}{c|}{\textbf{Ya}}\\ \hline
+		\multicolumn{1}{|c|}{21}&Jumlah waktu \textit{downtime} yang dibutuhkan aplikasi apabila terjadi \textit{maintenance} lebih sedikit&\checkmark&&&\checkmark&\multicolumn{1}{c|}{\textbf{Ya}}\\ \hline
 	\end{tabular}
-	\end{adjustbox}
-	\end{table}
-	Berdasarkan hasil percobaan klasifikasi di atas, tanpa fitur \textit{sentiment score} teks netral yang pendek dan tidak memiliki tanda baca tanya (?) tidak akan bisa diklasifikasikan ke kelas yang seharusnya, yaitu netral. Hal ini disebabkan oleh klasifikasi yang menjadi bergantung terhadap fitur kemunculan kata atau \textit{unigram}. Pada percobaan di atas, teks netral diprediksi sebagai teks positif, karena cukup banyak kemunculan kata "sekolah" pada data \textit{training} 
-	yang termasuk pada teks positif.
-	
-	\item Fitur \textit{Punctuation Based}\\
-	Pada bagian ini akan dilakukan analisis \textit{error} ketika hanya menggunakan fitur \textit{unigram }dan \textit{sentiment score}, tanpa fitur \textit{punctuation based}. Berikut ini adalah analisis	\textit{error} pada fitur \textit{punctuation based}:
-	\begin{table}[H]
-		\caption{Analisis \textit{Error} Fitur \textit{Punctuation Based} pada Klasifikasi Non-Sarkasme}
-		\centering
-		\small
-		\begin{adjustbox}{width=1\textwidth}
-		\begin{tabular}{|p{1.7cm}|p{3.15cm}|p{4.3cm}|p{1cm}|p{1.3cm}|}
-			\hline
-			\textbf{KF} & \textbf{Teks} & \textbf{Fitur} & \textbf{Label} & \textbf{Prediksi} \\
-			\hline
-			\multirow{5}{*}{\parbox{1.7cm}{U + PB + SS}}& \multirow{5}{*}{\parbox{3.15cm}{Sekolah mu berani terima tantangan ? keberanian mention ig}} & positive\_sentiment: 0.69
-			& \multirow{5}{*}{\parbox{1cm}{Netral}} & \multirow{5}{*}{\parbox{1.3cm}{Netral}} \\
-			\cline{3-3}
-			& &negative\_sentiment: 0.49 & & \\
-			\cline{3-3}
-			& &  \textbf{questionM: 0.2} & & \\
-			\cline{3-3}
-			& & sekolah: 0.069 & & \\
-			\cline{3-3}
-			 & & terima: 0.16 & & \\
-			\hline
-			\multirow{4}{*}{\parbox{1.7cm}{U + SS}} & \multirow{4}{*}{\parbox{3.15cm}{sekolah mu berani terima tantangan ? keberanian mention ig}} & \textbf{positive\_sentiment: 0.69} & \multirow{4}{*}{\parbox{1cm}{Netral}} & \multirow{4}{*}{\parbox{1.3cm}{Positif}} \\
-			\cline{3-3}
-			& & negative\_sentiment: 0.49 & & \\
-			\cline{3-3}
-			& & sekolah: 0.069 & & \\
-			\cline{3-3}
-			& & terima: 0.16 & & \\
-			\hline
-		\end{tabular}
-		\end{adjustbox}
-	\end{table}
-	Berdasarkan hasil percobaan klasifikasi di atas, tanpa fitur \textit{punctuation based},\textit{ }teks netral yang memiliki nilai sentimen tidak akan bisa diklasifikasikan ke kelas yang seharusnya, yaitu netral. Hal ini terjadi karena klasifikasi menjadi sangat bergantung terhadap fitur \textit{sentiment} \textit{score}. Pada percobaan di atas, nilai sentimen positif lebih tinggi dibanding negatif, oleh karena itu teks diklasifikasikan sebagai teks positif.
-\end{enumerate}
+\end{adjustbox}
 
-\subsubsection{Analisis \textit{Error} Fitur Sarkasme}
-Pada bagian ini akan dilakukan analisis \textit{error }terhadap setiap fitur yang ada pada fitur sarkasme, yaitu \textit{unigram}, \textit{topic}, dan \textit{capitalization}.
-\begin{enumerate}[leftmargin=*,nolistsep]
-	\item Fitur \textit{Unigram}\\
-	Pada bagian ini akan dilakukan analisis \textit{error} ketika hanya menggunakan fitur \textit{topic} dan \textit{capitalization}, tanpa fitur \textit{unigram}. Berikut ini adalah analisis \textit{error} pada fitur \textit{unigram}:
-	
-	\begin{table}[H]
-		\caption{Analisis \textit{Error} Fitur \textit{Unigram} pada Klasifikasi Sarkasme}
-		\small
-		\begin{adjustbox}{width=1\textwidth}
-			\begin{tabular}{|p{1cm}|p{5cm}|p{2.45cm}|p{1.45cm}|p{1.45cm}|}
-				\hline
-				\textbf{KF} & \textbf{Teks} & \textbf{Fitur} & \textbf{Label} & \textbf{Prediksi} \\
-				\hline
-				\multirow{8}{*}{\parbox{1cm}{U + T + C}}& \multirow{8}{*}{\parbox{5cm}{@Budhiheriawan @richard\_errik @whytas @riri\_hesria @Ria1Kartolo @AdieRinaldi @fuadpuad makin pinter aja anggota DPR \#sarkasme}} & \parbox{2.45cm}{topic 0: 0.055} 
-				& \multirow{8}{*}{\parbox{1.45cm}{Sarkasme}} & \multirow{8}{*}{\parbox{1.45cm}{Sarkasme}} \\
-				\cline{3-3}
-				& & \parbox{2.45cm}{topic 1: 0.059} & & \\
-				\cline{3-3}
-				& & \parbox{2.45cm}{topic 2: 0.036} & & \\
-				\cline{3-3}
-				& &\parbox{2.45cm}{\textbf{topic 3: 0.84}} & & \\
-				\cline{3-3}
-				& & \parbox{2.45cm}{\textbf{capitalization: 0.14}} & & \\
-				\cline{3-3}
-				& &\parbox{2.45cm}{\textbf{dpr: 0.26}} & & \\
-				\cline{3-3}
-				& &\parbox{2.80cm}{pintar: 0.74} & & \\
-				\cline{3-3}
-				& & \parbox{3.25cm}{\textbf{angota: 0.44}} & & \\
-				\hline
-				\multirow{5}{*}{\parbox{1cm}{T + C}} & \multirow{5}{*}{\parbox{5cm}{ @Budhiheriawan @richard\_errik @whytas @riri\_hesria @Ria1Kartolo @AdieRinaldi @fuadpuad makin pinter aja anggota DPR \#sarkasme }} & \parbox{2.45cm}{topic 0: 0.055} & \multirow{5}{*}{\parbox{1.45cm}{Sarkasme}} & \multirow{5}{*}{\parbox{1.45cm}{Positif}} \\
-				\cline{3-3}
-				& & \parbox{2.45cm}{topic 1: 0.059} & & \\
-				\cline{3-3}
-				& & \parbox{2.45cm}{topic 2: 0.036} & & \\
-				\cline{3-3}
-				& &\parbox{2.45cm}{\textbf{topic 3: 0.84}} & & \\
-				\cline{3-3}
-				& & \parbox{2.45cm}{\textbf{capitalization: 0.14}} & & \\
-				\cline{3-3}
-				\hline
-			\end{tabular}
-		\end{adjustbox}
-	\end{table}
-	Berdasarkan hasil percobaan klasifikasi di atas, tanpa fitur \textit{unigram}, klasifikasi akan salah, karena fitur yang digunakan tidak memberikan informasi yang cukup untuk mengklasifikasikan sarkasme.
-	
-	\item Fitur \textit{Topic}\\
-	Pada bagian ini akan dilakukan analisis \textit{error} ketika hanya	menggunakan fitur \textit{unigram}, tanpa fitur \textit{topic}. Fitur \textit{capitalization} tidak digunakan untuk analisis \textit{error} karena pada pengujian fitur tabel 4.13 menunjukkan tidak ada perubahan akurasi saat menggunakan semua fitur terbaik sarkasme, yaitu \textit{unigram}, \textit{capitalization}, \textit{topic} dan 
-	tanpa fitur \textit{topic}. Berikut ini adalah analisis fitur \textit{topic} pada data \textit{training }dengan label sarkasme:
-	\begin{small}
-	
-		\begin{longtable}{@{\extracolsep{\fill}}|p{0.5cm}|p{5.5cm}|p{1.2cm}|p{1.2cm}|p{1.2cm}|p{1.2cm}|}
-			\caption{Analisis Fitur \textit{Topic}} \\
-			\hline
-			\textbf{No} & \textbf{Teks} & \textbf{Topic 0} & \textbf{Topic 1} & \textbf{Topic 2} & \textbf{Topic 3} \\
-			\hline
-			\endhead
-			1 & Dan besok sekolah, hell yeah ! :D \#sarkasme & \textbf{0.88} & 0.046 & 0.028 & 0.038 
-			\\
-			\hline
-			2 & BPK terbaik. BI terbaik. DPR.....ter..? @Fahrihamzah ... ter...? Mandi dulu Ooom! & \textbf{0.93} & 
-			0.025 & 0.015 & 0.020 \\
-			\hline
-			3 & astaga, besar sekali hati internet provider satu ini, isinya minta maaf trus \#sarkasme & \textbf{0.92} & 0.032 
-			& 0.019 & 0.027 \\
-			\hline
-			4 & Wow, abis ditinggal sesiangan, jam 8 malam internet @innovateIND @HOMElinksBSD udah nyala lagi \#sarkasme & \textbf{
-				0.93} & 0.024 & 0.015 & 0.020 \\
-			\hline
-			5 & Pantesan namanya dia \& papa bs hilang dari list anggota DPR kasus e-KTP Ternyata mahluk paling suci sebagai gedung DPR & 0.016 & \textbf{0.95} & 0.010 & 0.014 \\
-			\hline
-			6 & Oh @fadlizon betapa beruntungnya DPR RI punya sampeyan. \#sarkasme \#ILC & 0.036 & 0.038 & 0.023 & \textbf{
-				0.90} \\
-			\hline
-			7 & Nilai-nilai gue angkanya gede-gede bgt ya wow \#sarkasme \#edisidepresi & 0.036 & 0.040 & 0.023 & 
-			\textbf{0.89} \\
-			\hline
-			8 & hebat fadlizon ketemu sahabat lama sepaham dan seidiologi dari rusia & 0.027 & 
-			0.028 & 0.017 & \textbf{0.92} \\
-			\hline
-			9 & jangan salahkan film horor lokal, mereka hanya menuruti KEMAUAN dan KEMALUAN pasar \#sarkasme & 0.023 & 
-			\textbf{0.93} & 0.015 & 0.020 \\
-			\hline
-			10 & Owh internet connection-nya keren sekali,saat dibutuhkan sangat bisa diandalkan \#sarkasme \#sinis \#speechless & \textbf{0.90
-			} & 0.038 & 0.023 & 0.031 \\
-			\hline
-			11 & Hari ini ga ketemu @gistaanindya ckck sekolah segede apa sih? \#sarkasme & \textbf{0.91} & 0.033 & 
-			0.020 & 0.027 \\
-			\hline
-			12 & TERIMA KASIH INTERNET & \textbf{0.85} & 0.058 & 0.036 & 0.049 \\
-			\hline
-			13 & Salam buat Ketua Dewan-nya ya. Dah sehatkah...? & 0.043 & \textbf{0.88} & 0.028 
-			& 0.038 \\
-			\hline
-			14 & Semoga FH dan FZ ada di DPR selamanya.. krn sepi dunia kalau gak ada mereka.. :) & 0.021 & 
-			\textbf{0.94} & 0.013 & 0.018 \\
-			\hline
-			15 & film berkualitas "Mr Bean Kesurupan DEPE"   jadi bangga dengan negeri ini,, \#sarkasme & 
-			\textbf{0.93} & 0.025 & 0.015 & 0.020 \\
-			\hline
-			16 & Sepertinya sudah masuk jam2nya nih,internet di sini luar biasa!!!!!!!\#sarkasme & 0.05 & \textbf{0.85} & 0.05 
-			& 0.049 \\
-			\hline
-			17 & Lg istirahat nih di rumah habis sekolah dari pagi sampe sore...!!! & \textbf{0.92} & 
-			0.032 & 0.019 & 0.027 \\
-			\hline
-			18 & Anggota DPR Pancasilais. Mereka amalkan sila ke-4. Musyawarah dan mufakat untuk membagi2 jarahan atas negeri ini. \#Sarkasme & 0.014 & 0.018 & \textbf{0.94} & 0.015 \\
-			\hline
-			19 & Yah ga bisa liat sekolah!!! & \textbf{0.88} & 0.047 & 0.028 & 
-			0.039 \\
-			\hline
-			20 & besok sekolah. Hatiku gembiraaa! \#sarkasme & \textbf{0.88} & 0.046 & 0.028 
-			& 0.038 \\
-			\hline
-			21 & masuk sekolah/.\ & 0.077 & 0.081 & 0.049 & \textbf{0.79} \\
-			\hline
-			22 & RT @fnabila: Asiiiik bentar lagi sekolah!!!!!!!! Ga sabar!!!! \#sarkasme & 0.036 
-			& \textbf{0.90} & 0.023 & 0.032 \\
-			\hline
-			23 & Super sekali internet smartfren utk streaming...muter terussss...sampe ga keliatan... Waakakakakkakak \#sarkasme & 0.024 & \textbf{0.93} & 0.015 & 0.020 \\
-			\hline
-			24 & Anda lebih hebat lagi pak @Fahrihamzah tidak punya partai bisa jadi anggota dpr. & 0.036 & 0.038 & 0.023 & \textbf{
-				0.90} \\
-			\hline
-			25 & Minggu....les :\ besok...sekolah:| oke,gw suka belajar. Sukaa bgt. \#sarkasme & 0.021 & 
-			\textbf{0.94} & 0.018 & 0.013 \\
-			\hline
-			26 & Entar sist kalo anggarannya UDAH NAIK. & \textbf{0.80} & 0.080 & 
-			0.049 & 0.066 \\
-			\hline
-			\multicolumn{2}{|c|}{Total}&12 & 8 & 1 & 5 \\
-			\hline
-		\end{longtable}
-	\end{small}
-		
-	Berdasarkan analisis fitur \textit{topic} pada 26 data \textit{training} dengan label sarkasme, dapat disimpulkan setiap teks sarkasme cenderung termasuk pada topik 0, 1 dan 3, dari jumlah topik yang ada adalah 4. Hasil analisis fitur \textit{topic} di atas akan membantu dalam analisis \textit{error }pada fitur \textit{topic} yang akan dilakukan. Berikut ini analisis \textit{error} fitur \textit{topic}:
-	\begin{table}[H]
-		\caption{Analisis \textit{Error} Fitur \textit{Topic} pada Klasifikasi Sarkasme}
-		\centering
-		\small
-		\begin{adjustbox}{width=1\textwidth}
-		\begin{tabular}{|p{1cm}|p{5cm}|p{2.45cm}|p{1.45cm}|p{1.45cm}|}
-			\hline
-			\textbf{KF} & \textbf{Teks} & \textbf{Fitur} & \textbf{Label} & \textbf{Prediksi} \\
-			\hline
-			\multirow{8}{*}{\parbox{1cm}{U + T}}& \multirow{8}{*}{\parbox{5cm}{Berkaitan akses situs porno anggota dewan Badan Kehormatan DPR adakan investigasi siapa ditonton}} & \parbox{2.45cm}{topic 0: 0.044 }
-			& \multirow{8}{*}{\parbox{1.45cm}{Sarkasme}} & \multirow{8}{*}{\parbox{1.45cm}{Sarkasme}} \\
-			\cline{3-3}
-			 & & \parbox{2.45cm}{\textbf{topic 1: 0.88}} & & \\
-			 \cline{3-3}
-			 & & \parbox{2.45cm}{\textbf{topic 2: 0.02}} & & \\
-			 \cline{3-3}
-			 & & \parbox{2.45cm}{\textbf{topic 3: 0.03}} & & \\
-			 \cline{3-3}
-			& & \parbox{2.45cm}{dewan: 0.16}  & & \\
-			\cline{3-3}
-			& & \parbox{2.45cm}{angota: 0.11} & & \\
-			\cline{3-3}
-			& & \parbox{2.45cm}{\textbf{tonton: 0.18}} & & \\
-			\hline
-			\multirow{4}{*}{\parbox{1cm}{U}} & \multirow{4}{*}{\parbox{5cm}{ Berkaitan akses situs porno anggota dewan Badan Kehormatan DPR adakan investigasi siapa ditonton}} & \parbox{2.45cm}{dpr: 0.06} & \multirow{4}{*}{\parbox{1.45cm}{Sarkasme}} & \multirow{4}{*}{\parbox{1.45cm}{Positif}} \\
-			\cline{3-3}
-			& & \parbox{2.45cm}{dewan: 0.16}  & & \\
-			\cline{3-3}
-			& & \parbox{2.45cm}{angota: 0.11} & & \\
-			\cline{3-3}
-			& & \parbox{2.45cm}{\textbf{tonton: 0.18}} & & \\
-			\hline
-		\end{tabular}
-		\end{adjustbox}
-	\end{table}
-	Berdasarkan hasil percobaan klasifikasi di atas, tanpa fitur \textit{topic},\textit{ }klasifikasi akan salah, jika terdapat kata yang kemunculannya sering terdapat pada kelas selain kelas sebenarnya. Pada kasus penggunaan di atas kata "tonton" menjadi fitur yang paling menentukan kelas dari sebuah teks, sehingga ketika fitur \textit{topic} tidak digunakan klasifikasi sarkasme menjadi salah. Sebagai contoh teks positif pada data \textit{training} yang menggunakan kata "tonton", yaitu "Jadi support film Indonesia, tapi juga harus jeli apa yang kita tonton ... hmm, aulion bener nih.".
-	
-	\item Fitur \textit{Capitalization}\\
-	Pada bagian ini akan dilakukan analisis \textit{error} ketika hanya menggunakan fitur \textit{unigram}, \textit{topic}, dan \textit{sentiment score}, tanpa fitur \textit{capitalization}. Berikut ini adalah analisis \textit{error} fitur \textit{capitalization}:
-		\begin{table}[H]
-			\caption{Analisis \textit{Error} Fitur \textit{Capitalization} pada Klasifikasi Sarkasme}
-			\centering
-			\small
-			\begin{adjustbox}{width=1\textwidth}
-				\begin{tabular}{|p{1.65cm}|p{3.15cm}|p{3.45cm}|p{1.45cm}|p{1.45cm}|}
-					\hline
-					\textbf{KF} & \textbf{Teks} & \textbf{Fitur} & \textbf{Label} & \textbf{Prediksi} \\
-					\hline
-					\multirow{9}{*}{\parbox{1.65cm}{U + T + C}}& \multirow{9}{*}{\parbox{3.15cm}{Hampir 11 jam dekat sekolah I LOVE MY SENIOR LIFE PEEPS!}} & \textbf{topic 0: 0.46} 
-					& \multirow{9}{*}{\parbox{1.45cm}{Sarkasme}} & \multirow{9}{*}{\parbox{1.45cm}{Sarkasme}} \\
-					\cline{3-3}
-					& & topic 1: 0.060 & & \\
-					\cline{3-3}
-					& & topic 2: 0.036 & & \\
-					\cline{3-3}
-					& & topic 3: 0.043 & & \\
-					\cline{3-3}
-					& & \textbf{capitalization: 4.0} & & \\
-					\cline{3-3}
-					& & sekolah: 0.079 & & \\
-					\cline{3-3}
-					& & life: 0.32 & & \\
-					\cline{3-3}
-					& & jam: 0.23 & & \\
-					\cline{3-3}
-					& & cinta: 0.27 & & \\
-					\hline
-					\multirow{8}{*}{\parbox{1.65cm}{U + T}} & \multirow{8}{*}{\parbox{3.15cm}{Hampir 11 jam dekat sekolah I LOVE MY SENIOR LIFE PEEPS!}} & \textbf{topic 0: 0.46} & \multirow{8}{*}{\parbox{1.45cm}{Sarkasme}} & \multirow{8}{*}{\parbox{1.45cm}{Positif}} \\
-					\cline{3-3}
-					& & topic 1: 0.060 & & \\
-					\cline{3-3}
-					& & topic 2: 0.036 & & \\
-					\cline{3-3}
-					& & topic 3: 0.043 & & \\
-					\cline{3-3}
-					& & sekolah: 0.079 & & \\
-					\cline{3-3}
-					& & life: 0.32 & & \\
-					\cline{3-3}
-					& & jam: 0.23 & & \\
-					\cline{3-3}
-					& & cinta: 0.27 & & \\
-					\hline
-				\end{tabular}
-			\end{adjustbox}
-		\end{table}
-Berdasarkan hasil percobaan klasifikasi di atas, tanpa fitur \textit{capitalization}, klasifikasi akan salah, jika terdapat sebuah teks yang memiliki nilai topik yang kecil. Hal ini terjadi karena nilai topik dari teks hanya 0.46, sedangkan kata "cinta" yang cenderung positif pada data \textit{training}, hal ini yang menyebabkan klasifikasi salah ketika tidak ada fitur \textit{capitalization}.
-\end{enumerate}
-
-\subsection{Pengujian Parameter pada SMO}
-Pada bagian ini, akan dilakukan pengujian parameter SMO yaitu, C, \textit{tolerance}, dan max\_passes. Nilai parameter C yang akan digunakan untuk pengujian adalah 1, 5 dan 10. Nilai parameter max\_passes yang akan digunakan untuk pengujian adalah 5 dan 10. Nilai parameter tol yang akan digunakan untuk pengujian adalah 0.001 dan 0.0001. Berikut ini adalah tabel pengujian parameter SMO:
-
-\begin{table}[H]
-	\caption{Pengujian Parameter SMO}
-	\centering
-	\small
-	\begin{adjustbox}{width=1\textwidth}
-	\begin{tabular}{|p{1.1cm}|p{1.7cm}|p{2cm}|p{1.1cm}|p{1.1cm}|p{1.1cm}|p{1.1cm}|p{1.1cm}|p{1.1cm}|}
-		\hline
-		\multicolumn{3}{|c|}{\textbf{Parameter}} & \multicolumn{5}{c|}{\textbf{Akurasi} \textit{\textbf{F-Measure}}} \\
-		\hline
-		\textbf{C} & \textbf{Tol} & \textbf{MaxPasses} & \textbf{FP\_D} & \textbf{FN\_D} & \textbf{FT\_D} & \textbf{FS\_D} & \textbf{DM} \\
-		\hline
-		1 & 0.001 & 5 & 0.65 & 0.52 & 0.89 & 0.18 & 0.56 \\
-		\hline
-		1 & 0.001 & 10 & 0.65 & 0.52 & 0.89 & 0.18 & 0.56 \\
-		\hline
-		1 & 0.0001 & 5 & 0.65 & 0.52 & 0.89 & 0.18 & 0.56 \\
-		\hline
-		1 & 0.0001 & 10 & 0.65 & 0.52 & 0.89 & 0.18 & 0.56 \\
-		\hline
-		5 & 0.001 & 5 & 0.76 & 0.71 & 0.83 & 0.57 & 0.72 \\
-		\hline
-		5 & 0.001 & 10 & 0.76 & 0.71 & 0.83 & 0.57 & 0.72 \\
-		\hline
-		5 & 0.0001 & 5 & 0.76 & 0.71 & 0.83 & 0.57 & 0.72 \\
-		\hline
-		5 & 0.0001 & 10 & 0.76 & 0.71 & 0.83 & 0.57 & 0.72 \\
-		\hline
-		10 & 0.001 & 5 & 0.74 & 0.75 & 0.81 & 0.57 & 0.72 \\
-		\hline
-		10 & 0.001 & 10 & 0.74 & 0.75 & 0.81 & 0.57 & 0.72 \\
-		\hline
-		10 & 0.0001 & 5 & 0.74 & 0.75 & 0.81 & 0.57 & 0.72 \\
-		\hline
-		10 & 0.0001 & 10 & 0.74 & 0.75 & 0.81 & 0.57 & 0.72 \\
-		\hline
-	\end{tabular}
-	\end{adjustbox}
-\end{table}
-Berdasarkan pengujian parameter di atas, parameter yang menghasilkan akurasi terbaik adalah parameter C=5 dan C=10. Parameter C=10 memberikan hasil akurasi yang lebih merata pada setiap kelasnya, sedangkan pada parameter C=5, memberikan akurasi kelas positif yang lebih tinggi, namun akurasi kelas negatif menjadi rendah. Oleh karena itu akan dipilih parameter C=10 dengan \textit{tolerance }0.001 dan \textit{max passes
-} 5. Alasan pemilihan parameter tersebut adalah semakin tinggi parameter \textit{tolerance }dan \textit{max passes} tidak terjadi adanya perubahan pada akurasi, selain itu alasan pemilihan parameter \textit{tolerance }dan \textit{max passes }yang lebih rendah adalah supaya \textit{training} yang dilakukan menjadi lebih cepat.
-\subsection{Pengujian Klasifikasi 4 kelas, 3 kelas dan 1 kelas}
-Pada bagian ini akan dilakukan pengujian untuk membandingkan akurasi \textit{f-measure }jika melakukan klasifikasi 4 kelas, yaitu positif, negatif, netral, sarkasme, kemudian mengklasifikasikan 3 kelas, yaitu positif, negatif dan netral, dan yang terakhir mengklasifikasikan 1 kelas sarkasme atau non-sarkasme. Klasifikasi kelas akan menggunakan fitur yang dihasilkan pada pengujian kombinasi fitur yang telah 
-dilakukan, yaitu \textit{unigram, punctuation based} dan \textit{sentiment score }untuk klasifikasi non-sarkasme, dan fitur \textit{unigram, capitalization, topic }dan \textit{sentiment score} untuk klasifikasi sarkasme. Berikut ini adalah tabel pengujian klasifikasi 4 kelas:
-
-\begin{table}[H]
-	\caption{Pengujian Klasifikasi 4 Kelas (Positif, Negatif, Netral, Sarkasme)}
-	\centering
-	\small
-	\begin{adjustbox}{width=1\textwidth}
-	\begin{tabular}{|p{5.3cm}|p{1.2cm}|p{1.2cm}|p{1.2cm}|p{1.2cm}|p{1.2cm}|}
-		\hline
-		\multirow{2}{*}{\textbf{Klasifikasi}} & \multicolumn{5}{c|}{\textit{\textbf{F-Measure}}} \\
-		\cline{2-6}
-		& \textbf{FP\_D} & \textbf{FN\_L} & \textbf{FT\_D} & \textbf{FS\_D} & \textbf{DM} \\
-		\hline
-		Klasifikasi 4 kelas & 0.74 & 0.75 & 0.81 & 0.57 & 0.72 \\
-		\hline
-	\end{tabular}
-	\end{adjustbox}
-\end{table}
-
-\begin{table}[H]
-	\caption{Pengujian Klasifikasi 3 Kelas (Positif, Negatif, Netral)}
-	\centering
-	\small
-	\begin{adjustbox}{width=1\textwidth}
-	\begin{tabular}{|p{5.6cm}|p{1.5cm}|p{1.5cm}|p{1.5cm}|p{1.5cm}|}
-		\hline
-		\multirow{2}{*}{\textbf{Klasifikasi}} & \multicolumn{4}{c|}{\textit{\textbf{F-Measure}}} \\
-		\cline{2-5}
-		& \textbf{FP\_D} & \textbf{FN\_L} & \textbf{FT\_D} & \textbf{DM} \\
-		\hline
-		Klasifikasi 3 kelas & 0.79 & 0.81 & 0.86 & 0.82 \\
-		\hline
-	\end{tabular}
-	\end{adjustbox}
-\end{table}
-
-\begin{table}[h]
-	\caption{Pengujian Klasifikasi 1 Kelas (Sarkasme/Non-Sarkasme)}
-	\centering
-	\small
-	\begin{adjustbox}{width=1\textwidth}
-	\begin{tabular}{|p{8cm}|p{4.8cm}|}
-		\hline
-		\textbf{Klasifikasi} & \textit{\textbf{F-Measure}} \\
-		\hline
-		Klasifikasi 1 kelas (sarkasme/non-sarkasme) & 0.75 \\
-		\hline
-	\end{tabular}
-	\end{adjustbox}
-\end{table}
-Berdasarkan hasil pengujian di atas, hasil akurasi meningkat sebanyak 10\% ketika hanya mengklasifikasikan 3 kelas. Dan akurasi deteksi sarkasme meningkat sebanyak 18\% ketika hanya melakukan deteksi sarkasme atau non-sarkasme.
+Berdasarkan hasil pengujian di atas, desain arsitektur microservice lebih banyak memberikan hasil yang sesuai dengan harapan dari \textit{test plan} yang dibuat.
 \newpage

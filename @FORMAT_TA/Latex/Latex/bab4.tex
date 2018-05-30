@@ -1,0 +1,1095 @@
+%-----------------------------------------------------------------------------%
+\chapter{IMPLEMENTASI DAN PENGUJIAN}
+%-----------------------------------------------------------------------------%
+
+%
+\vspace{4.5pt}
+
+\section{Lingkungan Implementasi}
+\indent
+Lingkup implementasi merupakan bagian yang menjelaskan mengenai spefikasi perangkat keras dan perangkat lunak yang digunakan dalam membangun sebuah sistem.
+
+\subsection{Spesifikasi Perangkat Keras}
+\indent
+Spesifikasi perangkat keras yang penulis gunakan dalam membangun sistem kategorisasi dokumen adalah sebagai berikut :
+
+\begin{enumerate}[nolistsep,leftmargin=0.5cm]
+\item
+Laptop dengan processor Intel® Core™ i7-7500U CPU @ 2.70 GHz 2.90 GHz
+\item
+RAM 8.00 GB
+\item
+Hard disk 1 TB
+\item
+AMD Radeon™ R7 M445
+\end{enumerate}
+
+\subsection{Lingkungan Perangkat Lunak}
+\indent
+Spesifikasi perangkat lunak yang penulis gunakan dalam membangun sistem kategorisasi dokumen adalah sebagai berikut :
+
+\begin{enumerate}[nolistsep,leftmargin=0.5cm]
+\item
+Sistem Operasi: Windows 10 64-bit
+\item
+Tools Pengembangan: Java Development Kit 1.8.0 Update 64-bit, Netbeans IDE 8.0.2
+\item
+DBMS: MySQL 5.0.12
+\end{enumerate}
+
+\section{Impelementasi Perangkat Lunak}
+\indent
+Implementasi perangkat lunak merupakan bagian yang menjelaskan mengenai implementasi sistem yang dibangun baik dalam bentuk {\itshape desktop} maupun {\itshape web}. Dalam penelitian ini, bentuk aplikasi yang dibangun adalah berbentuk {\itshape web}.
+
+\subsection{Impelementasi Basis Data}
+\indent
+Dalam pembangunan sistem kategorisasi dokumen, semua data seperti data untuk {\itshape training}, data untuk {\itshape testing}, dan hasil model pembelajaran akan disimpan dalam sebuah {\itshape database}. Tujuan penyimpanan data-data tersebut dalam sebuah {\itshape database} adalah untuk memungkinkan {\itshape user} untuk melakukan CRUD terhadap data {\itshape training} dan data {\itshape testing}, mencatat model setiap dilakukan pembelajaran dengan parameter yang berbeda, dan mempermudah pembacaan data. Jumlah tabel yang akan digunakan dalam pembangunan sistem adalah berjumlah 3 tabel. Tabel ini di antaranya adalah tabel data\_training, data\_testing, dan llda. Berikut merupakan struktur untuk setiap tabel yang digunakan.\\
+
+\begin{enumerate}[nolistsep,leftmargin=0.5cm]
+\item Tabel data\_training
+
+\begin{table}[H]
+\small
+\centering
+\caption{Struktur Tabel Data\_Training}
+\begin{adjustbox}{width=1\textwidth}
+\begin{tabular}{| p {2 cm} | p {2 cm} | p {1.8 cm} | p {1.2 cm} | p {6 cm} | p {1 cm} |}
+\hline
+{\bfseries Name} & {\bfseries Type} & {\bfseries Length} & {\bfseries Null} & {\bfseries Default} & {\bfseries PK} \\
+\hline
+id & int & 11 & No & None & 1 \\
+\hline
+title & varchar & 200 & No & None & - \\
+\hline
+label & Varchar & 100 & No & None & - \\
+\hline
+content & longtext & - & No & None & - \\
+\hline
+author & varchar & 500 & No & None & - \\
+\hline
+created\_at & datetime & - & No & CURRENT\_TIMESTAMP & - \\
+\hline
+deleted\_at & datetime & - & Yes & Null & - \\
+\hline
+\end{tabular}
+\end{adjustbox}
+\end{table}
+
+\item Tabel data\_testing
+
+\begin{table}[H]
+\small
+\centering
+\caption{Struktur Tabel Data\_Testing}
+\begin{adjustbox}{width=1\textwidth}
+\begin{tabular}{| p {2 cm} | p {2 cm} | p {1.8 cm} | p {1.2 cm} | p {6 cm} | p {1 cm} |}
+\hline
+{\bfseries Name} & {\bfseries Type} & {\bfseries Length} & {\bfseries Null} & {\bfseries Default} & {\bfseries PK} \\
+\hline
+id & int & 11 & No & None & 1 \\
+\hline
+title & varchar & 200 & No & None & - \\
+\hline
+label & varchar & 100 & No & None & - \\
+\hline
+content & longtext & - & No & None & - \\
+\hline
+author & varchar & 500 & No & None & - \\
+\hline
+created\_at & datetime & - & No & CURRENT\_TIMESTAMP & - \\
+\hline
+deleted\_at & datetime & - & Yes & Null & - \\
+\hline
+\end{tabular}
+\end{adjustbox}
+\end{table}
+
+\item Tabel llda
+
+\begin{table}[H]
+\small
+\centering
+\caption{Struktur Tabel LLDA}
+\begin{adjustbox}{width=1\textwidth}
+\begin{tabular}{| p {2 cm} | p {2 cm} | p {1.8 cm} | p {1.2 cm} | p {6 cm} | p {1 cm} |}
+\hline
+{\bfseries Name} & {\bfseries Type} & {\bfseries Length} & {\bfseries Null} & {\bfseries Default} & {\bfseries PK} \\
+\hline
+id & int & 11 & No & None & 1 \\
+\hline
+alpha & double & - & No & None & - \\
+\hline
+betha & double & - & No & None & - \\
+\hline
+n & int & 11 & No & 1 & - \\
+\hline
+d & int & 11 & No & None & - \\
+\hline
+\end{tabular}
+\end{adjustbox}
+\end{table}
+
+\begin{table}[H]
+\small
+\centering
+\begin{adjustbox}{width=1\textwidth}
+\begin{tabular}{| p {2 cm} | p {2 cm} | p {1.8 cm} | p {1.2 cm} | p {6 cm} | p {1 cm} |}
+\hline
+k & int & 11 & No & None & - \\
+\hline
+iteration & int & - & No & None & - \\
+\hline
+vocabulary & longtext & - & No & None & - \\
+\hline
+phi & longtext & - & No & None & - \\
+\hline
+theta & longtext & - & No & None & - \\
+\hline
+created\_at & datetime & - & No & CURRENT\_TIMESTAMP & - \\
+\hline
+\end{tabular}
+\end{adjustbox}
+\end{table}
+
+\end{enumerate}
+
+\subsection{Daftar \itshape {\itshape Class} dan \itshape Method}
+\indent
+Daftar {\itshape Class} dan {\itshape Method} merupakan bagian yang menjelaskan tentang {\itshape Class} dan {\itshape Method} yang akan digunakan dalam membangun sistem kategorisasi dokumen. Dalam pembuatan sistem, terdapat 2 jenis {\itshape package} yang berfungsi untuk memisahkan {\itshape class} sesuai dengan fungsinya masing-masing. Kedua jenis {\itshape package} ini adalah {\itshape package} final\_project\_api dan final\_project\_impl. {\itshape Package} final\_project\_api berfungsi untuk menyimpan semua {\itshape interface} ({\itshape api}, {\itshape service}, dan {\itshape database}) dan data model, sedangkan {\itshape package} final\_project\_impl berfungsi untuk menyimpan semua {\itshape class implementation} berdasarkan {\itshape method} pada setiap {\itshape interface} yang telah didefinisikan pada {\itshape package} final\_project\_api. Di bawah ini merupakan daftar {\itshape class} untuk {\itshape package} final\_project\_api dan final\_project\_impl.
+
+\begin{table}[H]
+\small
+\centering
+\caption{Daftar {\itshape Class} pada {\itshape Package} final\_project\_api}
+\begin{adjustbox}{width=1\textwidth}
+\begin{tabular}{| p {3 cm} | p {8 cm} | p {3 cm} |}
+\hline
+{\bfseries Package} & {\bfseries Class} & {\bfseries Jenis Class} \\
+\hline
+\multirow{12}{*}{final\_project\_api} & DatasetAPI & {\itshape Interface} \\
+\hhline{~--}
+ & DatasetAccessor & {\itshape Interface} \\
+\hhline{~--}
+ & DatasetService & {\itshape Interface} \\
+\hhline{~--}
+ & DatasetSpec & {\itshape Class} \\
+\hhline{~--}
+ & PreProcessingService & {\itshape Interface} \\
+\hhline{~--}
+ & FeatureSelectionService & {\itshape Interface} \\
+\hhline{~--}
+ & {\itshape class}ifierService & {\itshape Interface} \\
+\hhline{~--}
+ & LLDAAccessor & {\itshape Interface} \\
+\hhline{~--}
+ & LLDASpec & {\itshape Class} \\
+\hhline{~--}
+ & LabelAPI & {\itshape Interface} \\
+\hhline{~--}
+ & LearningAPI & {\itshape Interface} \\
+\hhline{~--}
+ & LearningService & {\itshape Interface} \\
+\hline
+\end{tabular}
+\end{adjustbox}
+\end{table}
+
+\begin{table}[H]
+\small
+\centering
+\begin{adjustbox}{width=1\textwidth}
+\begin{tabular}{| p {3 cm} | p {8 cm} | p {3 cm} |}
+\hline
+ & DatatestAPI & {\itshape Interface} \\
+\hhline{~--}
+ & DatatestAccessor & {\itshape Interface} \\
+\hhline{~--}
+ & DatatestService & {\itshape Interface} \\
+\hhline{~--}
+ & InferenceAPI & {\itshape Interface} \\
+\hhline{~--}
+ & InferenceService & {\itshape Interface} \\
+\hhline{~--}
+ & InferenceSpec & {\itshape Class} \\
+\hhline{~--}
+ & MeasurementAPI & {\itshape Interface} \\
+\hhline{~--}
+ & MeasurementService & {\itshape Interface} \\
+\hhline{~--}
+ & Label & {\itshape Enum} \\
+\hhline{~--}
+ & LabelConfig & {\itshape Enum} \\
+\hline
+\end{tabular}
+\end{adjustbox}
+\end{table}
+
+\begin{table}[H]
+\small
+\centering
+\caption{Daftar {\itshape Class} pada {\itshape Package} final\_project\_impl}
+\begin{adjustbox}{width=1\textwidth}
+\begin{tabular}{| p {3 cm} | p {11 cm} |}
+\hline
+{\bfseries Package} & {\bfseries Class} \\
+\hline
+\multirow{14}{*}{final\_project\_impl} & DatasetAPIImpl \\
+\hhline{~-}
+ & DatasetAccessorImpl \\
+\hhline{~-}
+ & DatasetServiceImpl \\
+\hhline{~-}
+ & PreProcessingServiceImpl \\
+\hhline{~-}
+ & FeatureSelectionServiceImpl \\
+\hhline{~-}
+ & ClassifierServiceImpl \\
+\hhline{~-}
+ & LLDAAccessorImpl \\
+\hhline{~-}
+ & LabelAPIImpl \\
+\hhline{~-}
+ & LearningAPIImpl \\
+\hhline{~-}
+ & LearningServiceImpl \\
+\hhline{~-}
+ & DatatestAPIImpl \\
+\hhline{~-}
+ & DatatestAccessorImpl \\
+\hhline{~-}
+ & DatatestServiceImpl \\
+\hhline{~-}
+ & InferenceAPIImpl \\
+\hline
+\end{tabular}
+\end{adjustbox}
+\end{table}
+
+\begin{table}[H]
+\small
+\centering
+\begin{adjustbox}{width=1\textwidth}
+\begin{tabular}{| p {3 cm} | p {11 cm} |}
+\hline
+ & InferenceServiceImpl \\
+\hhline{~-}
+ & MeasurementAPIImpl \\
+\hhline{~-}
+ & MeasurementServiceImpl \\
+\hline
+\end{tabular}
+\end{adjustbox}
+\end{table}
+
+\indent
+Dalam pembuatan {\itshape class}, terdapat 4 jenis {\itshape class} yang digunakan penulis dalam pembangunan sistem kategorisasi dokumen. Keempat jenis {\itshape class} ini di antaranya adalah API, {\itshape service}, {\itshape accessor}, dan {\itshape specification}. {\itshape Class} API berfungsi untuk menyediakan {\itshape method} untuk menjadi penghubung antara bagian {\itshape back-end} dan {\itshape front-end}. {\itshape Class service} berfungsi untuk menyelesaikan masalah yang dihadapi ({\itshape business logic}) serta menjadi penghubung antara API dengan {\itshape accessor}. {\itshape Class accessor} berfungsi untuk mengelola semua kegiatan yang berkaitan dengan {\itshape database}. {\itshape Class specification} berfungsi untuk mengelola data model selama pembangunan sistem berjalan.
+
+\begin{enumerate}[nolistsep,leftmargin=0.5cm]
+\item
+DatasetSpec.java\\
+{\itshape Class} DatasetSpec merupakan {\itshape class} yang berfungsi sebagai data model dalam pengambilan data. DatasetSpec digunakan untuk memetakan data yang didapat dari {\itshape database} ke dalam sistem.
+
+\begin{table}[H]
+\small
+\centering
+\caption{Daftar Atribut {\itshape Dataset Specification}}
+\begin{adjustbox}{width=1\textwidth}
+\begin{tabular}{| p {2 cm} | p {3 cm} | p {9 cm} |}
+\hline
+{\bfseries Tipe} & {\bfseries Nama Atribut} & {\bfseries Keterangan} \\
+\hline
+int & id & Nomor id untuk setiap dokumen \\
+\hline
+String & title & Judul dokumen \\
+\hline
+String & label & Topik / Kategori dokumen \\
+\hline
+String & content & Isi dokumen \\
+\hline
+String & author & Pembuat dokumen \\
+\hline
+\end{tabular}
+\end{adjustbox}
+\end{table}
+
+\begin{table}[H]
+\small
+\centering
+\caption{Daftar Fungsi dan Prosedur {\itshape Dataset Specification}}
+\begin{adjustbox}{width=1\textwidth}
+\begin{tabular}{| p {2 cm} | p {3 cm} | p {9 cm} |}
+\hline
+{\bfseries Tipe} & {\bfseries Nama Atribut} & {\bfseries Keterangan} \\
+\hline
+void & set setiap element & Prosedur {\itshape setter} untuk setiap elemen atribut \\
+\hline
+function & get setiap element & Fungsi {\itshape getter} untuk setiap elemen atribut \\
+\hline
+\end{tabular}
+\end{adjustbox}
+\end{table}
+
+\item
+LLDASpec.java\\
+{\itshape Class} LLDASpec merupakan {\itshape class} yang berfungsi sebagai data model dalam melakukan proses klasifikasi. Selain digunakan untuk proses klasifikasi, {\itshape class} ini juga berfungsi untuk memetakan data llda untuk disimpan ke {\itshape database} maupun diambil dari {\itshape database}.
+
+\begin{table}[H]
+\small
+\centering
+\caption{Daftar Atribut LLDA {\itshape Specification}}
+\begin{adjustbox}{width=1\textwidth}
+\begin{tabular}{| p {4 cm} | p {3 cm} | p {7 cm} |}
+\hline
+{\bfseries Tipe} & {\bfseries Nama Atribut} & {\bfseries Keterangan} \\
+\hline
+double & alpha & Nilai $\alpha$ untuk llda \\
+\hline
+double & beta & Nilai $\beta$ untuk llda \\
+\hline
+String & type & Jenis dokumen \\
+\hline
+int & n & Jumlah n pada n-gram yang mau digunakan \\
+\hline
+int & numOfLabels & Jumlah banyak kategori yang ada \\
+\hline
+int & numOfIterations & Jumlah iterasi \\
+\hline
+Map$<$String, Integer[]$>$ & vocabularies & Kumpulan kata-kata yang telah diberi indeks \\
+\hline
+double[][] & phi & Nilai probabilitas topik terhadap kata \\
+\hline
+double[][] & theta & Nilai probabilitas dokumen terhadap topik \\
+\hline
+\end{tabular}
+\end{adjustbox}
+\end{table}
+
+
+\begin{table}[H]
+\small
+\centering
+\caption{Daftar Fungsi dan Prosedur LLDA {\itshape Specification}}
+\begin{adjustbox}{width=1\textwidth}
+\begin{tabular}{| p {2 cm} | p {3 cm} | p {9 cm} |}
+\hline
+{\bfseries Tipe} & {\bfseries Nama Atribut} & {\bfseries Keterangan} \\
+\hline
+void & set setiap element & Prosedur {\itshape setter} untuk setiap elemen atribut \\
+\hline
+function & get setiap element & Fungsi {\itshape getter} untuk setiap elemen atribut \\
+\hline
+\end{tabular}
+\end{adjustbox}
+\end{table}
+
+\item
+DatasetAccessorImpl.java\\
+{\itshape Class} DatasetAccessorImpl merupakan {\itshape class} yang digunakan untuk melakukan proses CRUD ({\itshape create}, {\itshape read}, {\itshape update}, dan {\itshape delete}) terhadap data {\itshape training} ke {\itshape database}.
+
+\begin{table}[H]
+\small
+\centering
+\caption{Daftar Fungsi dan Prosedur {\itshape Dataset Accessor}}
+\begin{adjustbox}{width=1\textwidth}
+\begin{tabular}{| p {3 cm} | p {3 cm} | p {8 cm} |}
+\hline
+{\bfseries Tipe} & {\bfseries Nama Atribut} & {\bfseries Keterangan} \\
+\hline
+void & setDataSource & Prosedur untuk menghubungkan sistem dengan tabel yang ada pada {\itshape database} \\
+\hline
+List$<$DatasetSpec$>$ & selectAll & Fungsi untuk mendapatkan data {\itshape training} dari {\itshape database} \\
+\hline
+void & insert & Prosedur untuk menambahkan data {\itshape training} ke {\itshape database} \\
+\hline
+\end{tabular}
+\end{adjustbox}
+\end{table}
+
+\item
+DatasetServiceImpl.java\\
+{\itshape Class} DatasetServiceImpl merupakan {\itshape class} yang digunakan untuk mengolah data {\itshape training} yang didapat dari {\itshape database}.
+
+\begin{table}[H]
+\small
+\centering
+\caption{Daftar Fungsi dan Prosedur {\itshape Dataset Service}}
+\begin{adjustbox}{width=1\textwidth}
+\begin{tabular}{| p {3 cm} | p {3 cm} | p {8 cm} |}
+\hline
+{\bfseries Tipe} & {\bfseries Nama Atribut} & {\bfseries Keterangan} \\
+\hline
+List$<$DatasetSpec$>$ & getDatasetFromFile & Fungsi untuk mendapatkan data {\itshape training} dari sebuah {\itshape file} \\
+\hline
+List$<$DatasetSpec$>$ & getDatasetFromDB & Fungsi untuk mendapatkan data {\itshape training} dari {\itshape database} \\
+\hline
+void & insertDataset & Prosedur untuk menambahkan data {\itshape training} ke {\itshape database} \\
+\hline
+\end{tabular}
+\end{adjustbox}
+\end{table}
+
+\item
+PreProcessingServiceImpl.java\\
+{\itshape Class} PreProcessingServiceImpl adalah {\itshape class} yang digunakan untuk mengolah {\itshape raw document} menjadi {\itshape clean document}.
+
+\begin{table}[H]
+\small
+\centering
+\caption{Daftar Fungsi dan Prosedur {\itshape Pre-Processing Service}}
+\begin{adjustbox}{width=1\textwidth}
+\begin{tabular}{| p {2 cm} | p {3 cm} | p {9 cm} |}
+\hline
+{\bfseries Tipe} & {\bfseries Nama Atribut} & {\bfseries Keterangan} \\
+\hline
+String & caseFolding & Fungsi untuk mengubah bentuk huruf pada isi dokumen menjadi huruf kecil \\
+\hline
+String & filtering & Fungsi untuk menghapus tanda baca dan kata penghubung \\
+\hline
+String[] & tokenizing & Fungsi untuk memecah suatu isi dokumen menjadi kata-kata \\
+\hline
+String[] & stopWordRemoving  & Fungsi untuk menghapus makna yang kurang bermakna \\
+\hline
+String[] & stemming & Fungsi untuk mengubah setiap kata menjadi kata dasar pembentuknya \\
+\hline
+\end{tabular}
+\end{adjustbox}
+\end{table}
+
+\item
+FeatureSelectionServiceImpl.java\\
+{\itshape Class} FeatureSelectionServiceImpl merupakan {\itshape class} yang digunakan untuk menyeleksi kembali kata-kata yang telah melalui {\itshape  pre-processing}.
+
+\begin{table}[H]
+\small
+\centering
+\caption{Daftar Fungsi dan Prosedur {\itshape Feature Selection Service}}
+\begin{adjustbox}{width=1\textwidth}
+\begin{tabular}{| p {3.5 cm} | p {2.5 cm} | p {8 cm} |}
+\hline
+{\bfseries Tipe} & {\bfseries Nama Atribut} & {\bfseries Keterangan} \\
+\hline
+List$<$String[]$>$ & nGrams & Fungsi untuk mengubah kata-kata menjadi n-gram \\
+\hline
+List$<$Map$<$String, Double$>$$>$ & tf & Fungsi untuk menghitung nilai tf \\
+\hline
+Map$<$String, Double$>$ & Idf & Fungsi untuk menghitung nilai idf \\
+\hline
+List$<$String[]$>$ & tfidf & Fungsi untuk menghitung nilai tf-idf \\
+\hline
+\end{tabular}
+\end{adjustbox}
+\end{table}
+
+\item
+ClassifierServiceImpl.java\\
+{\itshape Class} ClassifierServiceImpl merupakan {\itshape class} yang digunakan untuk melakukan klasifikasi terhadap dokumen. Dalam penelitian ini, metode klasifikasi yang digunakan adalah menggunakan {\itshape Simple Labeled Latent Dirichilet Allocation} (sLLDA).
+
+\begin{table}[H]
+\small
+\centering
+\caption{Daftar Fungsi dan Prosedur {\itshape Classifier Service}}
+\begin{adjustbox}{width=1\textwidth}
+\begin{tabular}{| p {3 cm} | p {4cm} | p {7 cm} |}
+\hline
+{\bfseries Tipe} & {\bfseries Nama Atribut} & {\bfseries Keterangan} \\
+\hline
+void & sLLDA & Prosedur untuk melakukan klasifikasi dengan sLLDA \\
+\hline
+List$<$double[]$>$ & initialize$\Lambda$ & Fungsi untuk melakukan inisialisasi nilai $\Lambda$ \\
+\hline
+Map$<$String, Integer[]$>$ & initializeVocabularies & Fungsi untuk melakukan inisialisasi kata-kata \\
+\hline
+double[][] & initializeMatrix & Fungsi untuk melakukan inisialisasi setiap matriks \\
+\hline
+void & generateTopicOverWords & Prosedur untuk mendapatkan jumlah setiap kata pada setiap topik \\
+\hline
+void & generateDocOverTopics & Prosedur untuk mendapatkan jumlah setiap dokumen pada setiap topik \\
+\hline
+void & gibbsSampling & Prosedur untuk melakukan pembelajaran dengan {\itshape Gibbs Sampling} \\
+\hline
+double[][] & computePhi & Fungsi untuk menghitung nilai $\varphi$ \\
+\hline
+double[][] & computeTheta & Fungsi untuk menghitung nilai $\theta$ \\
+\hline
+\end{tabular}
+\end{adjustbox}
+\end{table}
+
+\item
+LLDAAccessorImpl.java\\
+{\itshape Class} LLDAAccessorImpl merupakan {\itshape class} yang digunakan untuk melakukan proses {\itshape read} dan {\itshape insert} model pembelajaran ke {\itshape database}.
+
+\begin{table}[H]
+\small
+\centering
+\caption{Daftar Fungsi dan Prosedur LLDA {\itshape Accessor}}
+\begin{adjustbox}{width=1\textwidth}
+\begin{tabular}{| p {2 cm} | p {3 cm} | p {9 cm} |}
+\hline
+{\bfseries Tipe} & {\bfseries Nama Atribut} & {\bfseries Keterangan} \\
+\hline
+void & setDataSource & Prosedur untuk menghubungkan sistem dengan tabel yang ada pada {\itshape database} \\
+\hline
+LLDASpec & selectOne & Fungsi untuk mendapatkan model dari {\itshape database} \\
+\hline
+void & insert & Fungsi untuk menambah model baru ke {\itshape database} \\
+\hline
+\end{tabular}
+\end{adjustbox}
+\end{table}
+
+\item
+LearningServiceImpl.java\\
+{\itshape Class} LearningServiceImpl merupakan {\itshape class} yang digunakan untuk mengolah data {\itshape training} mulai dari pengolahan data sampai menjadi suatu model.
+
+\begin{table}[H]
+\small
+\centering
+\caption{Daftar Fungsi dan Prosedur {\itshape Learning Service}}
+\begin{adjustbox}{width=1\textwidth}
+\begin{tabular}{| p {2.5 cm} | p {2.5 cm} | p {9 cm} |}
+\hline
+{\bfseries Tipe} & {\bfseries Nama Atribut} & {\bfseries Keterangan} \\
+\hline
+String[] & preProcessing & Fungsi untuk melakukan {\itshape pre-processing} \\
+\hline
+List$<$String[]$>$ & featureSelection & Fungsi untuk menyeleksi kata-kata yang akan digunakan \\
+\hline
+void & {\itshape class}ify & Prosedur untuk melakukan klasifikasi \\
+\hline
+\end{tabular}
+\end{adjustbox}
+\end{table}
+
+\item
+InferenceServiceImpl.java\\
+{\itshape Class} InferenceServiceImpl merupakan {\itshape class} yang digunakan untuk melakukan proses pengujian terhadap dokumen yang diuji.
+
+\begin{table}[H]
+\small
+\centering
+\caption{Daftar Fungsi dan Prosedur {\itshape Inference Service}}
+\begin{adjustbox}{width=1\textwidth}
+\begin{tabular}{| p {5 cm} | p {2.5 cm} | p {6.5 cm} |}
+\hline
+{\bfseries Tipe} & {\bfseries Nama Atribut} & {\bfseries Keterangan} \\
+\hline
+String[] & preProcessing & Fungsi untuk melakukan {\itshape pre-processing} \\
+\hline
+String[] & featureSelection & Fungsi untuk mengubah bentuk kata menjadi n-gram \\
+\hline
+List$<$List$<$InferenceSpec$>$$>$ & getModel & Fungsi untuk mendapatkan model pembelajaran \\
+\hline
+String[] & getLabels & Fungsi untuk mendapatkan hasil label \\
+\hline
+\end{tabular}
+\end{adjustbox}
+\end{table}
+
+\item
+MeasurementServiceImpl.java\\
+{\itshape Class} MeasurementServiceImpl merupakan {\itshape class} yang digunakan untuk menghitung nilai {\itshape precision} dan {\itshape recall}.
+
+\begin{table}[H]
+\small
+\centering
+\caption{Daftar Fungsi dan Prosedur {\itshape Measurement Service}}
+\begin{adjustbox}{width=1\textwidth}
+\begin{tabular}{| p {2 cm} | p {3 cm} | p {9 cm} |}
+\hline
+{\bfseries Tipe} & {\bfseries Nama Atribut} & {\bfseries Keterangan} \\
+\hline
+void & calculateMatrix & Prosedur untuk menghitung jumlah label yang sebenernya terhadap label yang diprediksi \\
+\hline
+double[] & getPrecision & Fungsi untuk menghitung nilai {\itshape precision} \\
+\hline
+double[] & getRecall & Fungsi untuk menghitung nilai {\itshape recall} \\
+\hline
+double & getTP & Fungsi untuk mendapatkan  nilai {\itshape true positive} \\
+\hline
+double & getFN & Fungsi untuk mendapatkan nilai {\itshape false negative} \\
+\hline
+double & getFP & Fungsi untuk mendapatkan nilai {\itshape false positive} \\
+\hline
+\end{tabular}
+\end{adjustbox}
+\end{table}
+
+\end{enumerate}
+
+\subsection{Implementasi Struktur Data}
+\indent
+Implementasi Struktur Data merupakan bagian yang menjelaskan mengenai langkah-langkah setiap proses yang terdapat dalam sistem kategorisasi dokumen. Langkah yang akan dijelaskan adalah langkah mulai dari masukan sampai dengan keluaran. Langkah setiap proses akan direpresentasikan dalam bentuk {\itshape pseudocode} agar lebih mudah untuk dipahami.
+
+\begin{enumerate}[nolistsep,leftmargin=0.5cm]
+\item
+Pengambilan data
+
+\begin{table}[H]
+\small
+\centering
+\begin{adjustbox}{width=1\textwidth}
+\begin{tabular}{| p {14 cm} |}
+\hline
+\begin{enumerate}[nolistsep,leftmargin=0.7cm]
+\item
+Untuk pertama kali, lakukan {\itshape insert} data belajar ke {\itshape database} dengan cara membaca data belajar dari {\itshape file} .xls.
+\item
+Melakukan pengambilan data dari {\itshape database}. Data yang diambil dari {\itshape database} akan ditampung dalam tipe data List$<$DatasetSpec$>$. {\itshape List} menunjukkan kumpulan dokumen dan DatasetSpec merupakan {\itshape object dataset} yang berisi {\itshape title}, {\itshape label}, {\itshape content}, dan {\itshape author}.
+\end{enumerate} \\
+\hline
+\end{tabular}
+\end{adjustbox}
+\end{table}
+
+\item
+{\itshape Pre-Processing}
+
+\begin{table}[H]
+\small
+\centering
+\begin{adjustbox}{width=1\textwidth}
+\begin{tabular}{| p {14 cm} |}
+\hline
+\begin{enumerate}[nolistsep,leftmargin=0.7cm]
+\item
+Melakukan {\itshape case folding} dengan menggunakan fungsi .toLowerCase()
+\item
+Melakukan {\itshape filtering} dengan menggunakan fungsi .replaceAll(x), dimana parameter dari fungsi tersebut merupakan {\itshape regular expression}.
+\item
+Melakukan {\itshape tokenizing} dengan menggunakan fungsi .split(“ “)
+\item
+Melakukan {\itshape stopword removing} dengan cara mencocokan daftar {\itshape stopword} yang ditampung dalam tipe data Set$<$String$>$ terhadap kata-kata yang terdapat dalam suatu dokumen menggunakan fungsi .contains(word). 
+\end{enumerate} \\
+\hline
+\end{tabular}
+\end{adjustbox}
+\end{table}
+
+\begin{table}[H]
+\small
+\begin{adjustbox}{width=1\textwidth}
+\begin{tabular}{| p {14 cm} |}
+\hline
+\begin{enumerate}[(e)]
+\item
+Melakukan {\itshape stemming} menggunakan {\itshape library snowball stemmer}. Fungsi yang dapat digunakan untuk melakukan {\itshape stemming} adalah .stem().
+\end{enumerate} \\
+\hline
+\end{tabular}
+\end{adjustbox}
+\end{table}
+
+\item
+{\itshape Feature Selection}
+
+\begin{table}[H]
+\small
+\centering
+\begin{adjustbox}{width=1\textwidth}
+\begin{tabular}{| p {14 cm} |}
+\hline
+\begin{enumerate}[nolistsep,leftmargin=0.7cm]
+\item
+Melakukan pembentukan kata (n-grams) berdasarkan nilai n yang dimasukan. Pembentukan kata ini dapat berupa {\itshape unigram}, {\itshape bigram}, atau {\itshape trigram}.
+\item
+Menghitung nilai {\itshape term frequency} dengan menampung nilai tersebut dalam tipe data Map$<$String, Double$>$. {\itshape Key} dari tipe data tersebut merupakan kata dari suatu dokumen dan {\itshape value} merupakan jumlah kata pada suatu dokumen yang telah dinormalisasi.
+\item
+Menghitung nilai {\itshape inverse document frequency} dengan menggunakan fungsi Math.log10(N/df) dan menampung nilai tersebut dalam tipe data Map$<$String, Double$>$. {\itshape Key} dari tipe data tersebut merupakan kata dari semua dokumen dan {\itshape value} merupakan nilai idf untuk setiap katanya.
+\item
+Menghitung nilai TF-IDF dengan cara mengalikan nilai tf dengan nilai idf yang telah didapat pada langkah sebelumnya. Hasil dari TF-IDF ditampung dalam tipe data Map$<$String, Double$>$. {\itshape Key} dari tipe data tersebut merupakan kata dari semua dokumen dan {\itshape value} merupakan nilai tf-idf untuk setiap katanya.
+\item
+Lakukan pemilihan n TF-IDF tertinggi. Nilai n pada langkah ini dapat bernilai 100, 200, 300, 400, 500, dst.
+\item
+Setelah mendapat n TF-IDF tertinggi, lakukan pemilihan kata sesuai dengan kata-kata dengan nilai TF-IDF tertinggi terhadap kata-kata pada dokumen yang telah melalui tahap {\itshape pre-processing}. Hasil dari pemilihan kata ini akan ditampung dalam tipe data List$<$String[]$>$. {\itshape List} menunjukan kumpulan dokumen dan String[] menunjukan kumpulan kata-kata.
+\end{enumerate} \\
+\hline
+\end{tabular}
+\end{adjustbox}
+\end{table}
+
+\item
+{\itshape Learning}
+
+\begin{table}[H]
+\small
+\centering
+\begin{adjustbox}{width=1\textwidth}
+\begin{tabular}{| p {14 cm} |}
+\hline
+\begin{enumerate}[nolistsep,leftmargin=0.7cm]
+\item
+Melakukan inisialisasi untuk nilai $\Lambda$. Nilai $\Lambda$ akan ditampung dalam tipe data List$<$double[]$>$. {\itshape List} menunjukan kumpulan dokumen dan double[] menunjukan indikator ada tidaknya label (1 atau 0). 
+\item
+Melakukan {\itshape indexing} terhadap semua kata-kata yang telah melalui tahap {\itshape pre-processing} dan {\itshape feature selection}. Hasil indexing akan ditampung dalam tipe data Map$<$String, Integer[]$>$. {\itshape Key} dari tipe data tersebut merupakan kata dari semua dokumen dan Integer[] menunjukan indeks kata dan jumlah suatu kata pada semua dokumen.
+\end{enumerate} \\
+\hline
+\end{tabular}
+\end{adjustbox}
+\end{table}
+
+\begin{table}[H]
+\small
+\begin{adjustbox}{width=1\textwidth}
+\begin{tabular}{| p {14 cm} |}
+\hline
+\begin{enumerate}[(c)]
+\item
+Melakukan inisialisasi terhadap matriks {\itshape topic-word}, {\itshape document-topic}, dan {\itshape topic assignment}. Tipe data untuk matriks {\itshape topic-word} dan {\itshape document-topic} adalah double[][], sedangkan tipe data untuk matriks {\itshape topic assignment} adalah List$<$double[]$>$. List pada matriks {\itshape topic assignment} menunjukan kumpulan dokumen dan double[] menunjukkan indeks topik untuk setiap kata.
+\item
+Melakukan generalisasi terhadap matriks {\itshape topic-word}. Generalisasi ini bertujuan untuk menetapkan topik awal untuk setiap kata yang ada pada semua dokumen. Dalam langkah ini, nilai pada matriks {\itshape topic-word} dan {\itshape topic assignment} akan dilakukan {\itshape increment} pada kolom dan baris yang sesuai.
+\item
+Melakukan generalisasi terhadap matriks {\itshape document-topic}. Generalisasi ini bertujuan untuk melakukan {\itshape increment} untuk nilai pada matriks {\itshape document-topic}.
+\item
+Melakukan perbaruan topik untuk setiap kata pada seluruh dokumen. Perbaruan ini bertujuan agar setiap topik yang ditetap untuk setiap kata menjadi lebih sesuai. Langkah ini dapat dilakukan dengan menggunakan algoritma {\itshape Gibbs Sampling}. Pada algoritma ini, setiap kata akan dilakukan perulangan sebanyak jumlah iterasi yang telah ditetapkan (contoh: 1000). Dalam iterasi akan dilakukan perhitungan {\itshape multinomial distribution} untuk probabilitas {\itshape topic-word} dan {\itshape document-topic}. Perhitungan tersebut akan digunakan untuk basis penetapan topik baru.
+\item
+Menghitung nilai $\varphi$ (model) yang didapat dari matriks topic-word yang dikalikan dengan beta kemudian dilakukan normalisasi. Nilai $\varphi$ akan ditampung dalam tipe data double[][].
+\end{enumerate} \\
+\hline
+\end{tabular}
+\end{adjustbox}
+\end{table}
+
+\item
+{\itshape Inference}
+
+\begin{table}[H]
+\small
+\centering
+\begin{adjustbox}{width=1\textwidth}
+\begin{tabular}{| p {14 cm} |}
+\hline
+\begin{enumerate}[nolistsep,leftmargin=0.7cm]
+\item
+Ekstrak 20\% kata dengan probabilitas tertinggi untuk setiap topik berdasarkan model ($\varphi$) yang telah didapat pada langkah {\itshape learning}.
+\item
+Melakukan pencocokan antara kata-kata pada dokumen yang diuji dengan kata-kata yang telah diekstrak. Lakukan penambahan (increment) pada topik yang sesuai jika hasil pencocokan sama.
+\item
+Jika kasus {\itshape single label}, ambil indeks untuk jumlah topik tertinggi dan keluarkan hasil topiknya.
+\item
+Jika kasus {\itshape multi label}, hitung persentase kemunculan untuk semua topik dan bandingkan persentase kemunculan tersebut dengan nilai {\itshape threshold} 40\%. Ketika sudah dibandingkan keluarkan hasil topiknya.
+\end{enumerate} \\
+\hline
+\end{tabular}
+\end{adjustbox}
+\end{table}
+
+\end{enumerate}
+
+\section{Pengujian}
+\indent
+Pengujian merupakan bagian yang menjelaskan hasil keluaran dari sistem kategorisasi dokumen terhadap dokumen penelitian yang diuji.
+
+\subsection{Hasil Pengujian}
+\indent
+Dalam penelitian ini, pengujian akan dilakukan dalam beberapa kasus. Kasus yang akan diuji di antaranya adalah pengujian {\itshape unigram} tanpa TF-IDF dengan n TF-IDF terbaik dan pengujian {\itshape bag of words} ({\itshape bigram} dan {\itshape trigram}) tanpa TF-IDF dengan n TF-IDF terbaik yang didapat pada kasus {\itshape unigram}. Hasil pengujian yang akan diuji terhadap kasus di atas adalah tingkat akurasi. Dalam proses pengujian nilai $\alpha$, $\beta$, jumlah dokumen, jumlah topik, dan jumlah iterasi pada model pembelajaran yang dilakukan akan bernilai sama, sedangkan untuk nilai $\varphi$ akan berbeda. Berikut merupakan nilai $\alpha$, $\beta$, jumlah topik (K), jumlah iterasi, jumlah data {\itshape training}, dan jumlah data {\itshape testing} untuk setiap pengujian.
+
+\begin{table}[H]
+\small
+\centering
+\caption{Parameter Pengujian}
+\begin{adjustbox}{width=1\textwidth}
+\begin{tabular}{| p {2 cm} | p {1.5 cm} |  p {1.5 cm} |  p {2 cm} | p {3 cm} | p {3 cm} |}
+\hline
+{\bfseries $\alpha$} & {\bfseries $\beta$} & {\bfseries K}  & {\bfseries Iterasi} & {\bfseries Data Training} & {\bfseries Data Testing}  \\
+\hline
+16.667 & 0.1 & 3 & 1000 & 180 & 20 \\
+\hline
+\end{tabular}
+\end{adjustbox}
+\end{table}
+
+\subsubsection{Pengujian {\itshape Unigram} Tanpa TF-IDF dengan n TF-IDF}
+\indent
+Dalam pengujian ini akan dilakukan perbandingan hasil keluaran dari sistem yang berupa {\itshape single label} maupun {\itshape multi label} dengan label asli dari data yang diuji. Kondisi perbandingan akan dilakukan dengan melihat rata-rata {\itshape F-Measure} menggunakan n TF-IDF terbaik dengan tanpa menggunakan TF-IDF. Jumlah TF-IDF terbaik yang akan digunakan dalam pengujian ini, akan diuji terlebih dahulu untuk mengetahui saat n ke berapa sistem dapat mengeluarkan hasil rata-rata {\itshape F-Measure} tertinggi. Batasan untuk jumlah n yang akan diuji adalah 1000 buah dengan jarak 100. Jenis {\itshape bag of words} yang akan diuji adalah {\itshape unigram}. Berikut merupakan hasil beserta analisis dari pengujian yang telah dilakukan.
+
+\begin{enumerate}[nolistsep,leftmargin=0.5cm]
+\item
+{\itshape Single Label}
+
+\begin{table}[H]
+\small
+\centering
+\caption{Pengujian {\itshape Unigram} Tanpa TF-IDF {\itshape Single Label}}
+\begin{adjustbox}{width=1\textwidth}
+\begin{tabular}{| p {2.8 cm} | p {2.8 cm} | p {2.8 cm} | p {2.8 cm} | p {2.8 cm} |}
+\hline
+ & {\bfseries Machine Learning} & {\bfseries NLP} & {\bfseries Image Processing} & {\bfseries Rata-Rata} \\
+\hline
+{\itshape Unigram}, tanpa TF-IDF, {\itshape single label} & 0.933333333 & 1 & 0.923076923 & 0.952136752 \\
+\hline
+\end{tabular}
+\end{adjustbox}
+\end{table}
+
+\begin{table}[H]
+\small
+\centering
+\caption{Pengujian {\itshape Unigram} n TF-IDF {\itshape Single Label}}
+\begin{adjustbox}{width=1\textwidth}
+\begin{tabular}{| p {2.8 cm} | p {2.8 cm} | p {2.8 cm} | p {2.8 cm} | p {2.8 cm} |}
+\hline
+{\bfseries n TF-IDF} & {\bfseries Machine Learning} & {\bfseries NLP} & {\bfseries Image Processing} & {\bfseries Rata-Rata} \\
+\hline
+100 & 0.615384615 & 0.75 & 0.769230769 & 0.711538462 \\
+\hline
+200 & 0.888888889 & 0.8 & 1 & 0.896296296 \\
+\hline
+300 & 0.75 & 0.666666667 & 1 & 0.805555556 \\
+\hline
+400 & 0.777777778 & 0.727272727 & 0.923076923 & 0.809375809 \\
+\hline
+500 & 0.842105263 & 0.666666667 & 1 & 0.83625731 \\
+\hline
+{\bfseries 600} & {\bfseries 0.875} & {\bfseries 0.833333333} & {\bfseries 1} & {\bfseries 0.902777778} \\
+\hline
+700 & 0.8 & 0.714285714 & 0.909090909 & 0.807792208 \\
+\hline
+800 & 0.833333333 & 0.823529412 & 0.909090909 & 0.855317885 \\
+\hline
+900 & 0.8 & 0.714285714 & 0.909090909 & 0.807792208 \\
+\hline
+1000 & 0.8 & 0.823529412 & 0.923076923 & 0.848868778 \\
+\hline
+\end{tabular}
+\end{adjustbox}
+\end{table}
+
+Berdasarkan hasil pengujian di atas, hasil rata-rata {\itshape F-Measure} terbaik untuk kasus n TF-IDF {\itshape single label} terjadi ketika TF-IDF yang digunakan berjumlah 600 buah. Jika hasil rata-rata pengujian {\itshape F-Measure} untuk kasus tanpa TF-IDF dan 600 TF-IDF tertinggi dibandingkan, hasil menggunakan 600 TF-IDF tertinggi lebih kecil dibanding hasil rata-rata tanpa menggunakan TF-IDF. Perbedaan hasil rata-rata dari kedua pengujian ini sebesar 0.05 atau jika diubah ke dalam persentase perbedaannya adalah 5\%. Jika dilihat dari hasil {\itshape F-Measure} untuk setiap topik, {\itshape F-Measure} untuk topik “{\itshape Image Processing}” pada kasus 600 TF-IDF lebih besar dibanding pada kasus tanpa TF-IDF, sedangkan untuk topik “{\itshape Machine Learning}” dan “{\itshape Natural Language Processing}” hasil {\itshape F-Measure} pada kasus 600 TF-IDF lebih kecil. \\
+
+Jika dianalisis lebih lanjut berdasarkan {\itshape confusion matrix} yang dihasilkan oleh kedua kasus tersebut, kasus tanpa TF-IDF menghasilkan {\itshape F-Measure} yang lebih besar karena jumlah kesalahan yang dihasilkan oleh sistem terhadap dokumen yang diuji hanya berjumlah 1, sedangkan untuk 600 TF-IDF tertinggi jumlah kesalahan yang dihasilkan adalah berjumlah 2 dokumen. Berikut merupakan {\itshape confusion matrix} untuk kedua kasus tersebut.\\
+
+\begin{table}[H]
+\small
+\centering
+\caption{{\itshape Confusion Matrix Unigram} Tanpa TF-IDF {\itshape Single Label}}
+\begin{adjustbox}{width=1\textwidth}
+\begin{tabular}{| p {3.5 cm} | p {3.5 cm} | p {3.5 cm} | p {3.5 cm} |}
+\hline
+ & {\bfseries Machine Learning} & {\bfseries NLP} & {\bfseries Image Processing} \\
+\hline
+{\bfseries Machine Learning} & 7 & 0 & 1 \\
+\hline
+{\bfseries NLP} & 0 & 6 & 0 \\
+\hline
+{\bfseries Image Processing} & 0 & 0 & 6 \\
+\hline
+\end{tabular}
+\end{adjustbox}
+\end{table}
+
+\begin{table}[H]
+\small
+\centering
+\caption{{\itshape Confusion Matrix Unigram} n TF-IDF {\itshape Single Label}}
+\begin{adjustbox}{width=1\textwidth}
+\begin{tabular}{| p {3.5 cm} | p {3.5 cm} | p {3.5 cm} | p {3.5 cm} |}
+\hline
+ & {\bfseries Machine Learning} & {\bfseries NLP} & {\bfseries Image Processing} \\
+\hline
+{\bfseries Machine Learning} & 7 & 1 & 0 \\
+\hline
+{\bfseries NLP} & 1 & 5 & 0 \\
+\hline
+{\bfseries Image Processing} & 0 & 0 & 6 \\
+\hline
+\end{tabular}
+\end{adjustbox}
+\end{table}
+
+Kesalahan prediksi untuk kedua kasus tersebut terjadi pada dokumen yang berbeda. Untuk kasus tanpa TF-IDF, kesalahan terjadi pada dokumen berjudul “{\itshape A Group-Based Image Inpainting Using Patch Refinement in MRF Framework}” yang merupakan jurnal mengenai {\itshape Image Processing}, sedangkan untuk kasus 600 TF-IDF, kesalahan terjadi pada dokumen berjudul “{\itshape Text Classification Using Machine Learning}” yang merupakan jurnal mengenai {\itshape Machine Learning} dan dokumen berjudul “{\itshape An Automatic Text Summarization using Text Features and Singular Value Decomposition for Popular Articles in Indonesia Language}” yang merupakan jurnal penelitian mengenai {\itshape Natural Language Processing}. Analisis terhadap pengaruh penggunaan TF-IDF dan tanpa menggunakan TF-IDF akan dijelaskan pada bagian evaluasi (4.3.2).
+
+\item
+{\itshape Multi Label}
+
+\begin{table}[H]
+\small
+\centering
+\caption{Pengujian {\itshape Unigram} tanpa TF-IDF {\itshape Multi Label}}
+\begin{adjustbox}{width=1\textwidth}
+\begin{tabular}{| p {2.8 cm} | p {2.8 cm} | p {2.8 cm} | p {2.8 cm} | p {2.8 cm} |}
+\hline
+ & {\bfseries Machine Learning} & {\bfseries NLP} & {\bfseries Image Processing} & {\bfseries Rata-Rata} \\
+\hline
+Unigram, tanpa TF-IDF, {\itshape multi label} & 0.592592593 & 0.631578947 & 0.777777778 & 0.667316439 \\
+\hline
+\end{tabular}
+\end{adjustbox}
+\end{table}
+
+\begin{table}[H]
+\small
+\centering
+\caption{Pengujian {\itshape Unigram} n TF-IDF {\itshape Multi Label}}
+\begin{adjustbox}{width=1\textwidth}
+\begin{tabular}{| p {2.8 cm} | p {2.8 cm} | p {2.8 cm} | p {2.8 cm} | p {2.8 cm} |}
+\hline
+{\bfseries n TF-IDF} & {\bfseries Machine Learning} & {\bfseries NLP} & {\bfseries Image Processing} & {\bfseries Rata-Rata} \\
+\hline
+100 & 0.380952381 & 0.52173913 & 0.625 & 0.509230504 \\
+\hline
+200 & 0.642857 & 0.555556 & 0.857143 & 0.685185 \\
+\hline
+300 & 0.482758621 & 0.533333333 & 0.8 & 0.605363985 \\
+\hline
+400 & 0.518518519 & 0.5 & 0.8 & 0.60617284 \\
+\hline
+500 & 0.6 & 0.52173913 & 0.8 & 0.64057971 \\
+\hline
+600 & 0.533333333 & 0.518518519 & 0.736842105 & 0.596231319 \\
+\hline
+700 & 0.5 & 0.571428571 & 0.75 & 0.607142857 \\
+\hline
+800 & 0.5 & 0.56 & 0.769230769 & 0.60974359 \\
+\hline
+900 & 0.5 & 0.583333333 & 0.75 & 0.611111111 \\
+\hline
+1000 & 0.416666667 & 0.538461538 & 0.666666667 & 0.540598291 \\
+\hline
+\end{tabular}
+\end{adjustbox}
+\end{table}
+
+\indent
+Berdasarkan hasil pengujian di atas, hasil rata-rata {\itshape F-Measure} terbaik untuk kasus n TF-IDF {\itshape multi label} terjadi ketika TF-IDF yang digunakan berjumlah 200 buah. Jika hasil rata-rata pengujian {\itshape F-Measure} untuk kasus tanpa TF-IDF dan 200 TF-IDF tertinggi dibandingkan, hasil menggunakan 200 TF-IDF tertinggi lebih besar dibanding hasil rata-rata tanpa menggunakan TF-IDF. Perbedaan hasil rata-rata dari kedua pengujian ini sebesar 0.02 atau jika diubah ke dalam persentase perbedaannya adalah 2\%. 
+
+\indent
+Jika hasil {\itshape F-Measure} pada pengujian {\itshape multi label} dibandingkan dengan pengujian {\itshape single label}, perbedaan hasil rata-rata {\itshape F-Measure} dapat dikatakan besar. Rata-rata {\itshape F-Measure} untuk {\itshape multi label} berkisar antara 50\% hingga 68\%, sedangkan untuk {\itshape single label} nilai rata-rata {\itshape F-Measure} berkisar antara 80\% hingga 95\%. Hal ini dapat terjadi karena untuk kasus {\itshape multi label}, label yang dicocokan akan berjumlah lebih dari 1. Sebagai contoh jika keluaran dari sistem merupakan {\itshape multi label} dan jenis label pada data uji adalah {\itshape single label}, maka label pada data uji akan dilakukan pemeriksaan terhadap semua label yang dihasilkan oleh sistem. Hal ini akan mengakibatkan penambahan nilai untuk nilai {\itshape false positive}, sehingga akurasi yang dihasilkan dapat menurun.
+\end{enumerate}
+
+\subsubsection{Pengujian {\itshape Bag of Words} Tanpa TF-IDF dengan n TF-IDF}
+\indent
+Dalam pengujian ini, {\itshape bag of words} yang akan diuji adalah {\itshape bigram} dan {\itshape trigram}. Jumlah TF-IDF terbaik yang akan diuji dalam pengujian ini adalah jumlah TF-IDF terbaik yang didapatkan pada pengujian TF-IDF untuk {\itshape unigram}.
+
+\begin{table}[H]
+\small
+\centering
+\caption{Pengujian {\itshape Bigram} dan {\itshape Trigram}}
+\begin{adjustbox}{width=1\textwidth}
+\begin{tabular}{| p {2.8 cm} | p {2.8 cm} | p {2.8 cm} | p {2.8 cm} | p {2.8 cm} |}
+\hline
+& {\bfseries Machine Learning} & {\bfseries NLP} & {\bfseries Image Processing} & {\bfseries Rata-Rata} \\
+\hline
+Bigram, Tanpa TF-IDF, {\itshape single label} & 0.923076923 & 0.933333333 & 1 & 0.952136752 \\
+\hline
+Bigram, Tanpa TF-IDF, {\itshape multi label} & 0.545454545 & 0.666666667 & 0.823529412 & 0.678550208 \\
+\hline
+Bigram, 600 TF-IDF, {\itshape single label} & 0.434782609 & 0.476190476 & 0 & 0.303657695 \\
+\hline
+Bigram, 200 TF-IDF, {\itshape multi label} & 0.4 & 0.4 & 0 & 0.266666667 \\
+\hline
+Trigram, Tanpa TF-IDF, {\itshape single label} & 0.545454545 & 0.333333333 & 0.333333333 & 0.404040404 \\
+\hline
+Trigram, Tanpa TF-IDF, {\itshape multi label} & 0.4375 & 0.260869565 & 0.347826087 & 0.348731884 \\
+\hline
+Trigram, 600 TF-IDF, {\itshape single label} & 0.266666667 & 0.24 & 0 & 0.168888889 \\
+\hline
+Trigram, 200 TF-IDF, {\itshape multi label} & 0.1875 & 0.258064516 & 0 & 0.148521505 \\
+\hline
+\end{tabular}
+\end{adjustbox}
+\end{table}
+
+\indent
+Berdasarkan hasil pengujian di atas, hasil rata-rata {\itshape F-Measure} terbaik untuk penggunaan {\itshape bigram} dan {\itshape trigram} adalah ketika jenis {\itshape bag of words} yang digunakan adalah {\itshape bigram}, tanpa menggunakan TF-IDF, dan keluaran dari sistem berupa {\itshape single label}. Jika hasil rata-rata untuk setiap kasus dianalisis, hasil {\itshape bigram} dengan TF-IDF dan hasil {\itshape trigram} untuk semua kasus memiliki nilai akurasi yang sangat rendah. Untuk kasus {\itshape bigram}, hal ini terjadi karena jumlah teks yang terdiri dari 2 kata yang sama akan berjumlah sedikit. Dalam pengujian ini, jumlah teks yang terdiri dari 2 kata yang sama sebagian besar berjumlah 1 dan 2. Jumlah kemunculan kata yang sedikit tersebut dapat menyebabkan model yang dihasilkan menjadi tidak tepat. Dalam perhitungan {\itshape Labeled Latent Dirichlet Allocation}, model klasifikasi didapatkan dari hasil kali pada jumlah kata w pada topik yang sesuai dibagi dengan jumlah kata w pada seluruh topik. Jika kata w hanya ada 1 diantara semua dokumen, hasil dari model probabilitas yang dihasilkan untuk kata tersebut akan mendekati angka 1. Jika hal ini terjadi untuk semua kata, maka semua kata tersebut akan memiliki probabilitas mendekati angka 1. 
+
+\indent
+Permasalahan yang akan terjadi ketika menggunakan {\itshape Simplified Labeled Latent Dirichlet Allocation} adalah metode tersebut akan mengekstrak 20\% probabilitas kata tertinggi dari model yang telah diolah untuk dijadikan basis dalam pengambilan keputusan. Dengan melakukan ekstraksi ini, tidak semua kata-kata akan terpilih untuk dijadikan basis meskipun probabilitas untuk kata-katanya mendekati angka 1. Masalah tersebut berlaku juga untuk kasus {\itshape trigram}. Lalu permasalahan untuk akurasi {\itshape trigram} yang sangat kecil, disebabkan karena saat melakukan pengecekan antara teks dengan 3 suku kata pada dokumen yang diuji dengan teks pada model yang diekstrak banyak yang tidak cocok. Menurut hasil analisis yang didapat berdasarkan pengujian, kemunculan untuk cocoknya kata yang diuji dengan model yang diekstrak menggunakan {\itshape bigram} lebih tinggi persentase kemunculannya dibanding menggunakan {\itshape trigram}.
+
+\subsection{Pengujian Waktu}
+\indent
+Dalam pengujian ini akan dilakukan pengujian waktu komputasi saat melakukan proses pembelajaran terhadap pengujian terbaik yang dilakukan pada bagian 4.3.1. Pengujian yang akan diuji waktu komputasinya adalah penggunaan {\itshape unigram} tanpa TF-IDF, {\itshape unigram} menggunakan 600 TF-IDF tertinggi, {\itshape bigram} tanpa TF-IDF, dan {\itshape trigram} tanpa TF-IDF.
+
+\begin{table}[H]
+\small
+\centering
+\caption{Pengujian Waktu Proses Pembelajaran}
+\begin{adjustbox}{width=1\textwidth}
+\begin{tabular}{| p {7 cm} | p {7 cm} |}
+\hline
+{\bfseries Fitur} & {\bfseries Waktu} \\
+\hline
+Unigram + Tanpa TF-IDF & 1 menit 30 detik \\
+\hline
+Unigram + 600 TF-IDF & 27 detik \\
+\hline
+Bigram + Tanpa TF-IDF & 4 menit 30 detik \\
+\hline
+Trigram + Tanpa TF-IDF & 5 menit 5 detik \\
+\hline
+\end{tabular}
+\end{adjustbox}
+\end{table}
+
+
+\indent
+Berdasarkan pengujian di atas, waktu pembelajaran tercepat terjadi ketika {\itshape Labeled Latent Dirichlet Allocation} menggunakan {\itshape unigram} dan 600 TF-IDF tertinggi. Hal ini dapat terjadi karena dengan memilih 600 TF-IDF tertinggi, jumlah kata yang akan digunakan dalam proses pembelajaran akan berkurang. Dengan berkurangnya jumlah kata akibat pemilihan 600 TF-IDF tertinggi, waktu komputasi untuk pembelajaran pun akan ikut berkurang juga.
+
+\subsection{Evaluasi}
+\indent
+Berdasarkan hasil pengujian yang telah dilakukan terhadap pengujian {\itshape unigram} tanpa TF-IDF dengan n TF-IDF terbaik dan pengujian {\itshape bag of words} ({\itshape bigram} dan {\itshape trigram}) tanpa TF-IDF dengan n TF-IDF terbaik yang didapat pada kasus {\itshape unigram}, hasil akurasi terbaik terjadi ketika klasifikasi {\itshape Labeled Latent Dirichlet Allocation} tidak menggunakan TF-IDF, jenis {\itshape bag of words} yang digunakan adalah {\itshape unigram} atau {\itshape bigram}, dan keluaran dari sistem merupakan {\itshape single label} dengan tingkat akurasi 95\%. Hal ini dapat terjadi karena jika kata-kata pada setiap dokumen digunakan semua, maka kecocokan antara dokumen yang diuji dengan dokumen yang digunakan untuk pembelajaran akan semakin mirip. Dalam TF-IDF, suatu kata akan bernilai tinggi jika kata tersebut hanya terdapat di beberapa dokumen saja dan jumlah kemunculan kata pada suatu dokumen berjumlah besar. Akibat kondisi tersebut, terdapat beberapa kata yang sebenernya mewakili suatu topik tetapi kata-kata tersebut tidak terpilih karena tersebar di banyak dokumen. Sebagai contoh, Tabel 4.28 merupakan contoh {\itshape document frequency} untuk 5 dokumen yang telah memiliki label.
+
+\begin{table}[H]
+\small
+\centering
+\caption{Contoh Permasalahan Menggunakan TF-IDF}
+\begin{adjustbox}{width=1\textwidth}
+\begin{tabular}{| p {2 cm} | p {2 cm} | p {2 cm} | p {2 cm} | p {2 cm} | p {2 cm} | p {2 cm} |}
+\hline
+ & {\bfseries D1 (ML)} & {\bfseries D2 (ML)} & {\bfseries D3 (NLP)} & {\bfseries D4 (ML)} & {\bfseries D5 (NLP)} & {\bfseries df} \\
+\hline
+latent & 1 & 1 & 1 & 1 & 0 & 4 \\
+\hline
+sentence & 0 & 0 & 1 & 0 & 0 & 1 \\
+\hline
+word & 0 & 0 & 0 & 0 & 1 & 1 \\
+\hline
+classify & 0 & 1 & 0 & 0 & 0 & 1 \\
+\hline
+\end{tabular}
+\end{adjustbox}
+\end{table}
+
+\indent
+Berdasarkan contoh pada Tabel 4.28, kata “{\itshape latent}” muncul di 4 dokumen sedangkan kata “{\itshape sentence}”, “{\itshape word}”, dan “{\itshape classify}” hanya muncul di 1 dokumen saja. Jika TF-IDF digunakan untuk kondisi seperti ini, nilai untuk kata “{\itshape sentence}”, “{\itshape word}”, dan “{\itshape classify}” akan bernilai besar, sedangkan untuk kata “{\itshape latent}” akan bernilai kecil. Kata “{\itshape latent}” pada kasus ini sebenarnya dapat menggambarkan topik ML, karena jika menggunakan metode {\itshape Labeled Latent Dirichlet Allocation} probabilitas kata pada suatu dokumen akan dibatasi dengan suatu label yang dimiliki dokumen tersebut. Dengan kata lain, kata “{\itshape latent}” memungkinkan untuk masuk ke dalam topik ML. {\itshape Labeled Latent Dirichlet Allocation} adalah salah satu metode yang proses klasifikasinya berdasarkan kata-kata, sehingga jika kata-kata yang digunakan dalam sebuah dokumen berkurang, maka akan berpengaruh terhadap hasil klasifikasinya. Berikut merupakan {\itshape confusion matrix} untuk kasus {\itshape unigram} dan {\itshape bigram} yang terbaik.
+
+\begin{table}[H]
+\small
+\centering
+\caption{{\itshape Confusion Matrix Unigram} Terbaik}
+\begin{adjustbox}{width=1\textwidth}
+\begin{tabular}{| p {3.5 cm} | p {3.5 cm} | p {3.5 cm} | p {3.5 cm} |}
+\hline
+ & {\bfseries Machine Learning} & {\bfseries NLP} & {\bfseries Image Processing} \\
+\hline
+{\bfseries Machine Learning} & 7 & 0 & 1 \\
+\hline
+{\bfseries NLP} & 0 & 6 & 0 \\
+\hline
+{\bfseries Image Processing} & 0 & 0 & 6 \\
+\hline
+\end{tabular}
+\end{adjustbox}
+\end{table}
+
+\begin{table}[H]
+\small
+\centering
+\caption{{\itshape Confusion Matrix Bigram} Terbaik}
+\begin{adjustbox}{width=1\textwidth}
+\begin{tabular}{| p {3.5 cm} | p {3.5 cm} | p {3.5 cm} | p {3.5 cm} |}
+\hline
+ & {\bfseries Machine Learning} & {\bfseries NLP} & {\bfseries Image Processing} \\
+\hline
+{\bfseries Machine Learning} & 6 & 0 & 0 \\
+\hline
+{\bfseries NLP} & 1 & 7 & 0 \\
+\hline
+{\bfseries Image Processing} & 0 & 0 & 6 \\
+\hline
+\end{tabular}
+\end{adjustbox}
+\end{table}
+
+Waktu komputasi yang dibutuhkan {\itshape Labeled Latent Dirichlet Allocation} menggunakan {\itshape unigram} + tanpa TF-IDF + {\itshape single label} adalah 1 menit 30 detik, sendangkan untuk penggunaan {\itshape bigram} + tanpa TF-IDF + {\itshape single label} adalah 4 menit 30 detik. Berdasarkam hipotesa yang telah ditulis pada bagian latar belakang, dengan menggunakan metode {\itshape feature selection} (TF-IDF) pada {\itshape Labeled Latent Dirichlet Allocation} tingkat akurasi yang dihasilkan akan meningkat serta waktu komputasi akan lebih cepat. Dalam pengujian ini, penggunaan {\itshape Labeled Latent Dirichlet Allocation} menggunakan TF-IDF memiliki tingkat akurasi terbaik ketika menggunakan 600 TF-IDF dengan waktu komputasi yaitu 27 detik. Walaupun hasil TF-IDF yang dihasilkan lebih kecil dari penggunaan tanpa TF-IDF, penggunaan TF-IDF dengan memilih 600 TF-IDF tertinggi dapat dikatakan baik juga karena tingkat akurasi yang dihasilkan adalah 90\% dan waktu komputasi yang dibutuhkan hanya 27 detik.
+\newpage

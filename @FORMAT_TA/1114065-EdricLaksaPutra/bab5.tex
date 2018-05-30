@@ -4,13 +4,20 @@
 
 %
 \vspace{4.5pt}
-Bab ini berisi kesimpulan dan saran dari sistem deteksi sarkasme pada 
-analisis sentimen media sosial. 
+Bab ini berisi kesimpulan dan saran dari implementasi dan perbandingan performa arsitektur microservice dengan monolitik.
 \section{Kesimpulan}
-Kesimpulan dari pembuatan sistem analisis sentimen dan 
+Kesimpulan dari pembuatan sistem analisis dan 
 pengujian-pengujian yang telah dilakukan adalah sebagai berikut:
-
+\begin{enumerate}
+	\item Untuk dapat melakukan migrasi dari aplikasi monolitik menjadi microservice dibutuhkan perencanaan yang matang, dimulai dari analisis proses bisnis aplikasi, menentukan service yang akan terbentuk, memilih teknologi yang akan digunakan, memilih cara berkomunikasi, dan memilih metode deployment yang tepat.
+	\item Model arsitektur microservice memberikan hasil uji yang lebih baik dari segi \textit{deployability, reliability, availability, scalibility}, dan \textit{modifiability}. Namun memiliki tingkat kesulitan implementasi yang lebih tinggi dibandingkan dengan model arsitektur monolitik.
+	\item Arsitektur microservice lebih cocok untuk diimplementasi  pada sistem yang membutuhkan landasan yang kuat dan siap untuk berkembang menjadi aplikasi yang besar.
+	\item Dibutuhkan tools automasi yang lebih banyak untuk diterapkan pada aplikasi berbasis microservice agar mencapai hasil performa yang maksimal.
+\end{enumerate}
 \section{Saran}
-Saran dari penulis untuk pengembangan yang dilakukan untuk sistem deteksi sarkasme pada analisis sentimen adalah:
-
+Saran dari penulis untuk pengembangan yang dilakukan untuk arsitektur microservic adalah:
+\begin{enumerate}
+	\item Lebih banyak eksplorasi dan menggunakan tools yang dapat menunjang kemudahan deployment dari arsitektur microservice.
+	\item Menggunakan \textit{framework} untuk penunjang integritas data.
+\end{enumerate}
 \newpage

@@ -52,8 +52,6 @@ Pada bagian ini akan dijelaskan fungsi dan kelas-kelas dari setiap modul dalam k
 	\item \textbf{Modul \textit{Human Resource}.} \textit{Human Resource} adalah modul yang mengelola semua pengguna dan pegawai dalam rumah sakit, modul ini dapat disebut juga sebagai modul karyawan. Beberapa contoh yang termasuk dalam modul ini adalah dokter, bidan, dan perawat. Modul ini menjadi modul dasar yang dibutuhkan modul lain, karena terkait pencatatan pengguna yang melakukan input data. Kelas-kelas dari modul ini meliputi dokter, bidan, dan perawat. Namun dalam contoh kasus rawat jalan yang akan diangkat, kelas yang diambil hanya dokter saja.
 	\item \textbf{Modul Unit Medis.} Unit medis dari rumah sakit terdiri dari unit medis spesialis anak, spesialis jantung, dan spesialis penyakit dalam. Tiap unit medis memiliki satu atau lebih dokter spesialis dari bidang unit medis tersebut. Pasien akan ditangani oleh dokter yang bertugas di unit medis tersebut.
 	\item \textbf{Modul Rekam Medis.} Rekam medis bertugas mencatat semua riwayat medis milik pasien yang meliputi hasil diagnosa, resep dan obat yang pernah diberikan, alergi, penyakit kronis, riwayat tindakan atau perawatan medis, dan hasil pemeriksaan penunjang. Pemeriksaan penunjang dapat berupa banyak aksi, tergantung apa yang dibutuhkan dokter. Pemeriksaan penunjang antara lain seperti radiologi, tes darah, tensi tekanan, dan lain lain. Fungsi dari pemeriksaan penunjang adalah menunjang ditegakannya diagnosis.
-	\item \textbf{Modul Farmasi.} Modul farmasi bertugas untuk mengatur dan menyimpan obat-obatan. Modul farmasi menerima permintaan obat dari bagian IGD, rawat inap, rawat jalan, dan juga penjualan umum. Dalam aplikasi Apertura, modul ini juga meliputi fungsi dari apotek. Untuk IGD, rawat inap, dan rawat jalan pasti akan memiliki resep, namun untuk penjualan obat umum dapat menggunakan resep rujukan maupun tidak.
-	\item \textbf{Modul Inventori.} Inventori dibagi menjadi 2 tipe, yaitu barang dan jasa. Barang meliputi obat, alat kesehatan (alkes), dan barang selain obat dan alkes. Adapun jasa yang dimaksud adalah jasa pelayanan kesehatan yang disediakan rumah sakit. Inventori berkaitan langsung dengan modul farmasi, karena modul farmasi membutuhkan data barang yang dijual.
 	\item \textbf{Modul Rawat Jalan.} Rawat jalan adalah pelayanan medis kepada pasien untuk tujuan perawatan tanpa mengharuskan pasien tersebut untuk menginap. Rawat jalan menjadi perantara interaksi dari pasien dengan unit medis, rawat jalan menyimpan data perawatan yang kemudian akan disimpan dalam rekam medis. Hasil dari rawat jalan akan kemudian dibutuhkan oleh bagian pembayaran dan juga farmasi.
 \end{enumerate}
 
@@ -81,20 +79,64 @@ Kelemahan dari sistem Apertura sebenarnya berkaitan dengan kelemahan dari arsite
 \end{enumerate}
 
 \section{Perancangan Arsitektur Microservice}
-Dengan menggunakan pattern dekomposisi berdasarkan kemampuan bisnisnya, maka service yang akan terbentuk dapat dibayangkan berdasarkan modul bisnis itu sendiri. Dalam kasus rawat jalan yang diangkat, maka modul yang saling berelasi adalah modul \textit{customer}, modul HR, modul inventori, modul farmasi, dan modul rawat jalan. Ke 5 modul ini akan dibuat menjadi service yang mandiri.
+Dengan menggunakan pattern dekomposisi berdasarkan kemampuan bisnisnya, service yang akan terbentuk terdapat 5 buah, yaitu \textit{service Customer}, \textit{Human Resources}, \textit{Medical Unit}, \textit{Medical Records} dan \textit{service Outpatient} (rawat jalan). Modul-modul \textit{service} tersebut didapat dari hasil analisa proses bisnis dalam pelayanan rawat jalan (gambar 3.2). Apabila sebelumnya semua entitas berada dalam satu buah \textit{server} yang sama, kali ini masing-masing service tersebut akan berdiri mandiri di \textit{server} yang berbeda. Perancangan berikut akan menjelaskan migrasi ke arsitektur baru dan menjawab rumusan masalah yang pertama. Berikut adalah analisa perancangan service yang baru.
+\subsection{Perancangan Service \textit{Customer}}
+Customer merupakan turunan dari \textit{class} Contact yang berisi biodata pasien rumah sakit. Customer bisa dibedakan menjadi 2, yaitu \textit{customer} yang memiliki asuransi dan yang tidak memiliki asuransi. Namun selain Customer, \textit{class} Contact juga digunakan oleh modul \textit{Human Resources} dikarenakan atribut \textit{contact} dapat digunakan untuk \textit{customer} maupun juga \textit{employee}. Ketergantungan dari desain seperti ini dianggap terlalu tinggi dan menyebabkan data \textit{customer} dan \textit{employee} menjadi tercecer dikarenakan ditempatkan dalam satu tabel yang sama.
+Desain baru yang diimplementasikan untuk penelitian kali ini adalah memisahkan fungsi \textit{contact} menjadi lebih spesial untuk \textit{customer} dan juga \textit{employee}. Kelebihan dari desan ini adalah tingkat ketergantungan yang lebih rendah dan tingkat \textit{availabilitas} yang lebih tinggi. Maka dalam modul \textit{customer} akan berisi entitas \textit{customer}, \textit{contact}, dan \textit{class} relasi dari kedua entitas tersebut.\\
+Berikut adalah rancangan untuk \textit{webservice customer} digambarkan menggunakan \textit{class diagram}
 
 \begin{adjustbox}{width=1\textwidth}
 	\begin{minipage}{\linewidth}
-		\framebox[\textwidth]{\includegraphics[width=12cm]{images/perancangan_modul.png}}	
-		\captionof{figure}{Pembentukan service berdasarkan proses bisnis rawat jalan.}
+		\framebox[\textwidth]{\includegraphics[width=12cm]{images/Customer.png}}	
+		\captionof{figure}{Rancangan service \textit{customer}}.
+	\end{minipage}
+\end{adjustbox}
+\subsection{Perancangan Service \textit{Human Resource}}
+Modul \textit{Human Resource} berisi data \textit{employee} yang bekerja di rumah sakit. Modul ini pula menjelaskan departemen, dan spesialitas pekerjaan \textit{employee} tersebut di rumah sakit. Sama halnya dengan \textit{customer}, \textit{employee} juga merupakan turunan dari \textit{class contact} yang berdiri mandiri dan terpisah fungsinya dengan yang digunakan untuk \textit{customer}, kelebihan dari desan ini adalah tingkat ketergantungan yang lebih rendah dan tingkat \textit{availabilitas} yang lebih tinggi.\\
+Berikut adalah rancangan untuk \textit{webservice human resource} digambarkan menggunakan \textit{class diagram}
+
+\begin{adjustbox}{width=1\textwidth}
+	\begin{minipage}{\linewidth}
+		\framebox[\textwidth]{\includegraphics[width=12cm]{images/hr.png}}	
+		\captionof{figure}{Rancangan service \textit{human resource}}.
+	\end{minipage}
+\end{adjustbox}
+
+\subsection{Perancangan Service Unit Medis}
+Modul Unit Medis merupakan unit representasi tempat \textit{employee} bekerja, unit medis sendiri adalah turunan dari \textit{class working unit} dan memiliki lebih dari satu \textit{working unit membership}, sedangkan \textit{working unit membership} merupakan kumpulan dari \textit{employee} yang bekerja pada \textit{working unit tersebut}. Dalam pemodelan microservice yang diterapkan dalam penelitian ini, modul \textit{human resource} tidak dijadikan satu dalam modul unit medis seperti yang diterapkan di model monolitik, maka pada pemodelan microserviec yang baru dibutuhkan objek representasi dari objek \textit{employee} atau disebut juga sebagai \textit{value object} (VO), kegunan dari VO ini adalah sebagai kerangka objek hasil pemanggilan dari \textit{webservice} dan bukan sebagai objek penghubung dengan \textit{database}.\\
+Berikut adalah rancangan untuk \textit{webservice} unit medis digambarkan menggunakan \textit{class diagram}
+
+\begin{adjustbox}{width=1\textwidth}
+	\begin{minipage}{\linewidth}
+		\framebox[\textwidth]{\includegraphics[width=12cm]{images/workingunit.png}}	
+		\captionof{figure}{Rancangan service \textit{medical unit}}.
+	\end{minipage}
+\end{adjustbox}
+
+\subsection{Perancangan Service Rawat Jalan}
+Pada modul rawat jalan dibutuhkan 2 buah \textit{value object} yang membantu merepresentasikan objek \textit{customer} dan \textit{employee}. Hal ini diperlukan karena model microservice yang baru tidak menggabungkan kedua objek tersebut dalam modul rawat jalan secara langsung.\\
+Berikut adalah rancangan untuk \textit{webservice} rawat jalan digambarkan menggunakan \textit{class diagram}
+
+\begin{adjustbox}{width=1\textwidth}
+	\begin{minipage}{\linewidth}
+		\framebox[\textwidth]{\includegraphics[width=12cm]{images/rawatjalan.png}}	
+		\captionof{figure}{Rancangan service rawat jalan}.
+	\end{minipage}
+\end{adjustbox}
+
+\subsection{Perancangan Service \textit{Medical Records}}
+Modul \textit{medical records} menyimpan reman tindakan medis yang dilakukan untuk \textit{customer} dan oleh siapa tindakan medis tersebut dilakukan. Maka dari itu modul rekam medis juga membutuhkan dua \textit{value object} yang merepresentasikan objek \textit{customer} dan \textit{employee}.\\
+Berikut adalah rancangan untuk \textit{webservice medical records} digambarkan menggunakan \textit{class diagram}
+
+\begin{adjustbox}{width=1\textwidth}
+	\begin{minipage}{\linewidth}
+		\framebox[\textwidth]{\includegraphics[width=12cm]{images/medrec.png}}	
+		\captionof{figure}{Rancangan service unit medis}.
 	\end{minipage}
 \end{adjustbox}
 
 \subsection{Pemilihan Model Penyimpanan Data}
-Setelah kelas-kelas service terbentuk, hal berikutnya yang harus diperhatikan adalah pemodelan manajemen data. Apabila ditinjau dari service yang dihasilkan, maka akan lebih baik menerapkan pattern database per \textit{service}, dimana satu service memiliki sebuah set database yang hanya bisa diakses oleh service tersebut dan tidak bisa saling mengakses database service yang lain.\\
-Pemodelan database juga bergantung dengan bagaimana model database itu sendiri. Apabila model database yang digunakan nanti adalah \textit{relational database}, maka \textit{service} tersebut akan memiliki sebuah set database yang terdiri dari beberapa schema berhubungan yang hanya bisa diakses oleh \textit{service} tersebut. Apabila database yang digunakan adalah \textit{non-relational database}, maka cukup sebuah \textit{schema} tabel untuk 1 \textit{service}.
-\subsection{Pemilihan Server Basisdata}
-Aplikasi akan menggunakan 2 buah database untuk kegunaan yang berbeda. Database server yang pertama akan tetap sama seperti yang saat ini sistem gunakan yaitu PostgreSQL versi 9.4. Namun untuk kasus seperti rekam medis yang berbentuk multimedia (video, audio, foto) peneliti akan menggunakan MongoDB yang dinilai mudah, cepat, dan \textit{open source}. Walaupun database yang digunakan sama dengan yang digunakan oleh sistem sebelumnya, namun perancangan dalam database sangat berbeda terlebih setelah memilih model penyimpanan data.
+Setelah kelas-kelas service terbentuk, hal berikutnya yang harus diperhatikan adalah pemodelan manajemen data. Apabila ditinjau dari service yang dihasilkan, maka akan lebih baik menerapkan pattern database per \textit{service}, dimana satu service memiliki sebuah set database yang hanya bisa diakses oleh service tersebut dan tidak bisa saling mengakses database service yang lain.
 \subsection{Pemilihan Komunikasi Antar Service}
 Setelah membuat service dan database yang digunakan, hal berikutnya adalah membuat API dari service tersebut agar dapat diakses menggunakan \textit{web service}. Berdasarkan kebutuhan arsitektur microservice sendiri, model \textit{web service} yang akan digunakan adalah RESTful (\textit{Representational State Transfer}) dengan format data yang dikirim berupa JSON (\textit{JavaScript Object Notation}). Server sementara yang akan digunakan selama tahap perancangan adalah mesin pribadi milik peneliti. Setelah perancangan selesai dan siap, server baru akan dipindahkan ke server milik rumah sakit. Untuk tes pemanggilan API sementara dapat dilakukan dalam satu jaringan yang sama.
 \subsection{Rancangan Deployment}
@@ -103,37 +145,6 @@ Model \textit{deployment} yang akan digunakan adalah \textit{multiple service pe
 \section{Strategi Pengujian}
 Strategi pengujian yang dirancang untuk kasus penulis adalah dengan melakukan uji perbandingan performa dengan arsitektur monolitik yang digunakan pada aplikasi saat ini. Tujuan dari test performa ini adalah menunjukan bahwa arsitektur microservice yang baru akan lebih unggul dalam 5 point diatas apabila dibandingkan dengan monolitik.
 \subsection{Uji Perbandingan Performa}
-Uji yang kedua adalah menunjukan bahwa performa dari arsitektur microservice akan memberikan hasil yang lebih baik dari monolitk. Strategi pengujian yang akan dilakukan adalah dengan membuat point-point pembanding yang akan diuji, kemudian dari point tersebut akan dibuat \textit{test-plan} masing-masing yang terdiri dari sekitar 1-3 buah \textit{test-plan}. \textit{Test result} kemudian akan disimpan dalam dokumen berupa \textit{matrix traceability}.\\
-Menurut Paulo Merson (\textit{Software Architecture} di TCU; \textit{SOA/microservice trainer dan consultant}), point pembanding tersebut adalah [12]:
-
-\begin{enumerate}[leftmargin=*]
-	\item \textit{Deployability}. Lebih agile untuk untuk meluncurkan versi terbaru karena siklus \textit{build, test, build} yang lebih pendek. Tingkat fleksibilitas yang lebih tinggi untuk menggunakan layanan keamanan, replikasi, persistensi, dan konfigurasi pemantauan.
-	\item \textit{Reliability}. Kesalahan dalam microservice hanya akan berpengaruh pada microservice itu sendiri dan konsumennya, sedangkan dalam model monolitik kesalahan layanan dapat merusak seluruh sistem monolitik.
-	\item \textit{Availability}. Waktu \textit{downtime} yang dibutuhkan ketika ingin mengeluarkan versi terbaru dari microservice lebih sedikit dibandingkan monolitik.
-	\item \textit{Scalability}. Setiap microservice dapat diskalakan secara terpisah menggunakan \textit{pool, cluster, grid}. Karakter menyebar membuat microservice lebih fleksibel dibandingkan dengan monolitik.
-	\item \textit{Modifiability and Management}. Sifat fleksibel untuk menggunakan \textit{framework, libraries}, dan sumber data baru karena ditunjang sifat \textit{loose-coupled} yang dimiliki microservice, modular komponen hanya dapat diakses oleh \textit{contracts} (pihak yang berhak), dan sifat yang cenderung tidak mudah berubah menjadi \textit{software} besar yang sulit ditangani. Upaya pengembangan aplikasi juga dapat dibagi dalam tim yang lebih kecil dan bekerja lebih mandiri.
-\end{enumerate}
-
-Tujuan dari test performa ini adalah menunjukan bahwa arsitektur microservice yang baru akan lebih unggul dalam 5 point diatas apabila dibandingkan dengan monolitik.
-
-\section{Batasan Implementasi}
-Adapun batasan implementasi dalam pengembangan aplikasi yaitu:
-
-\begin{enumerate}[leftmargin=*]
-	\item Server cloud yang dapat digunakan ada sebanyak 2 buah milik Apertura. Keterbatasan sumber daya menjadi hambatan dalam menambah server baru.
-	\item Dikarenakan \textit{deployment} service ada yang dilakukan di server lokal (mesin pribadi), maka untuk kasus tersebut pemanggilan API dibatasi dalam 1 jaringan yang sama. 
-\end{enumerate}
-\section{Lingkungan Implementasi}
-Adapun spesifikasi mesin pribadi ketika melakukan proses implementasi adalah sebagai berikut:
-
-\begin{enumerate}[leftmargin=*]
-	\item Perangkat keras: 1 buah komputer sebagai server, 1 buah komputer sebagai client.
-	\item Spesifikasi komputer: 64-bit prosesor dan sistem operasi.
-	\item OS: Windows 10 Pro.
-	\item Processor: Intel(R) Core i3-4150 CPU, 3.50GHz
-	\item Memory: 8 GB RAM.
-	\item Storage: 50 MB.
-	\item Integrated Development Environment (IDE): Netbeans atau Eclipse neon 3.
-	\item Java version: 1.8.0
-	\item DB : PostgreSQL 9.6
-\end{enumerate}
+Strategi pengujian yang akan dilakukan adalah dengan membuat \textit{test plan} yang mengacu pada masalah \textit{deployability, reliability, availability, scalability,} dan \textit{modifiability.}. \textit{Test plan} akan dibuat sekitar 15-20 point agar kelebihan dan kekurangan dari tiap model arsitektur dapat terlihat. \textit{Test result} kemudian akan disimpan dalam dokumen berupa \textit{matrix traceability}.
+Tujuan dari test ini adalah membandingkan apakah model arsitektur microservice memberikan performa yang lebih baik apabila dibandingkan dengan arsitektur monolitik.
+\newpage
