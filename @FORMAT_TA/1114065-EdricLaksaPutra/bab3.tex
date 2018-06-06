@@ -148,3 +148,17 @@ Strategi pengujian yang dirancang untuk kasus penulis adalah dengan melakukan uj
 Strategi pengujian yang akan dilakukan adalah dengan membuat \textit{test plan} yang mengacu pada masalah \textit{deployability, reliability, availability, scalability,} dan \textit{modifiability.}. \textit{Test plan} akan dibuat sekitar 15-20 point agar kelebihan dan kekurangan dari tiap model arsitektur dapat terlihat. \textit{Test result} kemudian akan disimpan dalam dokumen berupa \textit{matrix traceability}.
 Tujuan dari test ini adalah membandingkan apakah model arsitektur microservice memberikan performa yang lebih baik apabila dibandingkan dengan arsitektur monolitik.
 \newpage
+
+\section{Konsumer Webservice}
+Konsumer adalah pihak yang melakukan pemanggilan terhadap webservice
+API. Konsumer disini dibedakan berdasarkan webservice yang dipanggil. Apabila
+ditinjau dari modul yang ada pada aplikasi Apertura, maka konsumer dapat
+didefinisikan menjadi :
+\begin{enumerate}[leftmargin=*]
+	\item Konsumer dari webservice customer. Konsumer dari webservice ini bila ditinjau dari proses bisnis di gambar 3.2 adalah staff pelayanan rawat jalan	yang mendaftarkan pasien ke dalam modul rawat jalan dan staff unit medis yang akan melihat riwayat rekam medis pasien.
+	\item Konsumer dari webservice medical unit. Konsumer dari webservice ini adalah staff medical unit dan juga employee itu sendiri.
+	\item Konsumer dari webservice human resource. Konsumer dari webservice ini	apabila ditinjau dari proses bisnsi di gambar 3.2 adalah staff rawat jalan, staff unit medis yang berguna untuk mendaftarkan employee pada medical unit, staff rekam medis untuk menyimpan data dokter di rekam medis pasien, dan juga employee sendiri
+	\item Konsumer dari webservice medical records. Konsumer dari webservice ini adalah staff unit medis yang dapat melihat rekam medis pasien dan juga staff rawat jalan.
+	\item Konsumer dari webservice rawat jalan yaitu adalah staff rawat jalan sendiri yang bertugas mulai dari pendaftaran sampai proses rawat jalan itu selesai.
+\end{enumerate}
+\newpage
