@@ -69,13 +69,22 @@ Saat ini teknologi aplikasi yang digunakan Rumah Sakit Apertura menggunakan arsi
 Aplikasi Apertura diimplemetasikan untuk diakses dalam bentuk aplikasi desktop. \textit{User interface} yang ditampilkan dalam aplikasi tidak terpisah secara moduler, melainkan satu kesatuan aplikasi besar yang kemudian dipisahkan berdasarkan kebutuhan user yang menggunakan aplikasi.
 
 \subsection{Kekurangan Arsitektur Monolitik}
-Kelemahan dari sistem Apertura sebenarnya berkaitan dengan kelemahan dari arsitektur monolitik itu sendiri. Berdasarkan analisis yang dilakukan, kelemahan dari arsitektur monolitik itu sendiri adalah:
+Kelemahan dari sistem Apertura sebenarnya berkaitan dengan kelemahan dari arsitektur monolitik itu sendiri. Berdasarkan analisis yang dilakukan, kelemahan dari arsitektur monolitik yang menjadi masalah dari perangkat lunak rumah sakit saat ini adalah:
 
 \begin{enumerate}[leftmargin=*]
 	\item Tingkat \textit{coupling} yang terlalu tinggi. Semua modul dalam sistem saling terikat, mengakibatkan kendala dalam proses pengembangan sistem. Perubahan dalam 1 buah objek harus diketahui oleh objek lain. Proses \textit{deployment} akan terhambat karena apabila hendak melakukan tes terhadap 1 buah modul, maka keseluruhan aplikasi harus di jalankan, mengakibatkan beban hardware lebih besar dan memakan waktu lebih banyak.
 	\item Penyimpanan data yang terpusat pada 1 buah tempat (database) kurang baik. Apabila database mengalami \textit{down}, maka keseluruhan modul dari aplikasi tidak bisa melakukan pekerjaannya.
 	\item Isu keamanan. Penyimpanan data dalam 1 buah database tidak cukup aman. Misalnya ada pihak yang tidak berwenang berhasil mengakses database, maka seluruh data aplikasi akan bocor.
 	\item Sistem tidak cukup baik ketika menangani banyak user. Sistem akan kewalahan apabila banyak pengguna yang melakukan request dalam satu waktu, isu yang ditimbulkan adalah performa.
+\end{enumerate}
+
+Perubahan desain arsitektur dari monolitik menjadi microservice dapat mengatasi permasalahan yang saat ini ada pada perangkat lunak rumah sakit. Solusi yang dapat diberikan dari perubahan arsitektur menjadi microservice adalah:
+
+\begin{enumerate}[leftmargin=*]
+	\item Dengan menjadikan tiap modul sebagai service mandiri, tingkat \textit{coupling} menjadi lebih rendah. Perubahan yang terjadi pada suatu modul tidak perlu diketahui oleh modul lain. Proses \textit{deployment} menjadi lebih cepat karena level ketergantungan antara tim pengembang tidak tinggi. Beban \textit{hardware} yang dibutuhkan untuk menjalankan satu \textit{service} akan lebih ringan.
+	\item Dengan membuat database dalam sebuah server untuk setiap service dapat menjadikan keseluruhan sistem lebih \textit{high availability}.
+	\item Dengan menyebar database di server berbeda, membuat sistem lebih aman. Data yang terdapat dalam sebuah tabel tidak dapat langsung terhubung dengan tabel relasinya.
+	\item Dengan membuat service untuk setiap modul, sistem akan lebih fokus untuk menangani \textit{user} di modul tersebut dan tidak bercampur dengan \textit{user} dari modul lain.
 \end{enumerate}
 
 \section{Perancangan Arsitektur Microservice}
@@ -141,7 +150,6 @@ Setelah kelas-kelas service terbentuk, hal berikutnya yang harus diperhatikan ad
 Setelah membuat service dan database yang digunakan, hal berikutnya adalah membuat API dari service tersebut agar dapat diakses menggunakan \textit{web service}. Berdasarkan kebutuhan arsitektur microservice sendiri, model \textit{web service} yang akan digunakan adalah RESTful (\textit{Representational State Transfer}) dengan format data yang dikirim berupa JSON (\textit{JavaScript Object Notation}). Server sementara yang akan digunakan selama tahap perancangan adalah mesin pribadi milik peneliti. Setelah perancangan selesai dan siap, server baru akan dipindahkan ke server milik rumah sakit. Untuk tes pemanggilan API sementara dapat dilakukan dalam satu jaringan yang sama.
 \subsection{Rancangan Deployment}
 Model \textit{deployment} yang akan digunakan adalah \textit{multiple service per host}, dikarenakan lebih cocok dalam kasus penelitian yang hanya mengambill proses rawat jalan. Semua set service yang terbentuk akan di \textit{upload} dalam beberapa server agar dapat membuktikan tercapainya \textit{high availability}. Apertura sendiri memiliki 2 buah server aktif yang dapat digunakan ketika proses \textit{deployment}, serta server lainnya dapat menggunakan mesin pribadi untuk melakukan pemanggilan service dari server lain.
-
 \section{Strategi Pengujian}
 Strategi pengujian yang dirancang untuk kasus penulis adalah dengan melakukan uji perbandingan performa dengan arsitektur monolitik yang digunakan pada aplikasi saat ini. Tujuan dari test performa ini adalah menunjukan bahwa arsitektur microservice yang baru akan lebih unggul dalam 5 point diatas apabila dibandingkan dengan monolitik.
 \subsection{Uji Perbandingan Performa}
@@ -155,7 +163,8 @@ API. Konsumer disini dibedakan berdasarkan webservice yang dipanggil. Apabila
 ditinjau dari modul yang ada pada aplikasi Apertura, maka konsumer dapat
 didefinisikan menjadi :
 \begin{enumerate}[leftmargin=*]
-	\item Konsumer dari webservice customer. Konsumer dari webservice ini bila ditinjau dari proses bisnis di gambar 3.2 adalah staff pelayanan rawat jalan	yang mendaftarkan pasien ke dalam modul rawat jalan dan staff unit medis yang akan melihat riwayat rekam medis pasien.
+	\item Konsumer dari webservice customer. Konsumer dari webservice ini bila ditinjau dari proses bisnis di gambar 3.2 adalah staff pelayanan rawat jalan	yang mendaftarkan pasien ke dalam modul rawat jalan dan staff unit medis yang akan melihat riwayat rekam medis pasien.
+
 	\item Konsumer dari webservice medical unit. Konsumer dari webservice ini adalah staff medical unit dan juga employee itu sendiri.
 	\item Konsumer dari webservice human resource. Konsumer dari webservice ini	apabila ditinjau dari proses bisnsi di gambar 3.2 adalah staff rawat jalan, staff unit medis yang berguna untuk mendaftarkan employee pada medical unit, staff rekam medis untuk menyimpan data dokter di rekam medis pasien, dan juga employee sendiri
 	\item Konsumer dari webservice medical records. Konsumer dari webservice ini adalah staff unit medis yang dapat melihat rekam medis pasien dan juga staff rawat jalan.
