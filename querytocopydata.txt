@@ -1,0 +1,6 @@
+select format('INSERT INTO customer (systemid, dtype, citizenship, firstname, gender, maritalstatus, bloodtype, ) VALUES (%s ,%2$s, %3$s, %4$s, %5$s, %6$s, %7$s);', c.systemid, c.dtype, c.citizenship, c.firstname, c.gender, c.maritalstatus, c.bloodtype)
+from contact c inner join healthconsumer hc on (c.systemid = hc.systemid)
+where lower(c.firstname) like '%andi%'
+limit 2000
+
+1. Customer cukup 

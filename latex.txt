@@ -1,0 +1,48 @@
+\section{Pengujian}
+Pada bab ini, akan dilakukan berbagai pengujian untuk menentukan performa dari arsitektur microservice dibandingkan dengan monolitik. Pengujian akan dilakukan dengan membuat \textit{test plan} yang kemudian akan didokumentasikan ke dalam\textit{matrix traceability}. Dari hasil \textit{matrix traceability} tersebut dapat ditentukan apakah desain microservice yang baru memberikan performa yang lebih baik dibandingkan dengan model monolitik yang lama.
+\subsection{Pengujian Tingkat Kelincahan Deployment}
+Pada bagian ini akan dilakukan pengujian kelincahan deployment, kelincahan disini yaitu kelincahan untuk meluncurkan versi terbaru dari aplikasi, siklus \textit{build-test-buld} yang lebih cepat, tingkat fleksibilitas, replikasi, dan konfigurasi yang lebih mudah. Pengujian dapat dilakukan dengan parameter waktu \textit{build} dari aplikasi. \textit{Test plan} pengujian dapat dilihat pada tabel berikut.
+\begin{table}[H]
+	\caption{Tabel pengujian waktu \textit{build-running} pada model arsitektur}
+	\centering
+	\small
+	\begin{adjustbox}{width=1\textwidth}	
+		\begin{tabular}{|p{0.4cm}|p{3.2cm}|p{2.4cm}|p{5.7cm}|}
+			\hline
+			\multirow{1}{*}{\textbf{No}}& 
+			\multirow{1}{*}{\textit{\textbf{Desain Arsitektur}}}& 
+			\multirow{1}{*}{\textit{\textbf{\textit{Build Time}}}} & 
+			\multirow{1}{*}{\textbf{Keterangan}}\\
+			\cline{3-4}
+			\hline
+			1 & Microservice & 2.45 sec & Waktu \textit{deployment} yang lebih singkat dikarenakan aplikasi tidak perlu \textit{running} keseluruhan aplikasi, melainkan melakukan\textit{running} hanya terhadap \textit{service} yang baru diubah.\\
+			\hline
+			2 & Monolithic & 183.33 sec & \textit{Build} aplikasi membutuhkan waktu yang lebih karena keseluruhan besar aplikasi di \textit{running} saat itu juga.\\
+			\hline
+		\end{tabular}
+	\end{adjustbox}
+\end{table}
+Kesimpulan dari pengujian ini membuktikan bahwa model arsitektur microservice lebih cepat dalam siklus \textit{build-test}.
+
+\subsection{Pengujian Tingkat \textit{Reliability}}
+Pada bagian ini akan dilakukan pengujian tingkat \textit{reliability} aplikasi, \textit{releability} disini adalah apakah perubahan terhadap satu modul akan mempengaruhi kinerja dari modul lain dan apakah perubahan berdampak pada \textit{consumer} yang berhubungan dengan modul tersebut. \textit{Test plan} pengujian dapat dilihat pada tabel berikut.
+\begin{table}[H]
+	\caption{Tabel pengujian tingkat \textit{reliability} dari kedua model arsitektur}
+	\centering
+	\small
+	\begin{adjustbox}{width=1\textwidth}	
+		\begin{tabular}{|p{0.4cm}|p{3.2cm}|p{2.4cm}|p{5.7cm}|}
+			\hline
+			\multirow{1}{*}{\textbf{No}}& 
+			\multirow{1}{*}{\textit{\textbf{Desain Arsitektur}}}& 
+			\multirow{1}{*}{\textit{\textbf{\textit{Build Time}}}} & 
+			\multirow{1}{*}{\textbf{Keterangan}}\\
+			\cline{3-4}
+			\hline
+			1 & Microservice & 2.45 sec & Waktu \textit{deployment} yang lebih singkat dikarenakan aplikasi tidak perlu \textit{running} keseluruhan aplikasi, melainkan melakukan\textit{running} hanya terhadap \textit{service} yang baru diubah.\\
+			\hline
+			2 & Monolithic & 183.33 sec & \textit{Build} aplikasi membutuhkan waktu yang lebih karena keseluruhan besar aplikasi di \textit{running} saat itu juga.\\
+			\hline
+		\end{tabular}
+	\end{adjustbox}
+\end{table}
