@@ -79,6 +79,14 @@ Dalam perancangan arsitektur microservice, terdapat 2 pattern database ditinjau 
 \end{enumerate}
 \subsection{\textit{API Composition}}
 Ketika mengaplikasikan arsitektur microservice menggunakan pattern \textit{database per service}, praktis implementasi dari \textit{straightforward query} yang menggabungkan data lebih dari satu tabel tidak dapat dilakukan lagi, karena tabel dalam database terpisah di berbagai lokasi service. Solusi untuk dapat mengatasi permasalahan ini adalah dengan menggunakan \textit{API Composition}. Ide dari konsep ini adalah menggabungkan data hasil service dan melakukan \textit{in-memory} join di level sistem. Namun kelemahan dari metode ini adalah menyebabkan data join yang besar dalam \textit{memory} system. Untuk menangani masalah tersebut, dapat dilakukan dengan meningkatkan performa \textit{hardware}, misal menambah \textit{core} dari \textit{processor} dan menambah \textit{memory} sistem \cite{6}.
+
+\begin{adjustbox}{width=1\textwidth}
+	\centering
+	\begin{minipage}{\linewidth}
+		\framebox[\textwidth]{\includegraphics[width=10cm]{images/api_composition.png}}	
+		\captionof{figure}{Meminta data dari service yang dibutuhkan dan melakukan \textit{in-memory join}}
+	\end{minipage}
+\end{adjustbox}
 \subsection{Dekomposisi Modul}
 Tujuan dari dekomposisi modul ini adalah menemukan service terkecil penyusun aplikasi. Dengan memisahkan modul menjadi sebuah service tunggal, menjadikan aplikasi lebih mandiri dan mudah untuk di koordinasikan dalam tim, yang dapat mempercepat proses \textit{development}. Tujuan yang lebih besar lagi adalah menghindari perubahan besar pada aplikasi ketika ada proses bisnis yang berubah. Dengan mendekomposisi modul, akan membantu untuk memastikan hanya ada sebuah service saja yang akan terkena dampaknya.\\
 Tantangan yang didapat ketika hendak melakukan dekomposisi modul adalah :
@@ -204,4 +212,42 @@ Menurut Paulo Merson (Software Architecture di TCU; SOA/microservice trainer dan
 	\item \textit{Scalability}. Setiap microservice dapat diskalakan secara terpisah menggunakan \textit{pool, cluster, grid}. Karakter menyebar membuat microservice lebih fleksibel dibandingkan dengan monolitik.
 	\item \textit{Modifiability and Management}. Sifat fleksibel untuk menggunakan \textit{framework, libraries}, dan sumber data baru karena ditunjang sifat \textit{loose-coupled} yang dimiliki microservice, modular komponen hanya dapat diakses oleh contracts (pihak yang berhak), dan sifat yang cenderung tidak mudah berubah menjadi software besar yang sulit ditangani. Upaya pengembangan aplikasi juga dapat dibagi dalam tim yang lebih kecil dan bekerja lebih mandiri. 
 \end{enumerate}
+\section{Tinjauan Studi}
+\begin{small}
+	\begin{longtable}{@{\extracolsep{\fill}}|p{0.5cm}|p{2cm}|p{2cm}|p{1cm}|p{3.70cm}|}
+		\caption{Tabel Tinjauan Studi}\\
+		\hline
+		\textbf{No } & \textbf{Peneliti} & \textbf{Judul} & \textbf{Tahun
+		} & \textbf{Konsep}\\
+		\hline
+		\endhead
+		1 & Sam Newman & \textit{Building Microservice} & 2015 & Menjelaskan pendekatan yang paling tepat untuk membangun service yang saling berkolaboratif dan memberi panduan untuk mengintegrasikan teknologi agar menjadi padu dengan service yang dibangun.\\
+		\hline
+		2 &  Susan J. Fowler & \textit{Microservices in Production} & 2017 & Menjelaskan standar dan goal yang harus dicapai dari perancangan microservice. Standar yang harus dipenuhi tersebut terdiri dari performa, stabilitas, availabilitas, reliabilitas, dan skalabilitas. \\
+		\hline
+		3 & K. Siva Prasad Reddy & \textit{Beginning
+			Spring Boot 2} & 2017 & 
+		Memberikan panduan untuk membangun \textit{web service} menggunakan REST API dan bekerja dengan \textit{NoSQL database} menggunakan framework java yang bernama Spring. \\
+		\hline
+		4 & Chris Richardson  & \textit{Microservices Patterns} & 2017 & 
+		Memberikan panduan untuk melakukan migrasi sistem dari arsitektur monolitik menjadi arsitektur microservice. Menjelaskan teknologi yang dapat diintegrasikan dengan microservice dan cara implemetasinya. \\
+		\hline
+	\end{longtable}		
+\end{small}
+
+Pada penelitian satu, Sam Newman memulai dengan memberikan pengenalan dari microservice lalu dilanjutkan dengan keuntungan dan kerugian dari arsitektur tersebut. Kemudian Sam Newman melanjutkan dengan memberikan cara untuk memodelkan service menggunakan \textit{domain-driven} desain untuk membantu analisa berpikir. Tahap selanjutnya menjelaskan integrasi teknologi yang dapat membantu perancangan desain. Pada bagian akhir Sam Newman memberikan contoh \textit{splitting}  monolitik menjadi microservice dan bagaimana \textit{deployment} dilakukan \cite{9}.
+
+Pada penelitian dua, Susan J. Fowler menjelaskan bahwa terdapat 5 standar yang menjadi parameter microservice dapat dinyatakan berhasil pada tahap \textit{production}. Ke 5 standar tersebut adalah availabilitas yang dapat ditunjukan dengan seberapa lama waktu \textit{downtime} yang terjadi pada sistem. Stabilitas yang ditunjukan dengan kestabilan dari sisi \textit{development, deployment,} dan tahap pengenalan. Reliabilitas yang dapat ditunjukan dengan proses \textit{deployment} yang terjamin, \textit{planning} dan perlindungan ketika terjadi kegagalan pada sistem dan tingkat keamanan dari segi pertukaran data. Skalabilitas yang menunjukan bahwa pertumbuhan sistem dapat didefinisikan secara kuantitatif, identifikasi sumber masalah \textit{bottlenecks}, dapat direncanakan kapasitas yang dibutuhkan sistem, dan dapat \textit{data storage} yang dapat diprediksi. Performa yang dapat diukur dari kemampuan sistem menangani masalah yang diberikan dan seberapa efisien sistem menggunakan sumber daya yang tersedia \cite{10}.
+
+Pada penelitian tiga, \textit{Beginning Spring Boot 2} memberikan panduan dalam menggunakan salah satu \textit{framework} populer dari java yaitu Spring \textit{framework}. Pada awal panduan, penulis memberi tahu pembaca untuk menyiapkan \textit{JDK 1.8}, \textit{IDE Netbeans} atau \textit{Eclipse}, \textit{build tools} seperti \textit{maven}, dan server basis data seperti \textit{MySQL} atau \textit{PostgreSQL}. K. Siva Prasad Reddy kemudian memulai penjelasan dari apa itu \textit{Spring Boot} dan bagaimana \textit{framework} ini dapat membantu produktivitas \textit{developer}, kemudian bagaimana \textit{auto configuration} dari Spring Boot bekerja dibelakang layar, dan bagaimana membuat \textit{Spring Boot starters}. Kemudian K. Siva Prasad Reddy melanjutkan pembahasan sampai bagaimana membuat \textit{Reactive Web Application} dan membuat REST API menggunakan \textit{Spring Boot} \cite{11}.
+
+Pada \textit{chapter} pertama di penelitian empat, Chris Richardson mendeskripsikan arsitektur microservice serta kelebihan dan kekurangannya, serta bagaimana microservice dapat menyelesaikan masalah dari monolitik. \textit{Chapter} kedua menjelaskan bagaimana untuk merubah \textit{aplikasi} menjadi \textit{set of services} dengan menggunakan 2 strategi dekomposisi. \textit{Chapter} tiga menjelaskan REST API sebagai media komunikasi \textit{web service} dan bagaimana REST API bekerja. Pada \textit{chapter} terakhir Chris Richardson membahas cara \textit{deployment} microservice \cite{13}.
+
+\section{Objek Penelitian}
+Pada bagian ini akan dibahas objek-objek yang terkait dengan analisis penelitian.
+\subsection{Perangkat Lunak}
+Rekayasa perangkat lunak adalah sebuah profesi yang dilakukan oleh seorang perekayasa perangkat lunak yang berkaitan dengan pembuatan dan pemeliharaan aplikasi perangkat lunak dengan menerapkan teknologi dan praktik dari ilmu komputer, manajemen proyek, dan bidang-bidang lainnya. Perangkat lunak adalah instruksi langsung komputer untuk melakukan pekerjaan dan dapat ditemukan di setiap aspek kehidupan modern dari aplikasi yang kritis untuk hidup \textit{(life-critical)}, seperti perangkat pemantauan medis dan pembangkit tenaga listrik sampai perangkat hiburan, seperti video game. Banyak produk perangkat lunak berisi jutaan baris kode yang diharapkan dapat melakukan pekerjaan dengan baik dalam menghadapi perubahan kondisi. Semua perangkat lunak juga membutuhkan keandalan yang tinggi dan harus dihasilkan secara ekonomis. Teknik rekayasa perangkat lunak akan meningkatkan fungsionalitas dan efisiensi aplikasi dan juga kemudahan dan efisiensi dari pengembang perangkat lunak. Pelopor rekayasa perangkat lunak adalah Barry Boehm, Fred Brooks, CAR Hoare, dan David Parnas. \cite{14}
+
+\subsection{Microservice}
+Microservice adalah pendekatan untuk mendistribusikan sistem yang membantu mengoptimalkan penggunaan service dengan siklus hidup mereka sendiri namun secara bersamaan saling berkolaborasi. Microservice terutama dimodelkan pada domain bisnis untuk memecahkan masalah dari arsitektural tradisional. Microservice mengintegrasikan teknologi dan teknik yang muncul selama dekade terakhir yang diharapkan dapat membantu menghindari kebuntuan dari sebuah sistem \cite{9}.
 \newpage

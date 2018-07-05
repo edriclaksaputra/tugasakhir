@@ -65,26 +65,17 @@ Berikut adalah penggambaran relasi dari modul rawat jalan menggunakan komponen d
 \end{adjustbox}
 
 \section{Identifikasi Teknologi yang Digunakan pada Aplikasi Apertura}
-Saat ini teknologi aplikasi yang digunakan Rumah Sakit Apertura menggunakan arsitektur monolitik dengan database yang tersentralisasi pada 1 buah server. Database Apertura sendiri menggunakan PostgreSQL 9. PostgreSQL merupakan salah satu object-relational database management system (ORDMS) yang tersedia secara \textit{open source}. Database Apertura terdiri dari kurang lebih 120 tabel yang saling berelasi. Aplikasi Apertura digunakan oleh beberapa kelompok pengguna, antara lain bagian kasir rumah sakit, registrasi rawat jalan, registrasi rawat inap, kasir apotik, kasir rawat jalan, dokter, staf administrasi umum, staf keuangan, staf rekam medis, staf administrasi BPJS.
-Aplikasi Apertura diimplemetasikan untuk diakses dalam bentuk aplikasi desktop. \textit{User interface} yang ditampilkan dalam aplikasi tidak terpisah secara moduler, melainkan satu kesatuan aplikasi besar yang kemudian dipisahkan berdasarkan kebutuhan user yang menggunakan aplikasi.
+Saat ini teknologi aplikasi yang digunakan Rumah Sakit Apertura menggunakan arsitektur monolitik dengan database yang tersentralisasi pada 1 buah server. Database Apertura sendiri menggunakan PostgreSQL 9. PostgreSQL merupakan salah satu object-relational database management system (ORDMS) yang tersedia secara \textit{open source}. Database Apertura terdiri dari kurang lebih 120 tabel yang saling berelasi. Cara pertukaran data yang digunakan oleh Apertura saat ini adalah query \textit{database} langsung dan database dibuat \textit{shared} sehingga semua modul bisa mengakses \textit{database} secara bebas.
+Aplikasi Apertura digunakan oleh beberapa kelompok pengguna, antara lain bagian kasir rumah sakit, registrasi rawat jalan, registrasi rawat inap, kasir apotik, kasir rawat jalan, dokter, staf administrasi umum, staf keuangan, staf rekam medis, staf administrasi BPJS. Dalam setiap harinya terjadi rata-rata 400 pendaftaran rawat jalan yang ditangani oleh kurang lebih 30 dokter yang bertugas.
+Platform yang diimplementasi oleh Apertura adalah bentuk aplikasi desktop. \textit{User interface} yang ditampilkan dalam aplikasi tidak terpisah secara moduler, melainkan satu kesatuan aplikasi besar yang kemudian dipisahkan berdasarkan kebutuhan user yang menggunakan aplikasi.
 
-\subsection{Kekurangan Arsitektur Monolitik}
-Kelemahan dari sistem Apertura sebenarnya berkaitan dengan kelemahan dari arsitektur monolitik itu sendiri. Berdasarkan analisis yang dilakukan, kelemahan dari arsitektur monolitik yang menjadi masalah dari perangkat lunak rumah sakit saat ini adalah:
-
-\begin{enumerate}[leftmargin=*]
-	\item Tingkat \textit{coupling} yang terlalu tinggi. Semua modul dalam sistem saling terikat, mengakibatkan kendala dalam proses pengembangan sistem. Perubahan dalam 1 buah objek harus diketahui oleh objek lain. Proses \textit{deployment} akan terhambat karena apabila hendak melakukan tes terhadap 1 buah modul, maka keseluruhan aplikasi harus di jalankan, mengakibatkan beban hardware lebih besar dan memakan waktu lebih banyak.
-	\item Penyimpanan data yang terpusat pada 1 buah tempat (database) kurang baik. Apabila database mengalami \textit{down}, maka keseluruhan modul dari aplikasi tidak bisa melakukan pekerjaannya.
-	\item Isu keamanan. Penyimpanan data dalam 1 buah database tidak cukup aman. Misalnya ada pihak yang tidak berwenang berhasil mengakses database, maka seluruh data aplikasi akan bocor.
-	\item Sistem tidak cukup baik ketika menangani banyak user. Sistem akan kewalahan apabila banyak pengguna yang melakukan request dalam satu waktu, isu yang ditimbulkan adalah performa.
-\end{enumerate}
-
-Perubahan desain arsitektur dari monolitik menjadi microservice dapat mengatasi permasalahan yang saat ini ada pada perangkat lunak rumah sakit. Solusi yang dapat diberikan dari perubahan arsitektur menjadi microservice adalah:
+\subsection{Peluang dan Antisipasi Pengembangan Sistem}
+Berdasarkan analisis yang dilakukan, peluang pengembangan sistem baru yang diusulkan dalam penelitian kali ini melihat 3 faktor utama, yaitu faktor data, platform, dan kelincahan proses kerja. Adapun peluang pengembangan tersebut dijelaskan pada point di bawah :
 
 \begin{enumerate}[leftmargin=*]
-	\item Dengan menjadikan tiap modul sebagai service mandiri, tingkat \textit{coupling} menjadi lebih rendah. Perubahan yang terjadi pada suatu modul tidak perlu diketahui oleh modul lain. Proses \textit{deployment} menjadi lebih cepat karena level ketergantungan antara tim pengembang tidak tinggi. Beban \textit{hardware} yang dibutuhkan untuk menjalankan satu \textit{service} akan lebih ringan.
-	\item Dengan membuat database dalam sebuah server untuk setiap service dapat menjadikan keseluruhan sistem lebih \textit{high availability}.
-	\item Dengan menyebar database di server berbeda, membuat sistem lebih aman. Data yang terdapat dalam sebuah tabel tidak dapat langsung terhubung dengan tabel relasinya.
-	\item Dengan membuat service untuk setiap modul, sistem akan lebih fokus untuk menangani \textit{user} di modul tersebut dan tidak bercampur dengan \textit{user} dari modul lain.
+	\item Desain arsitektur yang baru dibuat lebih moduler dan terpisah, dengan menjadikan setiap layanan menjadi service mandiri dapat mengurangi tingkat \textit{coupling} yang terlalu tinggi yang dapat menyebabkan kendala dalam proses pengembangan sistem. Pada desain microservice, perubahan yang dilakukan dalam sebuah modul tidak perlu diketahui oleh modul lain, menjadikan proses \textit{deployment} lebih lincah dan cepat dari sebelumnya karena tiap tim pengembang sistem dapat bekerja secara mandiri. Selain itu dengan tidak ada data yang disimpan terpusat pada sebuah server, desain microservice juga meningkatkan tingkat keamanan dan \textit{availabilitas} dari keseluruhan sistem.
+	\item Desain yang baru disiapkan untuk kebutuhan \textit{cross-platform}, menjadikan sistem lebih lincah dan dapat digunakan di lebih banyak perangkat seperti komputer pribadi dan juga telepon genggam. Dengan siapnya fitur \textit{cross-platform} ini, dapat menjadi peluang agar interaksi dari \textit{user} dapat ditingkatkan, misalnya untuk kebutuhan pendaftaran antrian rawat jalan menggunakan aplikasi di telepon genggam.
+	\item Sistem lebih kuat untuk menangani \textit{multiple user} dikarenakan arsitektur microservice memiliki server masing-masing yang bekerja khusus untuk layanannya sendiri, tidak bercampur dengan modul lain.
 \end{enumerate}
 
 \section{Perancangan Arsitektur Microservice}
