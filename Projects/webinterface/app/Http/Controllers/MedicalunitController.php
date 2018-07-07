@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Input;
+use Carbon\Carbon;
 
 class MedicalunitController extends Controller
 {
@@ -26,9 +28,13 @@ class MedicalunitController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request $request)
     {
-        //
+        $kelompokmedis = $request->kelmedis;
+        $namaunitmedis = $request->namaunitmedis;
+        $keterangan = $request->keterangan;
+        $penanggungjawab = $request->namadokterpj;
+        dd($request);
     }
 
     /**

@@ -37,15 +37,14 @@
                                         </thead>
                                         <tbody>
                                             <tr class="odd gradeX" style="background-color: #FAFAD2">
-                                                <form action="/validasitransaksi.validasi" method="post" enctype="multipart/form-data">
+                                                <form action="/hr.detaildokter" method="post" enctype="multipart/form-data">
                                                 {{ csrf_field() }}
                                                     <td style="text-align: center">000078162</td>
                                                     <td style="text-align: center">Prof Dr Dedi Rachmadi, dr Sp.A</td>
                                                     <td style="text-align: center">Pediatrics</td>
                                                     <td style="text-align: center">081221450722</td>
-                                                    <td style="text-align: center"><button type="submit" class="btn btn-success" name="result" value="accept">Tampilkan/Ubah</button>   <button type="button" class="btn btn-danger" name="result" value="cancel" data-toggle="modal" data-target="#cancel" onclick="insertdetailcancel('penjualan', a)">Hapus</button></td>
-                                                    <input type="hidden" name="jenis" value="penjualan">
-                                                    <input type="hidden" name="idtransaksi" value=a>
+                                                    <td style="text-align: center"><button type="submit" class="btn btn-success" name="result" value="accept">Tampilkan/Ubah</button>   <button type="button" class="btn btn-danger" name="result" value="cancel" data-toggle="modal" data-target="#cancel" onclick="hapusdokter('000078162', 'Prof Dr Dedi Rachmadi, dr Sp.A')">Hapus</button></td>
+                                                    <input type="hidden" name="noinduk" value="000078162">
                                                 </form>
                                             </tr>
                                         </tbody>
@@ -69,15 +68,14 @@
                                 <h4 class="modal-title" id="myModalLabel">Hapus Data</h4>
                             </div>
                             <div class="modal-body">
-                                Apakah anda yakin akan meng-hapus record data pasien ?
+                                Apakah anda yakin akan meng-hapus record data <label id="namadokter"></label> ?
                             </div>
                             <div class="modal-footer">
-                                <form action="/validasitransaksi.validasi" method="post" enctype="multipart/form-data">
+                                <form action="/hr.deletedokter" method="post" enctype="multipart/form-data">
                                 {{ csrf_field() }}
                                     <button type="button" class="btn btn-default" data-dismiss="modal">Tidak</button>
                                     <button type="submit" class="btn btn-primary">Ya</button>
-                                    <input type="hidden" id="jenis" name="jenis">
-                                    <input type="hidden" id="idtransaksi" name="idtransaksi">
+                                    <input type="hidden" id="iddokter" name="iddokter">
                                 </form>
                             </div>
                         </div>
@@ -108,6 +106,9 @@
         }
 </script>
 <script>
-    var d = new Date();
-    document.getElementById("todaydate").value = d.toDateString();
+    function hapusdokter(noindukdokter, namadokter) {
+
+        document.getElementById('iddokter').value = noindukdokter;
+        document.getElementById('namadokter').innerHTML = namadokter;
+    }
 </script>

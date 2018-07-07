@@ -41,9 +41,8 @@
                                                     <td style="text-align: center">1</td>
                                                     <td style="text-align: center">dr. Yedi Suyadi, Sp.PD, MM.</td>
                                                     <td style="text-align: center">Penyakit Dalam</td>
-                                                    <td style="text-align: center"><button type="submit" class="btn btn-success" name="result" value="accept">Tampilkan/Ubah</button>   <button type="button" class="btn btn-danger" name="result" value="cancel" data-toggle="modal" data-target="#cancel" onclick="insertdetailcancel('penjualan', a)">Hapus</button></td>
+                                                    <td style="text-align: center"><button type="button" class="btn btn-danger" name="result" value="cancel" data-toggle="modal" data-target="#cancel" onclick="hapusunitmedis('00001', 'dr. Yedi Suyadi, Sp.PD, MM.')">Hapus</button></td>
                                                     <input type="hidden" name="jenis" value="penjualan">
-                                                    <input type="hidden" name="idtransaksi" value=a>
                                                 </form>
                                             </tr>
                                         </tbody>
@@ -72,7 +71,7 @@
                                 <h4 class="modal-title" id="myModalLabel">Hapus Data</h4>
                             </div>
                             <div class="modal-body">
-                                Apakah anda yakin akan meng-hapus record data pasien ?
+                                Apakah anda yakin akan meng-hapus unit medis <label id="namaunit"></label>?
                             </div>
                             <div class="modal-footer">
                                 <form action="/validasitransaksi.validasi" method="post" enctype="multipart/form-data">
@@ -111,6 +110,8 @@
         }
 </script>
 <script>
-    var d = new Date();
-    document.getElementById("todaydate").value = d.toDateString();
+    function hapusunitmedis(nounitmedis, namaunitmedis) {
+
+        document.getElementById('namaunit').innerHTML = namaunitmedis;
+    }
 </script>

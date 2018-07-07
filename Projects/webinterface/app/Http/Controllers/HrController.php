@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Input;
+use Carbon\Carbon;
 
 class HrController extends Controller
 {
@@ -43,9 +45,10 @@ class HrController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show()
     {
-        //
+        $noindukdokter = Input::get('noinduk');
+        return view('detaildokter');
     }
 
     /**
@@ -77,8 +80,9 @@ class HrController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy()
     {
-        //
+        $noindukdokter = Input::get('iddokter');
+        dd($noindukdokter);
     }
 }
