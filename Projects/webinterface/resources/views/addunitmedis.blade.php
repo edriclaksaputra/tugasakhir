@@ -19,7 +19,7 @@
                 <form action="/medicalunit.unitbaru.unitbaruadd" method="post" enctype="multipart/form-data">
                     <div class="row">
                         <div class="col-lg-10">
-                            <div class="panel panel-default">
+                            <div class="panel panel-success">
                                 <div class="panel-heading">
                                     Unit Medis Baru
                                 </div>
@@ -30,14 +30,10 @@
                                             Kelompok Medis
                                         </div>
                                         <div class="col-lg-3">
-                                            <select class="form-control" name="kelmedis">
-                                                <option>Penyakit Dalam</option>
-                                                <option>Anak</option>
-                                                <option>Gigi</option>
-                                                <option>Umum</option>
-                                                <option>Mata</option>
-                                                <option>Syaraf</option>
-                                                <option>Bedah</option>
+                                            <select class="form-control" name="idkelmedis">
+                                                @foreach($listwugroup as $wugroupdetail)
+                                                <option value="{{$wugroupdetail->systemid}}">{{$wugroupdetail->groupname}}</option>
+                                                @endforeach
                                             </select>
                                         </div>
                                     </div>
@@ -81,36 +77,27 @@
                                             <input class="col-lg-12" type="text" id="namadokter" name="namadokterpj" readonly style="text-align: center">
                                         </div>
                                         <br><br>
-                                        <div class="col-lg-12">
+                                        <div class="col-lg-8">
                                             <div class="dataTable_wrapper">
                                                 <table class="table table-striped table-bordered table-hover" id="dataTables-example">
                                                     <thead>
                                                         <tr>
                                                             <th class="col-lg-1">No.</th>
-                                                            <th>Unit Medis</th>
-                                                            <th>Group</th>
+                                                            <th>Dokter</th>
                                                             <th class="col-lg-2">Aksi</th>
                                                         </tr>
                                                     </thead>
                                                     <tbody>
+                                                        @foreach($listdokter as $dokterdetail)
                                                         <tr class="odd gradeX" style="background-color: #FFEBCD">
                                                             <form action="/validasitransaksi.validasi" method="post" enctype="multipart/form-data">
                                                             {{ csrf_field() }}
-                                                                <td style="text-align: center">1</td>
-                                                                <td style="text-align: center">dr. Yedi Suyadi, Sp.PD, MM.</td>
-                                                                <td style="text-align: center">Penyakit Dalam</td>
-                                                                <td style="text-align: center"><button type="button" class="btn btn-success" onclick="inputdokter('dr. Yedi Suyadi, Sp.PD, MM.')">Pilih</button></td>
+                                                                <td style="text-align: center">{{$loop->iteration}}</td>
+                                                                <td style="text-align: center">{{$dokterdetail->prefixtitle}} {{$dokterdetail->firstname}} {{$dokterdetail->suffixtitle}}</td>
+                                                                <td style="text-align: center"><button type="button" class="btn btn-success" onclick="inputdokter('{{$dokterdetail->prefixtitle}} {{$dokterdetail->firstname}} {{$dokterdetail->suffixtitle}}')">Pilih</button></td>
                                                             </form>
                                                         </tr>
-                                                        <tr class="odd gradeX" style="background-color: #FFEBCD">
-                                                            <form action="/validasitransaksi.validasi" method="post" enctype="multipart/form-data">
-                                                            {{ csrf_field() }}
-                                                                <td style="text-align: center">2</td>
-                                                                <td style="text-align: center">dr. Yanwar Adithia, Sp.PD, MM.</td>
-                                                                <td style="text-align: center">Anak</td>
-                                                                <td style="text-align: center"><button type="button" class="btn btn-success" onclick="inputdokter('dr. Yanwar Adithia, Sp.PD, MM.')">Pilih</button></td>
-                                                            </form>
-                                                        </tr>
+                                                        @endforeach
                                                     </tbody>
                                                 </table>
                                             </div>

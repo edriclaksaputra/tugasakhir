@@ -12,6 +12,10 @@
                             <div class="alert alert-success">
                                 <h4> {{ session('alert') }} </h4>
                             </div>
+                        @elseif (session('error'))
+                            <div class="alert alert-info">
+                                <h4> {{ session('error') }} </h4>
+                            </div>
                         @endif
                     </div>
                 </div>
@@ -28,6 +32,7 @@
                                     <table class="table table-striped table-bordered table-hover" id="dataTables-example">
                                         <thead>
                                             <tr>
+                                                <th>No.</th>
                                                 <th class="col-lg-2">Nomor Induk</th>
                                                 <th>Nama</th>
                                                 <th>Spesialis</th>
@@ -36,17 +41,20 @@
                                             </tr>
                                         </thead>
                                         <tbody>
+                                            @foreach($listdokter as $detaildokter)
                                             <tr class="odd gradeX" style="background-color: #FAFAD2">
                                                 <form action="/hr.detaildokter" method="post" enctype="multipart/form-data">
                                                 {{ csrf_field() }}
-                                                    <td style="text-align: center">000078162</td>
-                                                    <td style="text-align: center">Prof Dr Dedi Rachmadi, dr Sp.A</td>
-                                                    <td style="text-align: center">Pediatrics</td>
-                                                    <td style="text-align: center">081221450722</td>
-                                                    <td style="text-align: center"><button type="submit" class="btn btn-success" name="result" value="accept">Tampilkan/Ubah</button>   <button type="button" class="btn btn-danger" name="result" value="cancel" data-toggle="modal" data-target="#cancel" onclick="hapusdokter('000078162', 'Prof Dr Dedi Rachmadi, dr Sp.A')">Hapus</button></td>
-                                                    <input type="hidden" name="noinduk" value="000078162">
+                                                    <td style="text-align: center"> {{$loop->iteration}}</td>
+                                                    <td style="text-align: center"> {{$detaildokter->systemid}}</td>
+                                                    <td style="text-align: center">{{$detaildokter->prefixtitle}} {{$detaildokter->firstname}} {{$detaildokter->suffixtitle}}</td>
+                                                    <td style="text-align: center">{{$detaildokter->jobspeciality->specialityName}}</td>
+                                                    <td style="text-align: center">{{$detaildokter->homephone}}</td>
+                                                    <td style="text-align: center"><button type="submit" class="btn btn-success" name="result" value="accept">Tampilkan/Ubah</button></td>
+                                                    <input type="hidden" name="noinduk" value={{$detaildokter->systemid}}>
                                                 </form>
                                             </tr>
+                                            @endforeach
                                         </tbody>
                                     </table>
                                 </div>

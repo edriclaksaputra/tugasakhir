@@ -24,35 +24,66 @@
                             </div>
                             <!-- /.panel-heading -->
                             <div class="panel-body">
-                                <div class="row">
-                                    <div class="panel-heading col-lg-2">
-                                        No. Induk :
+                                <form action="/hr.detaildokter.ubah" method="post" enctype="multipart/form-data">
+                                    {{ csrf_field() }}
+                                    <div class="row">
+                                        <div class="panel-heading col-lg-2">
+                                            No. Induk :
+                                        </div>
+                                        <div class="col-lg-2">
+                                            <input type="text" name="noinduk" readonly value="{{$datadokter->systemid}}" style="text-align: center">
+                                        </div>
                                     </div>
-                                    <div class="col-lg-2">
-                                        <input type="text" name="namaunitmedis" readonly value="000078162" style="text-align: center">
+                                    <div class="row">
+                                        <div class="panel-heading col-lg-2">
+                                            Gelar Prefix :
+                                        </div>
+                                        <div class="col-lg-2">
+                                            <input type="text" name="preftitle" value="{{$datadokter->prefixtitle}}" style="text-align: center">
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="row">
-                                    <div class="panel-heading col-lg-2">
-                                        Spesialis :
+                                    <div class="row">
+                                        <div class="panel-heading col-lg-2">
+                                            Nama :
+                                        </div>
+                                        <div class="col-lg-2">
+                                            <input type="text" name="firstname" value="{{$datadokter->firstname}}" style="text-align: center">
+                                        </div>
                                     </div>
-                                    <div class="col-lg-2">
-                                        <input type="text" name="namaunitmedis" readonly value="Pediatrics" style="text-align: center">
+                                    <div class="row">
+                                        <div class="panel-heading col-lg-2">
+                                            Gelar Suffix :
+                                        </div>
+                                        <div class="col-lg-2">
+                                            <input type="text" name="suftitle" value="{{$datadokter->suffixtitle}}" style="text-align: center">
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="row">
-                                    <div class="panel-heading col-lg-2">
-                                        Kontak :
+                                    <div class="row">
+                                        <div class="panel-heading col-lg-2">
+                                            Spesialis :
+                                        </div>
+                                        <div class="col-lg-2">
+                                            <input type="text" name="spesialis" value="{{$datadokter->jobspeciality->specialityName}}" style="text-align: center">
+                                            <input type="hidden" name="spesialisid" value={{$datadokter->jobspeciality->systemId}}>
+                                        </div>
                                     </div>
-                                    <div class="col-lg-2">
-                                        <input type="text" name="namaunitmedis" readonly value="081221450722" style="text-align: center">
+                                    <div class="row">
+                                        <div class="panel-heading col-lg-2">
+                                            Kontak :
+                                        </div>
+                                        <div class="col-lg-2">
+                                            <input type="text" name="kontak" value="{{$datadokter->homephone}}" style="text-align: center">
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="row">
-                                    <div class="panel-heading col-lg-2">
-                                        <button type="button" class="btn btn-info"><a href="/hr" style="color: inherit;text-decoration: none">Kembali</a></button>
+                                    <div class="row">
+                                        <div class="panel-heading col-lg-2">
+                                            <button type="button" class="btn btn-info"><a href="/hr" style="color: inherit;text-decoration: none">Kembali</a></button>
+                                        </div>
+                                        <div class="panel-heading col-lg-2">
+                                            <button type="submit" class="btn btn-warning">Ubah</button>
+                                        </div>
                                     </div>
-                                </div>
+                                </form>
                             </div>
                             <!-- /.panel-body -->
                         </div>

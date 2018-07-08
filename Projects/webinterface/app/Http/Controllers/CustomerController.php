@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use GuzzleHttp\Client;
 
-class HomeController extends Controller
+class CustomerController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,10 +14,11 @@ class HomeController extends Controller
      */
     public function index()
     {
+        //listpasien
         $client = new Client();
-        $request = $client->get('http://localhost:8080/rest/employee/');
-        $listdokter = json_decode($request->getBody()->getContents());
-        return view('hr', compact('listdokter'));
+        $request = $client->get('http://localhost:8090/rest/customer/');
+        $listpasien = json_decode($request->getBody()->getContents());
+        return view ('customer', compact('listpasien'));
     }
 
     /**

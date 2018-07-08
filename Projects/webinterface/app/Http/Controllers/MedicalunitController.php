@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Input;
 use Carbon\Carbon;
+use GuzzleHttp\Client;
 
 class MedicalunitController extends Controller
 {
@@ -13,14 +14,28 @@ class MedicalunitController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    static $counter = 399;
+
     public function index()
     {
-        return view('unitmedis');
+        $client = new Client();
+        $request = $client->get('http://localhost:9000/rest/medicalunit/');
+        $listunitmedis = json_decode($request->getBody()->getContents());
+        return view('unitmedis', compact('listunitmedis'));
     }
 
     public function unitbaruindex()
     {
-        return view('addunitmedis');
+        //getwugroup
+        $client = new Client();
+        $request = $client->get('http://localhost:9000/rest/workingunitgroup/');
+        $listwugroup = json_decode($request->getBody()->getContents());
+        //getdokter
+        $client = new Client();
+        $request = $client->get('http://localhost:8080/rest/employee/');
+        $listdokter = json_decode($request->getBody()->getContents());
+        
+        return view('addunitmedis', compact('listwugroup', 'listdokter'));
     }
 
     /**
@@ -28,13 +43,25 @@ class MedicalunitController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create(Request $request)
+    public function create(Request $req)
     {
-        $kelompokmedis = $request->kelmedis;
-        $namaunitmedis = $request->namaunitmedis;
-        $keterangan = $request->keterangan;
-        $penanggungjawab = $request->namadokterpj;
-        dd($request);
+        $idwugrup = $req->idkelmedis;
+        $client = new Client();
+        $request = $client->get('http://localhost:9000/rest/workingunitgroup/'.$idwugrup);
+        $wugrup = json_decode($request->getBody()->getContents());
+
+        $unitmedisbaru = new Client();
+        $unitmedisbaru->systemid = self::$counter + 1;
+        $unitmedisbaru->workunit_name = $req->namaunitmedis;
+        $unitmedisbaru->memo = $req->keterangan;
+        $unitmedisbaru->wugroup = [
+            "systemid" => (int)($req->idkelmedis),
+            "groupname" => $wugrup->groupname
+        ];
+
+        $response = $unitmedisbaru->post('http://localhost:9000/rest/medicalunit/', ['json' => $unitmedisbaru]);
+
+        return redirect('medicalunit')->with('alert', 'Unit Medis baru telah berhasil di input ! Silahkan melanjutkan pekerjaan anda');
     }
 
     /**
@@ -88,8 +115,13 @@ class MedicalunitController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy()
     {
-        //
+        $idunitmedis = Input::get('idunitmedis');
+        $client = new Client(['http_errors' => false]);
+        $response = $client->delete('http://localhost:9000/rest/medicalunit/'.$idunitmedis);
+        $statuscode = $response->getStatusCode();
+        
+        return redirect('medicalunit')->with('error', 'Unit Medis telah berhasil di hapus ! Silahkan melanjutkan pekerjaan anda');
     }
 }

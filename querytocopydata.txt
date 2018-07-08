@@ -9,7 +9,7 @@ select format('INSERT INTO jobspeciality (systemid, memo, speciality_name) VALUE
 from jobspecialitytype c
 
 - Contact
-select format('INSERT INTO contact (systemid, dtype, firstname, suffixtitle, prefixtitle, gender, maritalstatus, amountofchildren, bodyheight, bodyweight, homephone, jobspeciality_systemid) VALUES (''%s'' ,''%2$s'', ''%3$s'', ''%4$s'', ''%5$s'', ''%6$s'', ''%7$s'', ''%8$s'', ''%9$s'', ''%10$s'', ''%11$s'', ''%12$s'');', c.systemid, c.dtype, c.firstname, c.suffixtitle, c.prefixtitle, c.gender, c.maritalstatus, c.amountofchildren, c.bodyheight, c.bodyweight, c.homephone, e.jobspecialitytype)
+select format('INSERT INTO contact (systemid, firstname, suffixtitle, prefixtitle, gender, maritalstatus, amountofchildren, bodyheight, bodyweight, homephone, jobspeciality_systemid) VALUES (''%s'' ,''%2$s'', ''%3$s'', ''%4$s'', ''%5$s'', ''%6$s'', ''%7$s'', ''%8$s'', ''%9$s'', ''%10$s'', ''%11$s'');', c.systemid, c.firstname, c.suffixtitle, c.prefixtitle, c.gender, c.maritalstatus, c.amountofchildren, c.bodyheight, c.bodyweight, c.homephone, e.jobspecialitytype)
 from contact c inner join employee e on (c.systemid = e.systemid)
 where c.dtype = 'Doctor'
 
@@ -30,7 +30,7 @@ where wu.wugroup > 0
 
 3. Customer
 -Contact
-select format('INSERT INTO contact (systemid, firstname, gender, maritalstatus, birthday, bloodtype, cust_no, registrationdate, active, regis_no, dtype) VALUES (''%s'',''%2$s'',''%3$s'',''%4$s'',''%5$s'',''%6$s'',''%7$s'',''%8$s'',''%9$s'',''%10$s'',''%11$s'');', c.systemid, c.firstname, c.gender, c.maritalstatus, c.birthday, c.bloodtype, cu.cust_no, cu.registrationdate, cu.active, hc.regis_no, c.dtype)
+select format('INSERT INTO contact (systemid, firstname, gender, maritalstatus, birthday, bloodtype, cust_no, registrationdate, active, regis_no, dtype, amountofchildren, bodyheight, bodyweight, creditlimit, id_price_level, disc) VALUES (''%s'',''%2$s'',''%3$s'',''%4$s'',''%5$s'',''%6$s'',''%7$s'',''%8$s'',''%9$s'',''%10$s'',''%11$s'',''%12$s'',''%13$s'',''%14$s'',''%15$s'',''%16$s'',''%17$s'');', c.systemid, c.firstname, c.gender, c.maritalstatus, c.birthday, c.bloodtype, cu.cust_no, cu.registrationdate, cu.active, hc.regis_no, c.dtype, c.amountofchildren, c.bodyheight, c.bodyweight, cu.creditlimit, c.id_price_level, c.disc)
 from contact c join customer cu on (c.systemid = cu.systemid) join healthconsumer hc on (hc.systemid = cu.systemid)
 where hc.systemid = 46485 or hc.systemid = 89019 or hc.systemid = 116165 or
  hc.systemid = 124753 or hc.systemid = 186203 or hc.systemid = 189931 or
@@ -59,5 +59,108 @@ limit 10000
 
 4. Outpatient
 - outpatientwuqueue
-select format('INSERT INTO outpatientwuqueue (hc, medunit, registertime, regis_no) VALUES (''%s'' ,''%2$s'', ''%3$s'');', o.hc, o.medunit, o.registertime, o.regis_no)
+select format('INSERT INTO outpatientwuqueue (hc, medunit, registertime, regis_no, priority) VALUES (''%s'' ,''%2$s'', ''%3$s'', ''%4$s'', ''%5$s'');', o.hc, o.medunit, o.registertime, o.regis_no, o.priority)
 from outpatientwuqueue o
+
+package com.bytestree.restful.model;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+@Entity
+@Table(name = "medicalunit")
+public class MedicalUnit extends WorkingUnit{
+	
+	private static final long serialVersionUID = -6822526618132350867L;
+	
+	@Id
+    @GeneratedValue (strategy = GenerationType.AUTO)
+    @Column(name = "systemid")
+    private Long systemid;
+	
+	public MedicalUnit(){
+		
+	}
+	
+	public MedicalUnit(Long systemid){
+		super(systemid);
+	}
+}
+
+package com.bytestree.restful.model;
+
+import java.util.Collection;
+
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+
+
+@Entity
+@Table(name = "employee")
+public class Employee extends Contact implements java.io.Serializable {
+
+	private static final long serialVersionUID = 4910225916550731446L;
+	
+	@Column(name = "ein")
+    private String m_ein;
+	
+	@ManyToOne(cascade = CascadeType.ALL)
+    private Jobspeciality jobspeciality;
+	
+	@OneToMany
+	private Collection<Employment> employmentCollection;
+
+	public Employee() {
+	}
+	
+	public Employee (Long systemid)
+    {
+        super (systemid);
+    }
+	
+	public Employee(Long systemid, String m_ein, Jobspeciality jobspeciality, Collection<Employment> employmentCollection) {
+		super (systemid);
+		this.m_ein = m_ein;
+		this.jobspeciality = jobspeciality;
+		this.employmentCollection = employmentCollection;
+	}
+
+	public String getM_ein() {
+		return m_ein;
+	}
+
+	public void setM_ein(String m_ein) {
+		this.m_ein = m_ein;
+	}
+
+	public Jobspeciality getJobspeciality() {
+		return jobspeciality;
+	}
+
+	public void setJobspeciality(Jobspeciality jobspeciality) {
+		this.jobspeciality = jobspeciality;
+	}
+
+	public Collection<Employment> getEmploymentCollection() {
+		return employmentCollection;
+	}
+
+	public void setEmploymentCollection(Collection<Employment> employmentCollection) {
+		this.employmentCollection = employmentCollection;
+	}
+
+	public static long getSerialversionuid() {
+		return serialVersionUID;
+	}
+	
+}
+
+

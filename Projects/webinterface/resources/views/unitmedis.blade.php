@@ -12,6 +12,10 @@
                             <div class="alert alert-success">
                                 <h4> {{ session('alert') }} </h4>
                             </div>
+                        @elseif(session('error'))
+                            <div class="alert alert-info">
+                                <h4> {{ session('error') }} </h4>
+                            </div>
                         @endif
                     </div>
                 </div>
@@ -28,23 +32,27 @@
                                     <table class="table table-striped table-bordered table-hover" id="dataTables-example">
                                         <thead>
                                             <tr>
-                                                <th class="col-lg-1">No.</th>
-                                                <th>Unit Medis</th>
-                                                <th>Group</th>
-                                                <th class="col-lg-2">Aksi</th>
+                                                <th class="col-lg-1" style="text-align: center">No.</th>
+                                                <th style="text-align: center">No. Unit Medis</th>
+                                                <th style="text-align: center">Unit Medis</th>
+                                                <th style="text-align: center">Group</th>
+                                                <th class="col-lg-2" style="text-align: center">Aksi</th>
                                             </tr>
                                         </thead>
                                         <tbody>
+                                            @foreach($listunitmedis as $unitmedisdetail)
                                             <tr class="odd gradeX" style="background-color: #FFEBCD">
                                                 <form action="/validasitransaksi.validasi" method="post" enctype="multipart/form-data">
                                                 {{ csrf_field() }}
-                                                    <td style="text-align: center">1</td>
-                                                    <td style="text-align: center">dr. Yedi Suyadi, Sp.PD, MM.</td>
-                                                    <td style="text-align: center">Penyakit Dalam</td>
-                                                    <td style="text-align: center"><button type="button" class="btn btn-danger" name="result" value="cancel" data-toggle="modal" data-target="#cancel" onclick="hapusunitmedis('00001', 'dr. Yedi Suyadi, Sp.PD, MM.')">Hapus</button></td>
+                                                    <td style="text-align: center">{{$loop->iteration}}</td>
+                                                    <td style="text-align: center">{{$unitmedisdetail->systemid}}</td>
+                                                    <td style="text-align: center">{{$unitmedisdetail->workunit_name}}</td>
+                                                    <td style="text-align: center">{{$unitmedisdetail->wugroup->groupname}}</td>
+                                                    <td style="text-align: center"><button type="button" class="btn btn-danger" name="result" value="cancel" data-toggle="modal" data-target="#cancel" onclick="hapusunitmedis('{{$unitmedisdetail->systemid}}', '{{$unitmedisdetail->workunit_name}}')">Hapus</button></td>
                                                     <input type="hidden" name="jenis" value="penjualan">
                                                 </form>
                                             </tr>
+                                            @endforeach
                                         </tbody>
                                     </table>
                                     <div class="row col-lg-12">
@@ -74,12 +82,12 @@
                                 Apakah anda yakin akan meng-hapus unit medis <label id="namaunit"></label>?
                             </div>
                             <div class="modal-footer">
-                                <form action="/validasitransaksi.validasi" method="post" enctype="multipart/form-data">
+                                <form action="/medicalunit.hapusunitmedis" method="post" enctype="multipart/form-data">
                                 {{ csrf_field() }}
                                     <button type="button" class="btn btn-default" data-dismiss="modal">Tidak</button>
                                     <button type="submit" class="btn btn-primary">Ya</button>
                                     <input type="hidden" id="jenis" name="jenis">
-                                    <input type="hidden" id="idtransaksi" name="idtransaksi">
+                                    <input type="hidden" id="idunitmedis" name="idunitmedis">
                                 </form>
                             </div>
                         </div>
@@ -111,7 +119,7 @@
 </script>
 <script>
     function hapusunitmedis(nounitmedis, namaunitmedis) {
-
+        document.getElementById('idunitmedis').value = nounitmedis;
         document.getElementById('namaunit').innerHTML = namaunitmedis;
     }
 </script>

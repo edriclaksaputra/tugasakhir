@@ -12,6 +12,10 @@
                             <div class="alert alert-success">
                                 <h4> {{ session('alert') }} </h4>
                             </div>
+                        @elseif (session('error'))
+                            <div class="alert alert-info">
+                                <h4> {{ session('error') }} </h4>
+                            </div>
                         @endif
                     </div>
                 </div>
@@ -31,31 +35,32 @@
                                                 <th>No.</th>
                                                 <th>No. Registrasi</th>
                                                 <th>Pasien</th>
-                                                <th>No. RM</th>
-                                                <th>Usia</th>
                                                 <th>Unit Medis</th>
-                                                <th>Poli</th>
                                                 <th>Waktu Masuk</th>
                                                 <th>Aksi</th>
                                             </tr>
                                         </thead>
                                         <tbody>
+                                            @foreach($listrawatjalan as $rawatjalandetail)
                                             <tr class="odd gradeX" style="background-color: #F5FFFA">
-                                                <form action="/validasitransaksi.validasi" method="post" enctype="multipart/form-data">
+                                                <form action="/rawatjalan.hapusantrian" method="post" enctype="multipart/form-data">
                                                 {{ csrf_field() }}
-                                                    <td style="text-align: center">1</td>
-                                                    <td style="text-align: center">000078162</td>
-                                                    <td style="text-align: center">Yayat Saepudin</td>
-                                                    <td style="text-align: center">000255148</td>
-                                                    <td style="text-align: center">48 Tahun</td>
-                                                    <td style="text-align: center">dr. Nadia Ayu</td>
-                                                    <td style="text-align: center">IGD</td>
-                                                    <td style="text-align: center">19-Jun-2018</td>
-                                                    <td style="text-align: center"><button type="button" class="btn btn-danger" name="result" value="cancel" data-toggle="modal" data-target="#cancel" onclick="cancelantrian('000078162')">Cancel Antrian</button></td>
+                                                    <td style="text-align: center">{{$loop->iteration}}</td>
+                                                    <td style="text-align: center">{{$rawatjalandetail->regis_no}}</td>
+                                                    <td style="text-align: center">{{$rawatjalandetail->hcustomer}}</td>
+                                                    <td style="text-align: center">{{$rawatjalandetail->workunit_name}}</td>
+                                                    <td style="text-align: center">{{$rawatjalandetail->waktudaftar}}</td>
+                                                    <td style="text-align: center"><button type="button" class="btn btn-warning" name="result" value="cancel" data-toggle="modal" data-target="#cancel" onclick="cancelantrian('{{$rawatjalandetail->regis_no}}')">Selesai</button></td>
                                                 </form>
                                             </tr>
+                                            @endforeach
                                         </tbody>
                                     </table>
+                                    <div class="row col-lg-12">
+                                        <div class="col-lg-6 text-left">
+                                            <a href="rawatjalan.tambahantrian" style="text-decoration: none"><button type="button" class="btn btn-info">Tambah Antrian Baru</button></a>
+                                        </div>
+                                    </div>
                                 </div>
                                 <!-- /.table-responsive -->
                             </div>

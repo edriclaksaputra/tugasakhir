@@ -17,7 +17,7 @@
                 </div>
                 <!-- /.row -->
                 <div class="row">
-                    <div class="col-lg-12">
+                    <div class="col-lg-10">
                         <div class="panel panel-default">
                             <div class="panel-heading">
                                 List Pasien
@@ -28,26 +28,35 @@
                                     <table class="table table-striped table-bordered table-hover" id="dataTables-example">
                                         <thead>
                                             <tr>
-                                                <th class="col-lg-2">No. Rekam Medis</th>
+                                                <th class="col-lg-2">No</th>
                                                 <th>Nama Lengkap</th>
-                                                <th>Telp. Rumah</th>
-                                                <th>Alamat</th>
-                                                <th class="col-lg-2">Aksi</th>
+                                                <th>Gender</th>
+                                                <th>Status</th>
+                                                <th>Tanggal Registrasi</th>
                                             </tr>
                                         </thead>
                                         <tbody>
+                                            @foreach($listpasien as $pasiendetail)
                                             <tr class="odd gradeX" style="background-color: #F0F8FF ">
                                                 <form action="/validasitransaksi.validasi" method="post" enctype="multipart/form-data">
                                                 {{ csrf_field() }}
-                                                    <td style="text-align: center">000078162</td>
-                                                    <td style="text-align: center">Aah Sopandi Tn</td>
-                                                    <td style="text-align: center">081221450722</td>
-                                                    <td style="text-align: center">Kp Cilame 01/10 Campaka Mekar Padalarang</td>
-                                                    <td style="text-align: center"><button type="submit" class="btn btn-success" name="result" value="accept">Tampilkan/Ubah</button>   <button type="button" class="btn btn-danger" name="result" value="cancel" data-toggle="modal" data-target="#cancel" onclick="insertdetailcancel('penjualan', a)">Hapus</button></td>
-                                                    <input type="hidden" name="jenis" value="penjualan">
-                                                    <input type="hidden" name="idtransaksi" value=a>
+                                                    <td style="text-align: center">{{$loop->iteration}}</td>
+                                                    <td style="text-align: center">{{$pasiendetail->firstname}}</td>
+                                                    @if($pasiendetail->gender == 0)
+                                                    <td style="text-align: center">Wanita</td>
+                                                    @else
+                                                    <td style="text-align: center">Pria</td>
+                                                    @endif
+
+                                                    @if($pasiendetail->maritalstatus == 0)
+                                                    <td style="text-align: center">Belum Menikah</td>
+                                                    @else
+                                                    <td style="text-align: center">Sudah Menikah</td>
+                                                    @endif
+                                                    <td style="text-align: center">{{$pasiendetail->registrationdate}}</td>
                                                 </form>
                                             </tr>
+                                            @endforeach
                                         </tbody>
                                     </table>
                                 </div>
