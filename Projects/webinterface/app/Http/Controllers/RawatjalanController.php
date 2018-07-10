@@ -16,20 +16,24 @@ class RawatjalanController extends Controller
      */
     public function index()
     {
+        //Mendapatkan list rawat jalan
         $client = new Client();
         $request = $client->get('http://localhost:9010/rest/outpatient/');
         $listrawatjalan = json_decode($request->getBody()->getContents());
-        for ($i=0; $i < count($listrawatjalan); $i++) { 
+        for ($i=0; $i < count($listrawatjalan); $i++) {
+            //Melakukan looping untuk dapat medical unit yg bertanggung jawab
             $client = new Client();
             $request = $client->get('http://localhost:9000/rest/medicalunit/'.$listrawatjalan[$i]->medunit);
             $medunit = json_decode($request->getBody()->getContents());
-
+            //Nama medical unit dimasukan ke Object listrawatjalan
             $listrawatjalan[$i]->workunit_name = $medunit->workunit_name;
 
+            //Mendapatkan data customer yg dirawat
             $client = new Client();
             $request = $client->get('http://localhost:8090/rest/customer/'.$listrawatjalan[$i]->hc);
             $hcustomer = json_decode($request->getBody()->getContents());
 
+            //Nama customer dimasukan ke dalam Object listrawatjalan
             $listrawatjalan[$i]->hcustomer = $hcustomer->firstname;
             $listrawatjalan[$i]->waktudaftar = $listrawatjalan[$i]->registertime;
         }
