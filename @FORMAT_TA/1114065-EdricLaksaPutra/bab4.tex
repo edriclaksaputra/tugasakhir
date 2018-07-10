@@ -1744,45 +1744,12 @@ Pada bagian ini akan dijelaskan mengenai \textit{Project}, \textit{class} dan \t
 \section{Perbandingan Arsitektur}
 Pada bab ini, akan dijelaskan perbandingan dari arsitektur microservice dan monolitik. Pengujian akan dilakukan dengan membuat \textit{test plan} yang kemudian akan didokumentasikan ke dalam\textit{matrix traceability}. Dari hasil \textit{matrix traceability} tersebut dapat ditentukan apakah desain microservice yang baru memberikan performa yang lebih baik dibandingkan dengan model monolitik yang lama.
 \subsection{Pengujian dan Perbandingan Model Arsitektur Microservice dan Monolitik}
-Pada bagian ini akan dilakukan pengujian terhadap kedua jenis model arsitektur yang didokumentasikan ke dalam \textit{matrix of traceability}. Pengujian akan dilakukan dengan membandingkan hasil \textit{test plan} yang telah dibuat. \textit{Test plan} yang dibuat akan mengacu pada masalah \textit{deployability, reliability, availability, scalability,} dan \textit{modifiability.}
-\begin{table}[H]
-	\centering
-	\caption{Tabel \textit{matrix of traceability} pengujian model arsitektur}
-	\label{my-label}
-	\begin{adjustbox}{width=1\textwidth}
-		\begin{tabular}{|p{1cm}|p{8.5cm}|p{1cm}|p{1cm}|p{1cm}|p{1cm}|p{1cm}|}
-			\hline
-			\multicolumn{1}{|c|}{\multirow{2}{*}{\textbf{No}}} & \multicolumn{1}{c|}{\multirow{2}{*}{\textbf{Test Plan}}} & \multicolumn{2}{c|}{\textbf{Microservice}}& \multicolumn{2}{c|}{\textbf{Monolitik}} & \multicolumn{1}{c|}{\multirow{2}{*}{\textbf{Harapan}}}\\ \cline{3-6} 
-			\multicolumn{1}{|c|}{}                  & \multicolumn{1}{c|}{}                  & \multicolumn{1}{c|}{\textbf{Ya}} & \multicolumn{1}{c|}{\textbf{Tidak}} & \multicolumn{1}{c|}{\textbf{Ya}} & \multicolumn{1}{c|}{\textbf{Tidak}} & \multicolumn{1}{c|}{}\\ \hline
-			\multicolumn{1}{|c|}{1}&Perubahan yang dilakukan pada class dalam sebuah modul harus diketahui oleh modul lain yang saling melakukan pertukaran data&&\checkmark&\checkmark&&\multicolumn{1}{c|}{\textbf{Tidak}}\\ \hline
-			\multicolumn{1}{|c|}{2}&Apabila terjadi masalah terhadap database, maka masalah tersebut akan turut dirasakan oleh keseluruhan modul&&\checkmark&\checkmark&&\multicolumn{1}{c|}{\textbf{Tidak}}\\ \hline
-			\multicolumn{1}{|c|}{3}&Tingkat sekuritas yang lebih baik&\checkmark&&&\checkmark&\multicolumn{1}{c|}{\textbf{Ya}}\\ \hline
-			\multicolumn{1}{|c|}{4}&Tingkat ketergantungan yang besar apabila aplikasi dikerjakan oleh beberapa tim berbeda&&\checkmark&\checkmark&&\multicolumn{1}{c|}{\textbf{Tidak}}\\ \hline
-			\multicolumn{1}{|c|}{5}&Cara komunikasi antar modul lebih mudah untuk diimplementasikan&&\checkmark&\checkmark&&\multicolumn{1}{c|}{\textbf{Ya}}\\ \hline
-			\multicolumn{1}{|c|}{6}&Konsumen yang mengkakses \textit{method} yang diubah harus mengetahui apa perubahan yang terjadi terhadap \textit{method} tersebut&&\checkmark&\checkmark&&\multicolumn{1}{c|}{\textbf{Tidak}}\\ \hline
-			\multicolumn{1}{|c|}{7}&Waktu siklus \textit{build-test-build} yang relatif lebih cepat&\checkmark&&&\checkmark&\multicolumn{1}{c|}{\textbf{Ya}}\\ \hline
-			\multicolumn{1}{|c|}{8}&Tidak saling berebut \textit{resources} untuk setiap modulnya&\checkmark&&&\checkmark&\multicolumn{1}{c|}{\textbf{Ya}}\\ \hline
-			\multicolumn{1}{|c|}{9}&Mudah untuk melakukan \textit{querry join} dari setiap modul yang ada&&\checkmark&\checkmark&&\multicolumn{1}{c|}{\textbf{Ya}}\\ \hline
-		\end{tabular}
-	\end{adjustbox}
-\end{table}
-\begin{adjustbox}{width=1\textwidth}
-	\begin{tabular}{|p{1cm}|p{8.5cm}|p{1cm}|p{1cm}|p{1cm}|p{1cm}|p{1cm}|}
-		\hline
-		\multicolumn{1}{|c|}{10}&Relatif dapat menangani permasalahan \textit{big data} dan \textit{multiple user}&\checkmark&&&\checkmark&\multicolumn{1}{c|}{\textbf{Ya}}\\ \hline
-		\multicolumn{1}{|c|}{11}&Aplikasi menjadi lebih \textit{long lasting} dan relatif tidak memiliki resiko perombakan major apabila terdapat perubahan pada aplikasi&\checkmark&&&\checkmark&\multicolumn{1}{c|}{\textbf{Ya}}\\ \hline
-		\multicolumn{1}{|c|}{12}&Mudah untuk menambahkan modul baru&\checkmark&&\checkmark&&\multicolumn{1}{c|}{\textbf{Ya}}\\ \hline
-		\multicolumn{1}{|c|}{13}&Lebih mudah dan cepat beradaptasi apabila aplikasi menjadi lebih besar&\checkmark&&&\checkmark&\multicolumn{1}{c|}{\textbf{Ya}}\\ \hline
-		\multicolumn{1}{|c|}{14}&Aplikasi lebih mudah bila ingin dikembangkan menjadi lintas \textit{platform}&\checkmark&&&\checkmark&\multicolumn{1}{c|}{\textbf{Ya}}\\ \hline
-		\multicolumn{1}{|c|}{15}&Aplikasi lebih mudah untuk melakukan \textit{deploy} ke \textit{server}&\checkmark&&&\checkmark&\multicolumn{1}{c|}{\textbf{Ya}}\\ \hline
-		\multicolumn{1}{|c|}{16}&Pengujian alpikasi mudah dan cepat&\checkmark&&\checkmark&&\multicolumn{1}{c|}{\textbf{Ya}}\\ \hline
-		\multicolumn{1}{|c|}{17}&Lebih mudah untuk menerapkan teknologi baru&\checkmark&&&\checkmark&\multicolumn{1}{c|}{\textbf{Ya}}\\ \hline
-		\multicolumn{1}{|c|}{18}&Konfigurasi aplikasi mudah&&\checkmark&\checkmark&&\multicolumn{1}{c|}{\textbf{Ya}}\\ \hline
-		\multicolumn{1}{|c|}{19}&Perlu dilakukan banyak automasi agar aplikasi dapat memberikan performa terbaiknya&&\checkmark&\checkmark&&\multicolumn{1}{c|}{\textbf{Ya}}\\ \hline
-		\multicolumn{1}{|c|}{20}&Cocok untuk sistem yang dinamis dan konstan berkembang&\checkmark&&&\checkmark&\multicolumn{1}{c|}{\textbf{Ya}}\\ \hline
-		\multicolumn{1}{|c|}{21}&Jumlah waktu \textit{downtime} yang dibutuhkan aplikasi apabila terjadi \textit{maintenance} lebih sedikit&\checkmark&&&\checkmark&\multicolumn{1}{c|}{\textbf{Ya}}\\ \hline
-	\end{tabular}
-\end{adjustbox}
+Pada bagian ini akan dilakukan perbandingan terhadap kedua jenis model arsitektur. Pengujian akan dilakukan dengan membandingkan hasil \textit{test plan} yang telah dibuat. Perbandingan dilakukan dengan memberikan analisa dan bukti dari bagaimana sistem bekerja pada kedua jenis arsitektur untuk setiap faktor uji yang terdiri dari : Performa, tingkat availabilitas, tingkat stabilitas, skalabilitas, dan reliabilitas dari sistem.//
+Berikut hasil analisa perbandingan dari kedua arsitektur :
+\begin{enumerate}[leftmargin=*]
+	\item Perbandingan Performa
+	
+\end{enumerate}
 
 Berdasarkan hasil pengujian di atas, desain arsitektur microservice memenuhi 17 dari 21 kasus \textit{test plan} yang dibuat, sedangkan desain arsitektur monolitik memenuhi 6 dari 21 kasus \textit{test plan}.
 \newpage

@@ -141,12 +141,9 @@ Setelah kelas-kelas service terbentuk, hal berikutnya yang harus diperhatikan ad
 Setelah membuat service dan database yang digunakan, hal berikutnya adalah membuat API dari service tersebut agar dapat diakses menggunakan \textit{web service}. Berdasarkan kebutuhan arsitektur microservice sendiri, model \textit{web service} yang akan digunakan adalah RESTful (\textit{Representational State Transfer}) dengan format data yang dikirim berupa JSON (\textit{JavaScript Object Notation}). Server sementara yang akan digunakan selama tahap perancangan adalah mesin pribadi milik peneliti. Setelah perancangan selesai dan siap, server baru akan dipindahkan ke server milik rumah sakit. Untuk tes pemanggilan API sementara dapat dilakukan dalam satu jaringan yang sama.
 \subsection{Rancangan Deployment}
 Model \textit{deployment} yang akan digunakan adalah \textit{multiple service per host}, dikarenakan lebih cocok dalam kasus penelitian yang hanya mengambill proses rawat jalan. Semua set service yang terbentuk akan di \textit{upload} dalam beberapa server agar dapat membuktikan tercapainya \textit{high availability}. Apertura sendiri memiliki 2 buah server aktif yang dapat digunakan ketika proses \textit{deployment}, serta server lainnya dapat menggunakan mesin pribadi untuk melakukan pemanggilan service dari server lain.
-\section{Strategi Pengujian}
-Strategi pengujian yang dirancang untuk kasus penulis adalah dengan melakukan uji perbandingan performa dengan arsitektur monolitik yang digunakan pada aplikasi saat ini. Tujuan dari test performa ini adalah menunjukan bahwa arsitektur microservice yang baru akan lebih unggul dalam 5 point diatas apabila dibandingkan dengan monolitik.
-\subsection{Uji Perbandingan Performa}
-Strategi pengujian yang akan dilakukan adalah dengan membuat \textit{test plan} yang mengacu pada masalah \textit{deployability, reliability, availability, scalability,} dan \textit{modifiability.}. \textit{Test plan} akan dibuat sekitar 15-20 point agar kelebihan dan kekurangan dari tiap model arsitektur dapat terlihat. \textit{Test result} kemudian akan disimpan dalam dokumen berupa \textit{matrix traceability}.
-Tujuan dari test ini adalah membandingkan apakah model arsitektur microservice memberikan performa yang lebih baik apabila dibandingkan dengan arsitektur monolitik.
-\newpage
+\section{Perbandingan Performa}
+Perbandingan yang akan dilakukan adalah dengan memberikan analisa dan bukti dari bagaimana sistem bekerja pada kedua jenis arsitektur untuk setiap faktor uji yang terdiri dari : Performa, tingkat availabilitas, tingkat stabilitas, skalabilitas, dan reliabilitas dari sistem.
+Tujuan dari test ini adalah membandingkan apakah model arsitektur microservice memberikan performa yang lebih baik apabila dibandingkan dengan arsitektur monolitik untuk kasus rawat jalan pada perangkat lunak Sistem Informasi Manajemen Rumah Sakit Apertura .
 
 \section{Konsumer Webservice}
 Konsumer adalah pihak yang melakukan pemanggilan terhadap webservice
