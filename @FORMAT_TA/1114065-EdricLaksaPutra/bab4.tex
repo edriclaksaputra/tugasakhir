@@ -1,5 +1,5 @@
 %-----------------------------------------------------------------------------%
-\chapter{IMPLEMENTASI DAN PERBANDINGAN}
+\chapter{IMPLEMENTASI DAN PENGUJIAN}
 %-----------------------------------------------------------------------------%
 
 %
@@ -8,9 +8,8 @@ Pada bab ini akan menjelaskan tentang pengimplementasian dan pengujian terhadap 
 \section{Lingkungan Aplikasi}
 Dalam aplikasi terbagi menjadi dua bagian, yaitu lingkungan implementasi perangkat keras dan perangkat lunak. Di dalam penelitian ini, perangkat keras yang digunakan adalah:
 \begin{enumerate}[leftmargin=*]
-	\item Asus A45A
-	\item Processor Intel i3-2370M CPU 2.40GHz
-	\item RAM 6 GB.
+	\item Processor Intel Core i3-4150 CPU 3.50GHz Dual Core
+	\item RAM 8 GB.
 \end{enumerate}
 
 Spesifikasi perangkat lunak yang digunakan untuk pengembangan sistem adalah:
@@ -21,7 +20,7 @@ Spesifikasi perangkat lunak yang digunakan untuk pengembangan sistem adalah:
 \end{enumerate}
 
 \section{Daftar \textit{Project}, \textit{Class} dan \textit{Method}}
-Pada bagian ini akan dijelaskan mengenai \textit{Project}, \textit{class} dan \textit{method} yang digunakan dalam pengembangan sistem analisis.
+Pada bagian ini akan dijelaskan mengenai \textit{Project}, \textit{class} dan \textit{method} yang terbentuk pada \textit{prototype} sistem Apertura dengan arsitektur microservice.
 \subsection{\textit{Project} Customer}
 \textit{Project Customer} berisi susunan \textit{class} pembentuk \textit{webservice customer}. Dalam project ini terdapat 4 buah \textit{package} yang berfungsi untuk memisahkan \textit{class} sesuai dengan fungsinya masing-masing. Ke empat \textit{package} ini yaitu \textit{package} controller yang berisi method-method yang dijalankan pada \textit{web service}, \textit{package} model yang berisi entitas dan tabel, \textit{package} repository yang menghubungkan entitas di \textit{package} model dengan database, dan \textit{package} service yang menginisialisasi \textit{webservice} yang akan terbentuk. Pada bagian ini akan dijelaskan mengenai \textit{class} dan \textit{method} yang digunakan pada pengembangan \textit{ webservice customer}:
 \subsubsection{\textit{Package} Controller}
@@ -1742,10 +1741,29 @@ Pada bagian ini akan dijelaskan mengenai \textit{Project}, \textit{class} dan \t
 	\end{adjustbox}
 \end{table}
 \section{Perbandingan Model Arsitektur Microservice dan Monolitik}
-Pada bagian ini akan dilakukan perbandingan terhadap kedua jenis model arsitektur. Perbandingan dilakukan dengan memberikan analisa dan bukti dari bagaimana sistem bekerja pada kedua jenis arsitektur untuk setiap faktor uji yang terdiri dari : Performa, tingkat availabilitas, tingkat stabilitas, skalabilitas, dan reliabilitas dari sistem.\\
+Pada bagian ini akan dilakukan pengujian dalam bentuk perbandingan terhadap kedua jenis model arsitektur. Perbandingan dilakukan dengan memberikan analisa dari cara sistem bekerja pada kedua jenis arsitektur untuk setiap parameter uji yang terdiri dari : tingkat performa, availabilitas, skalabilitas, dan reliabilitas dari sistem.
+
+Setiap analisis perbandingan arsitektur didasarkan oleh kasus nyata yang benar terjadi pada perangkat lunak Apertura dalam kurun waktu 1 tahun terakhir. Hal ini dimaksudkan untuk melihat apakah arsitektur microservice benar dapat menjadi solusi untuk setiap tantangan yang dihadapi perangkat lunak Apertura yang mengimplementasi desain arsitektur monolitik.
 Berikut hasil analisa perbandingan dari kedua arsitektur :
 \begin{enumerate}[leftmargin=*]
-	\item Perbandingan Performa. Kemampuan sistem untuk menangani masalah yang diberikan dan seberapa efisien sistem menggunakan sumber daya yang tersedia (seperti \textit{hardware} dan komponen infrastruktur lainnya). 
+	\item Tingkat Reliabilitas. Sebuah sistem yang \textit{reliable} harus dapat memberikan kinerja yang dapat dipercaya oleh \textit{clients} dan ekosistem tempat sistem itu berada. Bagi seorang anggota pengembang, tingkat reliabilitas juga berpengaruh dalam tahap \textit{development} dan \textit{deployment}, tim pengembang harus memastikan sistem yang mereka buat dapat \textit{reliable} bukan hanya dari sudut pandang mereka saja, namun juga untuk anggota pengembang lain
+	\begin{table}[H]
+		\small
+		\begin{adjustbox}{width=1\textwidth}
+			\begin{tabular}{| p {2 cm} | p {10 cm} |}
+				\hline
+				Arsitektur & Perbandingan Tingkat Reliabilitas\\
+				\hline
+				\textbf{Monolitik} & Salah satu tantangan yang dihadapi pada arsitektur Apertura adalah banyaknya fitur yang terhambat untuk dikembangkan. Masalah yang menjadi alasan untuk kasus ini adalah banyaknya \textit{code} yang masih belum seragam pada sistem. Akibatnya, \textit{developer} Apertura menjadi ragu untuk mengembangkan fitur atau \textit{code} buatannya mereka sendiri karena dikhawatirkan dapat menyebabkan keseluruhan sistem \textit{broken} dan berujung pada banyaknya \textit{bug} pada sistem.
+				
+				Hal ini apabila ditelaah lebih lanjut dikarenakan model \textit{development} yang terikat dengan keterbatasan desain monolitik itu sendiri yang disebabkan tingginya level \textit{coupling}. Kelemahan tingkat \textit{coupling} yang tinggi menjadikan perubahan yang terjadi pada sebuah modul berdampak pada modul lainnya, menjadikan tim pengembang tidak dapat bekerja secara mandiri dan fokus pada modulnya masing-masing.\\
+				\hline
+				\textbf{Microservice} & Tantangan yang dihadapi oleh perangkat Apertura dapat dapat diperbaiki dengan menerapkan konsep microservice. Ditinjau dari kelebihan arsitektur microservice yang menjadikan sistem lebih mandiri dan \textit{less coupled} mendukung lingkungan \textit{development} untuk menjadi lebih mandiri dan fokus pada modul masing-masing, sehingga perubahan yang tim pengembang lakukan dalam suatu modul tidak akan bertentangan dengan modul lain.\\
+				\hline
+			\end{tabular}
+		\end{adjustbox}
+	\end{table}
+	\item Perbandingan Performa. Kemampuan sistem untuk menangani masalah yang diberikan dan seberapa efisien sistem menggunakan sumber daya yang tersedia (seperti \textit{hardware} dan komponen infrastruktur lainnya) serta penanganan dan pemrosesan tugas yang tepat.
 	\begin{table}[H]
 		\small
 		\begin{adjustbox}{width=1\textwidth}
@@ -1753,69 +1771,48 @@ Berikut hasil analisa perbandingan dari kedua arsitektur :
 				\hline
 				Arsitektur & Perbandingan Performa\\
 				\hline
-				\textbf{Monolitik} & Sistem Apertura dengan desain arsitektur monolitik membutuhkan 1 buah server berkapasitas ... GB dengan ... VRAM dan kecepatan core sampai ... Biaya yang dibutuhkan untuk infrastruktur sistem Apertura adalah ... Dengan spesifikasi \textit{hardware} tersebut, sistem Apertura dapat bekerja dengan baik. Sebagai contoh sistem Apertura dapat membuka halaman \textit{Human Resources} dengan banyak data 200 data dengan kecepatan ... detik.\\
+				\textbf{Monolitik} & Contoh kasus yang dapat dijadikan parameter perbandingan performa adalah ketika sistem dipaksa untuk menangani \textit{request} yang banyak dan setiap \textit{request} ini meminta data dari berbagai modul. Pada arsitektur monolitik hanya terdapat 1 buah \textit{handler} untuk menangani \textit{request} tersebut, dikarenakan keseluruhan sistem disimpan dalam 1 buah \textit{server} tunggal.
+				
+				Kelebihan dari model ini adalah kemampuan sistem untuk memberikan \textit{response} dengan lebih cepat dan hemat sumber daya namun kelemahan dari model ini adalah cenderung terjadi \textit{bottleneck effect} pada sistem ketika menangani \textit{request} yang banyak.\\
 				\hline
-				\textbf{Microservice} & Dengan menggunakan arsitektur microservice, modul-modul layanan dibagi menjadi 4 buah service yang akan di\textit{deploy} pada ... server masing-masing dengan kapasitas ... GB, ... VRAM dengan kecepatan core ... Biaya tiap \textit{server} yang dibutuhkan adalah... Dengan spesifikasi \textit{hardware} tersebut, sistem dipastikan dapat bekerja dengan baik. Sebagai contoh sistem dengan desain microservice dapat membuka halaman \textit{Human Resources} dengan banyak data 200 data dengan kecepatan 2 detik. Namun dengan membutuhkan lebih dari 1 \textit{server}, akan meningkatkan \textit{cost} yang dibutuhkan, juga biaya perawatan dan \textit{maintenance}.\\
+				\textbf{Microservice} & Masalah \textit{bottleneck effect} ini dapat lebih teratasi pada arsitektur microservice, dikarenakan antrian \textit{request} dapat diurai sesuai dengan modul yang akan memberikan \textit{response} balasan, menjadikan sistem lebih \textit{responsive} terhadap \textit{request} yang banyak.
+				
+				Namun kelemahan model ini adalah lebih sulit untuk melakukan \textit{join} data dengan service lain. Solusi untuk dapat menangani kelemahan ini adalah melakukan join pada level \textit{programming}, dimana data hasil \textit{response} di load pada sistem, kemudian melakukan \textit{in-memory join}. \textit{In-memory join} tidak akan lebih cepat dari metode \textit{query} langsung pada database seperti di model monolitik, namun selisih waktu yang dihasilkan tidak terlampau jauh sehingga metode ini dapat dijadikan solusi yang baik.\\
 				\hline
 			\end{tabular}
 		\end{adjustbox}
 	\end{table}
-	\item Tingkat Stabilitas. Sistem harus dipastikan selalu memberikan kondisi yang aman untuk tahap \textit{development, deployment}, sampai tahap pengenalan. 
+	\item Tingkat Availabilitas. Availabilitas menjadi salah satu parameter yang penting untuk mengukur seberapa baik sistem bekerja. Apabila sebuah sistem memiliki tingkat \textit{downtime} yang rendah, maka fitur-fitur dalam sistem tersebut dapat bekerja dengan optimal.
+	\begin{table}[H]
+		\small
+		\begin{adjustbox}{width=1\textwidth}
+			\begin{tabular}{| p {2 cm} | p {10 cm} |}
+				\hline
+				Arsitektur & Perbandingan Tingkat Availabilitas\\
+				\hline
+				\textbf{Monolitik} & Untuk membandingkan seberapa besar tingkat availabilitas dari sistem Apertura, maka akan diangkat sebuah skenario masalah yang pernah terjadi pada sistem, yaitu ketika sistem diharuskan untuk sementara waktu berada pada \textit{status down} untuk melakukan \textit{maintenance} atau perbahan pada \textit{database}. Dalam penelitian ini, modul-modul yang tercipta untuk jasa rawat jalan rumah sakit ada 4 modul, yaitu modul \textit{customer, human resources, medical unit,} dan modul \textit{outpatient}. Total fitur yang ada dari semua modul tersebut berjumlah 13 fitur.
+				
+				(\textit{Customer}: Menampilkan data pasien dan mencari pasien. \textit{Human Resources}: Menampilkan data dokter, edit data dokter, dan mencari dokter. \textit{Medical Unit}: Menampilkan data \textit{medical unit}, menambah \textit{medical unit} baru, menghapus \textit{medical unit}, dan mencari \textit{medical unit}. \textit{Outpatient}: Menampilkan, menambah, menghapus, dan mencari data rawat jalan.)
+				
+				Dalam arsitektur monolitik, \textit{status down} yang terjadi mengharuskan sistem untuk tidak berfungsi sementara, yang dimana berarti semua fitur tidak akan berfungsi seluruhnya dikarenakan modul-modul bergantung pada 1 buah database dalam sebuah \textit{server} terpusat.
+				\\
+				\hline
+				\textbf{Microservice} & Pada model arsitektur microservice, \textit{status down} yang terjadi tidak akan menyebabkan keseluruhan fitur menjadi lumpuh. Misalnya apabila mengharuskan terjadi \textit{down} pada modul rawat jalan, maka fitur menampilkan, menambah, menghapus, dan mencari data rawat jalan akan tidak dapat berfungsi, namun 9 fitur yang lain seperti melihat unit medis bertugas, melihat data dokter dan data pasien akan tetap berjalan dengan normal. Menjadikan sistem lebih \textit{high availability}.\\
+				\hline
+			\end{tabular}
+		\end{adjustbox}
+	\end{table}
+	\item Skalabilitas. Kemampuan sistem untuk beradaptasi terhadap perubahan yang terjadi. Sebuah sistem yang gagal untuk beradaptasi terhadap perubahan akan meningkatkan tingkat latensi, tingkat availabilitas yang rendah, bahkan sampai pada meningkatkan resiko \textit{crash}. Sistem yang skalabilitasnya tinggi akan menjadi sistem yang siap bertumbuh dan menjadi lebih besar.
 		\begin{table}[H]
 		\small
 		\begin{adjustbox}{width=1\textwidth}
 			\begin{tabular}{| p {2 cm} | p {10 cm} |}
 				\hline
-				Arsitektur & Perbandingan Performa\\
+				Arsitektur & Perbandingan Skalabilitas Sistem\\
 				\hline
-				\textbf{Monolitik} & Sistem Apertura memberikan performa yang stabil dari tahap pengembangan sampai dengan tahap \textit{deployment}. Sistem sangat jarang mengalami masalah sistem yang menyebabkan sistem mengalami \textit{crash}. \\
+				\textbf{Monolitik} & Skenario yang dapat diangkat untuk melihat seberapa besar tingkat skalabilitas dari perangkat lunak Apertura adalah dengan menganalisa bagaimana sistem akan berubah saat sistem menjadi besar. Dalam arsitektur monolitik, sistem dapat direplikasi menjadi 2 buah monolitik yang identik. Kegunaan dari replikasi ini adalah mengantisipasi apabila sistem pertama tidak dapat atau mulai turun performanya ketika sistem bertambah besar, maka sistem replika siap membantu. Sebagai contoh sistem pertama mulai sibuk dengan pendaftaran antrian rawat jalan yang baru, maka sistem replika dapat membantu untuk menangani permintaan melihat unit medis bertugas atau melihat data dokter. Namun kelemahan dari metode ini pada monolitik adalah replikasi membutuhkan biaya yang besar dikarenakan sistem monolitik yang begitu besar dan tidak terpisahkan.\\
 				\hline
-				\textbf{Microservice} & Dengan perancangan sistem yang baru, prototype dari desain microservice memberikan performa yang stabil. Service yang dijalankan pada server sangat jarang mengalami masalah dan \textit{RESTul API} dapat menangani \textit{request} dan \textit{response} dengan baik dan stabil.\\
-				\hline
-			\end{tabular}
-		\end{adjustbox}
-	\end{table}
-	\item Tingkat Reliabilitas. Sebuah sistem yang \textit{reliable} harus dapat memberikan data yang dapat dipercaya oleh \textit{clients} dan ekosistem tempat sistem itu berada. \textit{Request} dan \textit{response} harus sampai tepat pada tujuan dan \textit{error} harus dapat diatasi secara benar dan aman.
-		\begin{table}[H]
-		\small
-		\begin{adjustbox}{width=1\textwidth}
-			\begin{tabular}{| p {2 cm} | p {10 cm} |}
-				\hline
-				Arsitektur & Perbandingan Performa\\
-				\hline
-				\textbf{Monolitik} & Sistem Apertura menampilkan dan menerima data dengan baik. Namun arsitektur monolitik seperti Apertura menyimpanan data pada satu buah server terpusat. Cara penyimpanan ini memiliki resiko kerusakan data yang lebih besar, juga memiliki \textit{issue} keamanan yang lebih tinggi. Misalnya apabila sistem keamanan database ditembus, maka informasi pada semua data dapat dirusak atau terancam.\\
-				\hline
-				\textbf{Microservice} & Dengan menggunakan arsitektur microservice, \textit{prototype} dapat menampilkan dan menerima data degan baik. Perancangan microservice yang membagi server menjadi lebih dari 1 memiliki keunggulan, yaitu tingkat keamanan data yang lebih tinggi. Misalnya dengan menyimpan data-data penting seperti data personal terpisah dari data umum, maka data personal akan tetap aman apabila database penyimpanan data umum mengalami kerusakan.\\
-				\hline
-			\end{tabular}
-		\end{adjustbox}
-	\end{table}
-	\item Skalabilitas. Kemampuan sistem untuk menangani permintaan yang besar dalam satu waktu bersamaan. Untuk dapat memastikan bahwa sistem \textit{scalable}, perlu diketahui seberapa besar ukuran sistem secara kuantitatif (misal seberapa banyak \textit{request} per detik yang dapat ditangani sistem).
-		\begin{table}[H]
-		\small
-		\begin{adjustbox}{width=1\textwidth}
-			\begin{tabular}{| p {2 cm} | p {10 cm} |}
-				\hline
-				Arsitektur & Perbandingan Performa\\
-				\hline
-				\textbf{Monolitik} & Sistem Apertura dibuat dalam bentuk aplikasi \textit{desktop} dan dapat menangani permintaan data dengan baik. Namun apabila \textit{request} menjadi banyak, maka akan terdapat masalah \textit{bottle neck} pada sistem dikarenakan semua \textit{request} dilakukan pada 1 buah \textit{handler}, hal ini dapat mempengaruhi performa dari sistem.\\
-				\hline
-				\textbf{Microservice} & Dengan membagi modul menjadi 4 bagian dan tiap modul di \textit{deploy} pada server yang berbeda, prototype dengan arsitektur microservice dapat menangani permintaan lebih cepat apabila \textit{request} per detik lebih tinggi karena tiap permintaan di setiap modul akan di \textit{handle} pada \textit{server}nya masing-masing.\\
-				\hline
-			\end{tabular}
-		\end{adjustbox}
-	\end{table}
-	\item Tingkat Availabilitas. Perbandingan waktu \textit{downtime} dan \textit{uptime} dari sistem. \textit{Downtime} adalah total waktu aplikasi tidak bekerja sedangkan \textit{uptime} adalah total waktu sistem bekerja dengan baik. Tingkat availabilitas dihitung dari \textit{uptime} dibagi dengan \textit{downtime} + \textit{uptime}. Tingkat availabilitas dapat digunakan untuk melihat seberapa baik sistem bekerja.
-		\begin{table}[H]
-		\small
-		\begin{adjustbox}{width=1\textwidth}
-			\begin{tabular}{| p {2 cm} | p {10 cm} |}
-				\hline
-				Arsitektur & Perbandingan Performa\\
-				\hline
-				\textbf{Monolitik} & Untuk membandingkan seberapa besar tingkat availabilitas dari sistem Apertura, maka akan diangkat sebuah skenario masalah yang pernah terjadi pada sistem, yaitu kemampuan sistem menangani kondisi dimana sistem harus \textit{down} beberapa saat karena terjadi \textit{maintenance} yang harus dilakukan. Dalam desain monolitik, maka keseluruhan fitur dan halaman dalam sistem menjadi tidak dapat diakses. Untuk rawat jalan, misal terdapat 
-				\hline
-				\textbf{Microservice} & Dengan membagi modul dan melakukan \textit{deployment} pada ... server maka akan memperbesar presentase availabilitas dari keseluruhan sistem. Apabila sebuah server mengalami \textit{down}, modul lain yang terdapat di \textit{server} lain akan tetap dapat dijalankan dengan baik, misalnya modul rawat jalan \textit{down}, sistem tetap dapat melihat unit medis yang bertugas, melihat data dokter dan pasien. Prototype dengan bentuk development \textit{web application} memberikan kelebihan untuk dapat lebih \textit{available} untuk digunakan pada \textit{platform} lain.\\
+				\textbf{Microservice} & Sifat microservice yang 'moduler' baik sebagai solusi untuk mendukung sistem ketika sistem butuh beradaptasi. Service yang cenderung sibuk dapat direplikasi dan diakses menggunakan alamat API yang berbeda dan disimpan pada databasenya masing-masing. Misalnya untuk kasus rawat jalan, pendaftaran dapat menggunakan 2 service rawat jalan yang berbeda halaman. Lalu data dari 2 service tersebut di \textit{load} dan ditampilan pada halaman rawat jalan kemudian \textit{sorting} berdasarkan waktu pendaftaran. Kelebihan yang dirasakan adalah replikasi tidak mengharuskan dilakukan pada keseluruhan sistem, melainkan hanya modul yang lebih padat.\\
 				\hline
 			\end{tabular}
 		\end{adjustbox}

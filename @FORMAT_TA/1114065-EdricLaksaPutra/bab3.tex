@@ -51,7 +51,6 @@ Pada bagian ini akan dijelaskan fungsi dan kelas-kelas dari setiap modul dalam k
 	\item \textbf{Modul Pasien.} Modul pasien berfungsi untuk menyimpan, memperbaharui, pencarian, dan menampilkan data pasien. Data pasien juga meliputi detail lengkap dari data keluarga atau kerabat yang menjadi penanggung jawab pasien. Kelas dari modul pasien adalah pasien itu sendiri.
 	\item \textbf{Modul \textit{Human Resource}.} \textit{Human Resource} adalah modul yang mengelola semua pengguna dan pegawai dalam rumah sakit, modul ini dapat disebut juga sebagai modul karyawan. Beberapa contoh yang termasuk dalam modul ini adalah dokter, bidan, dan perawat. Modul ini menjadi modul dasar yang dibutuhkan modul lain, karena terkait pencatatan pengguna yang melakukan input data. Kelas-kelas dari modul ini meliputi dokter, bidan, dan perawat. Namun dalam contoh kasus rawat jalan yang akan diangkat, kelas yang diambil hanya dokter saja.
 	\item \textbf{Modul Unit Medis.} Unit medis dari rumah sakit terdiri dari unit medis spesialis anak, spesialis jantung, dan spesialis penyakit dalam. Tiap unit medis memiliki satu atau lebih dokter spesialis dari bidang unit medis tersebut. Pasien akan ditangani oleh dokter yang bertugas di unit medis tersebut.
-	\item \textbf{Modul Rekam Medis.} Rekam medis bertugas mencatat semua riwayat medis milik pasien yang meliputi hasil diagnosa, resep dan obat yang pernah diberikan, alergi, penyakit kronis, riwayat tindakan atau perawatan medis, dan hasil pemeriksaan penunjang. Pemeriksaan penunjang dapat berupa banyak aksi, tergantung apa yang dibutuhkan dokter. Pemeriksaan penunjang antara lain seperti radiologi, tes darah, tensi tekanan, dan lain lain. Fungsi dari pemeriksaan penunjang adalah menunjang ditegakannya diagnosis.
 	\item \textbf{Modul Rawat Jalan.} Rawat jalan adalah pelayanan medis kepada pasien untuk tujuan perawatan tanpa mengharuskan pasien tersebut untuk menginap. Rawat jalan menjadi perantara interaksi dari pasien dengan unit medis, rawat jalan menyimpan data perawatan yang kemudian akan disimpan dalam rekam medis. Hasil dari rawat jalan akan kemudian dibutuhkan oleh bagian pembayaran dan juga farmasi.
 \end{enumerate}
 
@@ -124,17 +123,6 @@ Berikut adalah rancangan untuk \textit{webservice} rawat jalan digambarkan mengg
 	\end{minipage}
 \end{adjustbox}
 
-\subsection{Perancangan Service \textit{Medical Records}}
-Modul \textit{medical records} menyimpan reman tindakan medis yang dilakukan untuk \textit{customer} dan oleh siapa tindakan medis tersebut dilakukan. Maka dari itu modul rekam medis juga membutuhkan dua \textit{value object} yang merepresentasikan objek \textit{customer} dan \textit{employee}.\\
-Berikut adalah rancangan untuk \textit{webservice medical records} digambarkan menggunakan \textit{class diagram}
-
-\begin{adjustbox}{width=1\textwidth}
-	\begin{minipage}{\linewidth}
-		\framebox[\textwidth]{\includegraphics[width=12cm]{images/medrec.png}}	
-		\captionof{figure}{Rancangan service unit medis}.
-	\end{minipage}
-\end{adjustbox}
-
 \subsection{Pemilihan Model Penyimpanan Data}
 Setelah kelas-kelas service terbentuk, hal berikutnya yang harus diperhatikan adalah pemodelan manajemen data. Apabila ditinjau dari service yang dihasilkan, maka akan lebih baik menerapkan pattern database per \textit{service}, dimana satu service memiliki sebuah set database yang hanya bisa diakses oleh service tersebut dan tidak bisa saling mengakses database service yang lain.
 \subsection{Pemilihan Komunikasi Antar Service}
@@ -142,8 +130,8 @@ Setelah membuat service dan database yang digunakan, hal berikutnya adalah membu
 \subsection{Rancangan Deployment}
 Model \textit{deployment} yang akan digunakan adalah \textit{multiple service per host}, dikarenakan lebih cocok dalam kasus penelitian yang hanya mengambill proses rawat jalan. Semua set service yang terbentuk akan di \textit{upload} dalam beberapa server agar dapat membuktikan tercapainya \textit{high availability}. Apertura sendiri memiliki 2 buah server aktif yang dapat digunakan ketika proses \textit{deployment}, serta server lainnya dapat menggunakan mesin pribadi untuk melakukan pemanggilan service dari server lain.
 \section{Perbandingan Performa}
-Perbandingan yang akan dilakukan adalah dengan memberikan analisa dan bukti dari bagaimana sistem bekerja pada kedua jenis arsitektur untuk setiap faktor uji yang terdiri dari : Performa, tingkat availabilitas, tingkat stabilitas, skalabilitas, dan reliabilitas dari sistem.
-Tujuan dari test ini adalah membandingkan apakah model arsitektur microservice memberikan performa yang lebih baik apabila dibandingkan dengan arsitektur monolitik untuk kasus rawat jalan pada perangkat lunak Sistem Informasi Manajemen Rumah Sakit Apertura .
+Perbandingan yang akan dilakukan adalah dengan memberikan analisa dan bukti dari bagaimana sistem bekerja pada kedua jenis arsitektur untuk setiap faktor uji yang terdiri dari : Performa, tingkat availabilitas, skalabilitas, dan reliabilitas dari sistem.
+Tujuan dari test ini adalah membandingkan apakah model arsitektur microservice memberikan performa yang lebih baik apabila dibandingkan dengan arsitektur monolitik untuk kasus rawat jalan pada perangkat lunak Sistem Informasi Manajemen Rumah Sakit Apertura untuk kasus-kasus yang benar pernah terjadi dalam kurun waktu 1 tahun terakhir.
 
 \section{Konsumer Webservice}
 Konsumer adalah pihak yang melakukan pemanggilan terhadap webservice

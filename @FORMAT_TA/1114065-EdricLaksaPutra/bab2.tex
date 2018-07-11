@@ -202,13 +202,12 @@ Uji kelayakan arsitektur microservice menurut Martin Fowler adalah dengan melaku
 \end{adjustbox}\\
 
 Tujuan utama dari testing yang pertama adalah memastikan bahwa fungsi bisnis dari arsitektur yang baru sudah memenuhi \textit{requirement} yang sama dengan arsitektur monolitik sebelumnya.
-\subsection{Perbandingan Arsitektur}
-Perbandingan arsitektur bertujuan untuk membuktikan arsitektur microservice yang dirancang akan memberikan hasil yang lebih baik dari arsitektur sebelumnya. Menurut Susan J. Fowler pada bukunya yang berjudul Microservices in Production "Standard Principles and Requirements", perbandingan akan dilakukan dengan mengacu pada 5 faktor, yaitu performa, stabilitas, availabilitas, reliabilitas, dan skalabilitas \cite{10} .
+\subsection{Pengujian Arsitektur}
+Pengujian akan dilakukan dengan membandingkan ke dua jenis arsitektur yang bertujuan untuk membuktikan arsitektur microservice yang dirancang akan memberikan hasil yang lebih baik dari arsitektur sebelumnya. Menurut Susan J. Fowler pada bukunya yang berjudul Microservices in Production "Standard Principles and Requirements", perbandingan akan dilakukan dengan mengacu pada 4 faktor, yaitu performa, availabilitas, reliabilitas, dan skalabilitas \cite{10} .
 \begin{enumerate}[leftmargin=*]
-	\item \textit{Performa}. Kemampuan sistem untuk menangani masalah yang diberikan dan seberapa efisien sistem menggunakan sumber daya yang tersedia (seperti \textit{hardware} dan komponen infrastruktur lainnya). 
-	\item \textit{Stabilitas}. Sistem harus dipastikan selalu memberikan kondisi yang aman untuk tahap \textit{development, deployment}, sampai tahap pengenalan. 
-	\item \textit{Availabilitas}. Perbandingan waktu \textit{downtime} dan \textit{uptime} dari sistem. \textit{Downtime} adalah total waktu aplikasi tidak bekerja sedangkan \textit{uptime} adalah total waktu sistem bekerja dengan baik. Tingkat availabilitas dihitung dari \textit{uptime} dibagi dengan \textit{downtime} + \textit{uptime}. Tingkat availabilitas dapat digunakan untuk melihat seberapa baik sistem bekerja.
-	\item \textit{Reliabilitas}. Sebuah sistem yang \textit{reliable} harus dapat memberikan data yang dapat dipercaya oleh \textit{clients} dan ekosistem tempat sistem itu berada. \textit{Request} dan \textit{response} harus sampai tepat pada tujuan dan \textit{error} harus dapat diatasi secara benar dan aman.
+	\item \textit{Performa}. Kemampuan sistem untuk menangani masalah yang diberikan dan seberapa efisien sistem menggunakan sumber daya yang tersedia (seperti \textit{hardware} dan komponen infrastruktur lainnya) serta penanganan dan pemrosesan tugas yang tepat. 
+	\item \textit{Availabilitas}. Availabilitas menjadi salah satu parameter yang penting untuk mengukur seberapa baik sistem bekerja. Apabila sebuah sistem memiliki tingkat \textit{downtime} yang rendah, maka fitur-fitur dalam sistem tersebut dapat bekerja dengan optimal.
+	\item \textit{Reliabilitas}. Sebuah sistem yang \textit{reliable} harus dapat memberikan kinerja yang dapat dipercaya oleh \textit{clients} dan ekosistem tempat sistem itu berada. Bagi seorang anggota pengembang, tingkat reliabilitas juga berpengaruh dalam tahap \textit{development} dan \textit{deployment}, tim pengembang harus memastikan sistem yang mereka buat dapat \textit{reliable} bukan hanya dari sudut pandang mereka saja, namun juga untuk anggota pengembang lain.
 	\item \textit{Skalabilitas}. Kemampuan sistem untuk menangani permintaan yang besar dalam satu waktu bersamaan. Untuk dapat memastikan bahwa sistem \textit{scalable}, perlu diketahui seberapa besar ukuran sistem secara kuantitatif (misal seberapa banyak \textit{request} per detik yang dapat ditangani sistem).
 \end{enumerate}
 \section{Tinjauan Studi}
