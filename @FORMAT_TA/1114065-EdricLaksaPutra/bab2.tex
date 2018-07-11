@@ -207,7 +207,7 @@ Perbandingan arsitektur bertujuan untuk membuktikan arsitektur microservice yang
 \begin{enumerate}[leftmargin=*]
 	\item \textit{Performa}. Kemampuan sistem untuk menangani masalah yang diberikan dan seberapa efisien sistem menggunakan sumber daya yang tersedia (seperti \textit{hardware} dan komponen infrastruktur lainnya). 
 	\item \textit{Stabilitas}. Sistem harus dipastikan selalu memberikan kondisi yang aman untuk tahap \textit{development, deployment}, sampai tahap pengenalan. 
-	\item \textit{Availabilitas}. Waktu \textit{downtime} yang dibutuhkan ketika ingin mengeluarkan versi terbaru dari microservice lebih sedikit dibandingkan monolitik.
+	\item \textit{Availabilitas}. Perbandingan waktu \textit{downtime} dan \textit{uptime} dari sistem. \textit{Downtime} adalah total waktu aplikasi tidak bekerja sedangkan \textit{uptime} adalah total waktu sistem bekerja dengan baik. Tingkat availabilitas dihitung dari \textit{uptime} dibagi dengan \textit{downtime} + \textit{uptime}. Tingkat availabilitas dapat digunakan untuk melihat seberapa baik sistem bekerja.
 	\item \textit{Reliabilitas}. Sebuah sistem yang \textit{reliable} harus dapat memberikan data yang dapat dipercaya oleh \textit{clients} dan ekosistem tempat sistem itu berada. \textit{Request} dan \textit{response} harus sampai tepat pada tujuan dan \textit{error} harus dapat diatasi secara benar dan aman.
 	\item \textit{Skalabilitas}. Kemampuan sistem untuk menangani permintaan yang besar dalam satu waktu bersamaan. Untuk dapat memastikan bahwa sistem \textit{scalable}, perlu diketahui seberapa besar ukuran sistem secara kuantitatif (misal seberapa banyak \textit{request} per detik yang dapat ditangani sistem).
 \end{enumerate}

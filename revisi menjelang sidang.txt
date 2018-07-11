@@ -1,0 +1,14 @@
+1. skenario availability : misal db down dan di update, maka berapa fitur yang 
+terpaksa dihentikan.
+dibandingkan dengan MS
+
+2. performa bisa menggunakan skenario request yang banyak tiba2, bottleneck. join performa join.
+
+3. reliabilitas : tentang code program belum seragam. menjadi penghabat pengembangan fitur.
+karena developer takut menyebabkan aplikasi menjadi broken dan menyebabkan down. hal ini
+disebabkan developer mengadopsi arsitektu mono, seandainya micro, tidak akan menjadi penghalang
+
+4 skalabilitas :  apa yang mono bisa lakukan untuk menangani hal itu ?? replikasi, mahal, boros ruang
+MS juga replikasi cuman ga separah mono
+
+maintenability index (kenny)
