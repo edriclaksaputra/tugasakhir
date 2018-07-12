@@ -212,34 +212,22 @@ Pengujian akan dilakukan dengan membandingkan ke dua jenis arsitektur yang bertu
 \end{enumerate}
 \section{Tinjauan Studi}
 \begin{small}
-	\begin{longtable}{@{\extracolsep{\fill}}|p{0.5cm}|p{2cm}|p{2cm}|p{1cm}|p{3.70cm}|}
+	\begin{longtable}{@{\extracolsep{\fill}}|p{0.5cm}|p{2cm}|p{2cm}|p{1cm}|p{3.70cm}|p{3.70cm}|}
 		\caption{Tabel Tinjauan Studi}\\
 		\hline
 		\textbf{No } & \textbf{Peneliti} & \textbf{Judul} & \textbf{Tahun
-		} & \textbf{Konsep}\\
+		} & \textbf{Objektif} & \textbf{Hasil}\\
 		\hline
 		\endhead
-		1 & Sam Newman & \textit{Building Microservice} & 2015 & Menjelaskan pendekatan yang paling tepat untuk membangun service yang saling berkolaboratif dan memberi panduan untuk mengintegrasikan teknologi agar menjadi padu dengan service yang dibangun.\\
+		1 &  Indra Yatini , 2)F. Wiwiek Nurwiyati, 3)Rini & APLIKASI CHATTING AKAKOM CAREER CENTER & 2017 & Perancangan aplikasi \textit{chatting} berbasis arsitektur microservice & Aplikasi berbasis arsitektur microservice memungkinkan untuk dikembangkan, dipantau, dan digunakan secara \textit{independent}, aplikasi ini juga dapat membantu untuk mendapatkan informasi dan melakukan sebuah diskusi tentang lowongan pekerjaan, Aplikasi ini dapat di kembangkan menjadi versi \textit{mobile}\\
 		\hline
-		2 &  Susan J. Fowler & \textit{Microservices in Production} & 2017 & Menjelaskan standar dan goal yang harus dicapai dari perancangan microservice. Standar yang harus dipenuhi tersebut terdiri dari performa, stabilitas, availabilitas, reliabilitas, dan skalabilitas. \\
-		\hline
-		3 & K. Siva Prasad Reddy & \textit{Beginning
-			Spring Boot 2} & 2017 & 
-		Memberikan panduan untuk membangun \textit{web service} menggunakan REST API dan bekerja dengan \textit{NoSQL database} menggunakan framework java yang bernama Spring. \\
-		\hline
-		4 & Chris Richardson  & \textit{Microservices Patterns} & 2017 & 
-		Memberikan panduan untuk melakukan migrasi sistem dari arsitektur monolitik menjadi arsitektur microservice. Menjelaskan teknologi yang dapat diintegrasikan dengan microservice dan cara implemetasinya. \\
+		2 & Heri Purnama, Indra Yatini & Aplikasi pengelolaan skripsi di STMIK AKAKOM Yogyakarta menggunakan arsitektur microservice dengan Node.js & 2016 & Membangun aplikasi pengelola dokumen menggunakan arsitektur microservice & Arsitektur memungkinkan setiap layanan untuk dikembangkan secara independent oleh tim yang difokuskan pada layanan tersebut, Service yang saling berkomunikasi adalah service yang tidak menggunakan mode GUI atau dalam hal ini berhubungan dengan penguna, Aplikasi ini diterapkan dalam private cloud dengan menggunakan node.js dan mongoDB.\\
 		\hline
 	\end{longtable}		
 \end{small}
+Pada penelitian satu, penulis mencoba mengembangkan aplikasi \textit{chatting} berbasis microservice menggunakan \textit{Node.js} dan menerapkan database \textit{noSQL} dengan \textit{MongoDB}. Aplikasi yang dirancang memiliki kelebihan untuk bekerja \textit{independent} dan lebih mudah untuk dikembangkan serta aplikasi siap untuk \textit{cross-platform development} dalam versi \textit{android}. Analisis yang digunakan dalam membangun aplikasi adalah dengan melihat bisnis proses dari aplikasi (kebutuhan perangkat lunak), arsitektur microservice menggunakan server Node.js sebagai perantara pengiriman data dan disimpan dalam database MongoDB. UI yang menjadi perantara user adalah \textit{socket.io} yang merupakan \textit{library} dari \textit{javascript} dan dijalankan di \textit{web browser} dan berkomunikasi dengan \textit{server Node.js}\cite{4}.
 
-Pada penelitian satu, Sam Newman memulai dengan memberikan pengenalan dari microservice lalu dilanjutkan dengan keuntungan dan kerugian dari arsitektur tersebut. Kemudian Sam Newman melanjutkan dengan memberikan cara untuk memodelkan service menggunakan \textit{domain-driven} desain untuk membantu analisa berpikir. Tahap selanjutnya menjelaskan integrasi teknologi yang dapat membantu perancangan desain. Pada bagian akhir Sam Newman memberikan contoh \textit{splitting}  monolitik menjadi microservice dan bagaimana \textit{deployment} dilakukan \cite{9}.
-
-Pada penelitian dua, Susan J. Fowler menjelaskan bahwa terdapat 5 standar yang menjadi parameter microservice dapat dinyatakan berhasil pada tahap \textit{production}. Ke 5 standar tersebut adalah availabilitas yang dapat ditunjukan dengan seberapa lama waktu \textit{downtime} yang terjadi pada sistem. Stabilitas yang ditunjukan dengan kestabilan dari sisi \textit{development, deployment,} dan tahap pengenalan. Reliabilitas yang dapat ditunjukan dengan proses \textit{deployment} yang terjamin, \textit{planning} dan perlindungan ketika terjadi kegagalan pada sistem dan tingkat keamanan dari segi pertukaran data. Skalabilitas yang menunjukan bahwa pertumbuhan sistem dapat didefinisikan secara kuantitatif, identifikasi sumber masalah \textit{bottlenecks}, dapat direncanakan kapasitas yang dibutuhkan sistem, dan dapat \textit{data storage} yang dapat diprediksi. Performa yang dapat dilihat dari kemampuan sistem menangani masalah yang diberikan dan seberapa efisien sistem menggunakan sumber daya yang tersedia \cite{10}.
-
-Pada penelitian tiga, \textit{Beginning Spring Boot 2} memberikan panduan dalam menggunakan salah satu \textit{framework} populer dari java yaitu Spring \textit{framework}. Pada awal panduan, penulis memberi tahu pembaca untuk menyiapkan \textit{JDK 1.8}, \textit{IDE Netbeans} atau \textit{Eclipse}, \textit{build tools} seperti \textit{maven}, dan server basis data seperti \textit{MySQL} atau \textit{PostgreSQL}. K. Siva Prasad Reddy kemudian memulai penjelasan dari apa itu \textit{Spring Boot} dan bagaimana \textit{framework} ini dapat membantu produktivitas \textit{developer}, kemudian bagaimana \textit{auto configuration} dari Spring Boot bekerja dibelakang layar, dan bagaimana membuat \textit{Spring Boot starters}. Kemudian K. Siva Prasad Reddy melanjutkan pembahasan sampai bagaimana membuat \textit{Reactive Web Application} dan membuat REST API menggunakan \textit{Spring Boot} \cite{11}.
-
-Pada \textit{chapter} pertama di penelitian empat, Chris Richardson mendeskripsikan arsitektur microservice serta kelebihan dan kekurangannya, serta bagaimana microservice dapat menyelesaikan masalah dari monolitik. \textit{Chapter} kedua menjelaskan bagaimana untuk merubah \textit{aplikasi} menjadi \textit{set of services} dengan menggunakan 2 strategi dekomposisi. \textit{Chapter} tiga menjelaskan REST API sebagai media komunikasi \textit{web service} dan bagaimana REST API bekerja. Pada \textit{chapter} terakhir Chris Richardson membahas cara \textit{deployment} microservice \cite{13}.
+Pada penelitian dua, penulis mencoba mengembangkan aplikasi pengelola dokumen skripsi menggunakan arsitektur microservice dan dikombinasikan dengan \textit{noSQL database} menggunakan MongoDB, pertukaran data yang digunakan menggunakan format XML. Penelitian bertujuan agar dapat meningkatkan keuntungan bisnis, salah satunya untuk mengembangkan aplikasi dengan lebih mudah, terlebih ketika ingin menambah fitur baru ke dalam aplikasi. Hasil dari pengembangan sistem adalah arsitektur memungkinkan layanan untuk dikembangkan secara mandiri, namun aplikasi tidak menggunakan GUI sebagai perantara dengan \textit{user}. \textit{Web service} digunakan selain untuk media komunikasi, namun juga untuk mempersiapkan aplikasi untuk dikembangkan oleh \textit{platform} lain. Format data yang dikirimkan dalam aplikasi adalah XML.\cite{16}. 
 
 \section{Objek Penelitian}
 Pada bagian ini akan dibahas objek-objek yang terkait dengan analisis penelitian.
