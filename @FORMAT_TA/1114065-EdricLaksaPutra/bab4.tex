@@ -1741,12 +1741,13 @@ Pada bagian ini akan dijelaskan mengenai \textit{Project}, \textit{class} dan \t
 	\end{adjustbox}
 \end{table}
 \section{Perbandingan Model Arsitektur Microservice dan Monolitik}
-Pada bagian ini akan dilakukan pengujian dalam bentuk perbandingan terhadap kedua jenis model arsitektur. Perbandingan dilakukan dengan memberikan analisa dari cara sistem bekerja pada kedua jenis arsitektur untuk setiap parameter uji yang terdiri dari : tingkat performa, availabilitas, skalabilitas, dan reliabilitas dari sistem.
+Pada bagian ini akan dilakukan pengujian dalam bentuk perbandingan terhadap kedua jenis model arsitektur. Perbandingan dilakukan dengan memberikan analisa dari cara sistem bekerja pada kedua jenis arsitektur seperti yang sudah dijelaskan pada subbab 2.3.2 . Parameter uji terdiri dari : tingkat performa, availabilitas, skalabilitas, dan reliabilitas dari sistem.
 
 Setiap analisis perbandingan arsitektur didasarkan oleh kasus nyata yang benar terjadi pada perangkat lunak Apertura dalam kurun waktu 1 tahun terakhir. Hal ini dimaksudkan untuk melihat apakah arsitektur microservice benar dapat menjadi solusi untuk setiap tantangan yang dihadapi perangkat lunak Apertura yang mengimplementasi desain arsitektur monolitik.
 Berikut hasil analisa perbandingan dari kedua arsitektur :
+\newpage
 \begin{enumerate}[leftmargin=*]
-	\item Tingkat Reliabilitas. Sebuah sistem yang \textit{reliable} harus dapat memberikan kinerja yang dapat dipercaya oleh \textit{clients} dan ekosistem tempat sistem itu berada. Bagi seorang anggota pengembang, tingkat reliabilitas juga berpengaruh dalam tahap \textit{development} dan \textit{deployment}, tim pengembang harus memastikan sistem yang mereka buat dapat \textit{reliable} bukan hanya dari sudut pandang mereka saja, namun juga untuk anggota pengembang lain
+	\item Tingkat Reliabilitas.
 	\begin{table}[H]
 		\small
 		\begin{adjustbox}{width=1\textwidth}
@@ -1756,9 +1757,9 @@ Berikut hasil analisa perbandingan dari kedua arsitektur :
 				\hline
 				\textbf{Monolitik} & Salah satu tantangan yang dihadapi pada arsitektur Apertura adalah banyaknya fitur yang terhambat untuk dikembangkan. Salah satu fitur yang ingin dikembangkan adalah fitur "Laporan Insiden Rumah Sakit", fitur ini berfungsi untuk mencatat insiden yang terjadi di RS, seperti kecelakaan, komplain dari pasien, kejadian tidak terduga di rumah sakit serta dampaknya. Masalah yang menjadi alasan untuk pengembangan fitur ini adalah banyaknya \textit{code} yang masih belum seragam pada sistem. Akibatnya, \textit{developer} Apertura menjadi ragu untuk mengembangkan fitur atau \textit{code} buatannya mereka sendiri karena dikhawatirkan dapat menyebabkan keseluruhan sistem \textit{broken} dan berujung pada banyaknya \textit{bug} pada sistem.
 				
-				Hal ini apabila ditelaah lebih lanjut dikarenakan model \textit{development} yang terikat dengan keterbatasan desain monolitik itu sendiri yang disebabkan tingginya level \textit{coupling}. Kelemahan tingkat \textit{coupling} yang tinggi menjadikan perubahan yang terjadi pada sebuah modul berdampak pada modul lainnya, menjadikan tim pengembang tidak dapat bekerja secara mandiri dan fokus pada modulnya masing-masing.\\
+				Solusi yang saat ini dilakukan oleh tim pengembang Apertura adalah dengan melakukan \textit{maintenance} kode secara internal. Namun \textit{maintenance} kode ini membutuhkan waktu yang tidak sebentar, sehingga pengembangan fitur baru menjadi tertunda.\\
 				\hline
-				\textbf{Microservice} & Tantangan yang dihadapi oleh perangkat Apertura dapat dapat diperbaiki dengan menerapkan konsep microservice. Dengan memisahkan \textit{table database} untuk fitur "Laporan Insiden Rumah Sakit" dari modul lain, \textit{developer} tidak perlu takut membuat sistem \textit{broken}, karena proses pengembangan terenkapsulasi dari modul lain. Hal ini ditunjang kelebihan arsitektur microservice yang menjadikan sistem lebih mandiri dan \textit{less coupled} mendukung lingkungan \textit{development} untuk menjadi lebih mandiri dan fokus pada modul masing-masing, sehingga perubahan yang tim pengembang lakukan dalam suatu modul tidak akan bertentangan dengan modul lain.
+				\textbf{Microservice} & Tantangan yang dihadapi oleh perangkat Apertura dapat dapat diperbaiki dengan menerapkan konsep microservice. Solusinya dengan mengembangkan modul '\textit{Reports}', yang salah satunya untuk fitur "Laporan Insiden Rumah Sakit", \textit{developer} tidak perlu takut membuat sistem \textit{broken}, karena proses pengembangan terenkapsulasi dari modul lain. Hal ini ditunjang kelebihan arsitektur microservice yang menjadikan sistem lebih mandiri dan \textit{less coupled} mendukung lingkungan \textit{development} untuk menjadi lebih mandiri dan fokus pada modul masing-masing, sehingga perubahan yang tim pengembang lakukan dalam suatu modul tidak akan bertentangan dengan modul lain.
 				
 				\textit{Drawback} : 
 				\begin{enumerate}[leftmargin=*]
@@ -1769,7 +1770,7 @@ Berikut hasil analisa perbandingan dari kedua arsitektur :
 		\end{adjustbox}
 	\end{table}
 	\newpage
-	\item Perbandingan Performa. Kemampuan sistem untuk menangani masalah yang diberikan dan seberapa efisien sistem menggunakan sumber daya yang tersedia (seperti \textit{hardware} dan komponen infrastruktur lainnya) serta penanganan dan pemrosesan tugas yang tepat.
+	\item Perbandingan Performa.
 	\begin{table}[H]
 		\small
 		\begin{adjustbox}{width=1\textwidth}
@@ -1784,15 +1785,33 @@ Berikut hasil analisa perbandingan dari kedua arsitektur :
 					\item Cenderung terjadi \textit{bottleneck effect} pada sistem ketika menangani \textit{request} yang banyak. Contoh kasus yang dapat dijadikan contoh adalah ketika sistem dipaksa untuk menangani \textit{request} yang banyak dalam satu waktu bersamaan. Karena pada arsitektur monolitik hanya terdapat 1 buah \textit{handler} untuk menangani \textit{request}. Seperti pada modul rawat jalan, dimana banyak \textit{user} melakukan pendaftaran di saat bersamaan pada beberapa \textit{counter} pendaftaran. Akibatnya \textit{user} yang ingin meminta jadwal unit medis bertugas harus mengantri bersamaan dengan \textit{request} pendaftaran rawat jalan, yang mengakibatkan respon dari sistem lebih lama.
 				\end{enumerate}\\
 				\hline
-				\textbf{Microservice} & Performa sistem akan menurun karena mengharuskan \textit{join} data dengan service lain. Solusi untuk dapat menangani kelemahan ini adalah melakukan join pada level \textit{programming}, dimana data hasil \textit{response} di load pada sistem, kemudian melakukan \textit{in-memory join}.
-				
-				Namun masalah \textit{bottleneck effect} dapat lebih teratasi pada arsitektur microservice, dikarenakan antrian \textit{request} dapat diurai sesuai dengan modul yang akan memberikan \textit{response} balasan, menjadikan sistem lebih \textit{responsive} terhadap \textit{request} yang banyak. Pada contoh kasus, \textit{user} yang ingin meminta jadwal unit medis bertugas tidak perlu antri dengan \textit{user} yang melakukan \textit{request} pendaftaran rawat jalan dikarena \textit{handler} modul rawat jalan dengan unit medis sudah \textit{independent}, menjadikan kinerja sistem lebih cepat.\\
-				\hline
 			\end{tabular}
 		\end{adjustbox}
 	\end{table}
 	\newpage
-	\item Tingkat Availabilitas. Availabilitas menjadi salah satu parameter yang penting untuk mengukur seberapa baik sistem bekerja. Apabila sebuah sistem memiliki tingkat \textit{downtime} yang rendah, maka fitur-fitur dalam sistem tersebut dapat bekerja dengan optimal.
+	\begin{table}[H]
+		\small
+		\begin{adjustbox}{width=1\textwidth}
+			\begin{tabular}{| p {2 cm} | p {10 cm} |}
+				\hline
+				Arsitektur & Perbandingan Performa\\
+				\hline
+				\textbf{Microservice} & Performa sistem akan menurun karena mengharuskan \textit{join} data dengan service lain. Solusi untuk dapat menangani kelemahan ini adalah melakukan join pada level \textit{programming}, dimana data hasil \textit{response} di load pada sistem, kemudian melakukan \textit{in-memory join}. Misalnya \textit{in-memory join} untuk modul rawat jalan yang mengharuskan untuk membuat objek penampung hasil pemanggilan service rawat jalan (gambar 1), kemudian melakukan \textit{looping} pemanggilan service pasien dan service unit medis bertugas. Data pasien dan unit medis kemudian disimpan ke dalam objek penampung (gambar 2 dan 3), kemudian di \textit{fetch} ke \textit{web interface} (gambar 4).
+				
+				Masalah \textit{bottleneck effect} dapat teratasi pada arsitektur microservice, dengan rancangan \textit{database per service} dan \textit{single service instance per host} yang diimplementasikan pada \textit{prototype} baru. Pada contoh kasus, \textit{user} yang ingin meminta jadwal unit medis bertugas tidak perlu antri dengan \textit{user} yang melakukan \textit{request} pendaftaran rawat jalan dikarena \textit{handler} modul rawat jalan dengan unit medis sudah \textit{independent}, menjadikan kinerja sistem lebih cepat.\\
+				\hline
+			\end{tabular}
+		\end{adjustbox}\\[1.0 cm]
+	\begin{adjustbox}{width=1\textwidth}
+		\centering
+		\begin{minipage}{\linewidth}
+			\framebox[\textwidth]{\includegraphics[width=12cm]{images/join.jpg}}	
+			\captionof{figure}{\textit{In-memory join} untuk rawat jalan.}
+		\end{minipage}
+	\end{adjustbox}
+	\end{table}
+	\newpage
+	\item Tingkat Availabilitas.
 	\begin{table}[H]
 		\small
 		\begin{adjustbox}{width=1\textwidth}
@@ -1819,7 +1838,7 @@ Berikut hasil analisa perbandingan dari kedua arsitektur :
 		\end{adjustbox}
 	\end{table}
 	\newpage
-	\item Skalabilitas. Kemampuan sistem untuk beradaptasi terhadap perubahan yang terjadi. Sebuah sistem yang gagal untuk beradaptasi terhadap perubahan akan meningkatkan tingkat latensi, tingkat availabilitas yang rendah, bahkan sampai pada meningkatkan resiko \textit{crash}. Sistem yang skalabilitasnya tinggi akan menjadi sistem yang siap bertumbuh dan menjadi lebih besar.
+	\item Skalabilitas.
 	\begin{table}[H]
 		\small
 		\begin{adjustbox}{width=1\textwidth}
